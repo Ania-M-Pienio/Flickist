@@ -1,5 +1,8 @@
 const app = {};
-
+app.api = {};
+app.api.baseUrl = `https://api.themoviedb.org/3`;
+app.api.key = `9b08417459f02bab4f2533c48a22feab`;
+app.api.lang = `en-US`;
 app.recentAmount = 3; // app setting for how many recent will display on load
 app.popularAmount = 4; // app setting for how many popular will display on load
 app.resultsAmount = 20;
@@ -12,6 +15,12 @@ app.list = []; // stores the media added to the list
 /* ----------------------------------------------------------------------*/
 
 app.getItemCardHtml = function(item) {
+  return `
+    <li> 
+      <h3>${item.title ? item.title : item.name}</h3>
+      <p> ${item.media_type}</p> 
+    </li>
+  `;
   /* receives item and constructs item card html */
   /* returns the constructed html */
 };
@@ -22,30 +31,54 @@ app.getListItemtHtml = function(item) {
 };
 
 app.getItemDetailCard = function(item) {
-  /* recieves item and constructs a detail card html */
-  /* returns the constructed html */
+  return `
+  <div> 
+    <h2> ${item.title ? item.title : item.name} </h2>
+    <p> ${item.overview}</p>
+  </div>
+  `;
 };
 
 /* ----------------------------------------------------------------------*/
 /* ------                       DISPLAYS                            -----*/
 /* ----------------------------------------------------------------------*/
 
-app.displayMedia = function(medias, location, getHtml) {
+app.displayMedia = function(medias, $location, getHtml /* <- callback*/) {
+  $location.html(``);
+  medias.forEach(item => {
+    let htmlToAppend = getHtml(item);
+    $location.append(htmlToAppend);
+  });
+
   /* receives medias items, location and an getHtml function */
-  /* clears out the current location */
-  /* calls forEach on the medias to construct html */
-  /* inside forEach,  calls the given getHtml function and passes the individual media item */
-  /* apends to given location */
+  /* clears out the given location */
+  /* calls forEach on the given medias */
+  /* --inside forEach
+  /*    calls the given getHtml function (passes the individual media item) */
+  /*    receives the constructed Html
+  /*    apends the Html to given location */
 };
 
 /* ----------------------------------------------------------------------*/
 /* ------                       GETTERS                             -----*/
 /* ----------------------------------------------------------------------*/
 
-app.getPopular = function() {
+app.getPopularByType = function(type) {
+  const url = `${app.api.baseUrl}/${type}/popular`;
+  $.ajax({
+    url: url,
+    method: `GET`,
+    dataType: `json`,
+    data: {
+      api_key: app.api.key,
+      language: app.api.lang
+    }
+  }).then(data => {
+    app.displayMedia(data.results, $(`.tester.${type}`), app.getItemCardHtml);
+  });
   /* makes an AJAX call to API */
-  /* retrieves popular media */
-  /* passes medias and location of Popular Now to displayMedia */
+  /* retrieves popular movies/tv */
+  /*  passes medias to displayMedia, along with location(based on type), and the getItemCardHtml function (as the getHtml callback)  */
   /* -----> the length of the array passed is determined by app.popularAmount */
 };
 
@@ -58,20 +91,53 @@ app.getRecent = function() {
 };
 
 app.getByKeyword = function(keyword) {
+  const url = `${app.api.baseUrl}/search/multi`;
+  $.ajax({
+    url: url,
+    method: `GET`,
+    dataType: `json`,
+    data: {
+      api_key: app.api.key,
+      languague: app.api.lang,
+      query: keyword
+    }
+  }).then(data => {
+    app.displayMedia(data.results, $(`.tester`), app.getItemCardHtml);
+  });
   /* receives keyword provided by user */
+  /* creates an url from baseUrl and the end point */
   /* makes an AJAX call based on the keyword */
   /* passes the returned medias to displayMedia along with the location of Results, and the getItemCardHtml function (as the getHtml callback) */
   /* ---> the length of the array passed is determined by app.resultsAmount */
 };
 
 app.getDetailsById = function(id, type) {
+  const url = `${app.api.baseUrl}/${type}/${id}`;
   /* receives the id and type of the media */
-  /* make an appropriate AJAX call */
-  /*  ---> end point is specified by type */
+  $.ajax({
+    url: url,
+    method: `GET`,
+    dataType: `json`,
+    data: {
+      api_key: app.api.key,
+      languague: app.api.lang
+    }
+  }).then(data => {
+    const media = [];
+    media.push(data);
+    app.displayMedia(media, $(`.tester`), app.getItemDetailCard);
+  });
+  /* receives id and type for the target media */
+  /* creates an url from baseUrl and the end point + interpolates id and type */
+  /* make an AJAX call */
   /* declares an empty array
-  /* pushes the result media to the newly created array as the first (and only) index */
-  /* passes the new array to displayMedia, along with the location of Details, and the getItemDetailCardHtml functions (as the getHtml callback) */
+  /* pushes the result media to the newly created array as an index (first and only)*/
+  /* passes the new array to displayMedia, along with the location of the Details Card, and the getItemDetailCardHtml function (as the getHtml callback) */
 };
+
+/* ----------------------------------------------------------------------*/
+/* ------                       HELPERS                             -----*/
+/* ----------------------------------------------------------------------*/
 
 app.addToList = function(media) {
   /* receives a media */
@@ -111,7 +177,7 @@ app.removeFromList = function(id) {
 /* ------                       HANDLERS                            -----*/
 /* ----------------------------------------------------------------------*/
 
-app.handlers = function() {
+app.Handlers = function() {
   /* ---------------------------------------*/
   /* [1] On click Search Button */
   /*    extracts keyword from search input */
@@ -139,13 +205,15 @@ app.handlers = function() {
   /*    takes the id from the object that was clicked ($this)
   /*    calls removeFromList and passes the id to be removed
   /* ---------------------------------------*/
-
 };
 
 app.init = function() {
-  /* calls getPopular */
-  /* calls getRecent */
-  /* calls Handlers  */
+  // app.getByKeyword(`marvel`);
+  // app.getDetailsById(`68716`, `tv`);
+  app.getPopularByType(`tv`);
+  /* calls getPopularByType  for movies */
+  /* calls getRecentByType for tv */
+  /* calls to set up app.Handlers  */
 };
 
 $(() => {
