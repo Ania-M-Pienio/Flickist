@@ -74,7 +74,9 @@ app.getPopularByType = function(type) {
       language: app.api.lang
     }
   }).then(data => {
-    app.displayMedia(data.results, $(`.tester.${type}`), app.getItemCardHtml);
+    // app.getRecent(data.results); // for testing
+    const shortData = data.results.slice(0, app.popularAmount); // first x amount as specified in settings
+    app.displayMedia(shortData, $(`.tester.${type}`), app.getItemCardHtml);
   });
   /* makes an AJAX call to API */
   /* retrieves popular movies/tv */
@@ -82,12 +84,17 @@ app.getPopularByType = function(type) {
   /* -----> the length of the array passed is determined by app.popularAmount */
 };
 
-app.getRecent = function() {
-  /* checks if list has any medias in it */
-  /* if it does: */
+app.getRecent = function(list) {
+  let amountToTake = app.recentAmount;
+  const shortData = _.takeRightWhile(list, () => {
+    return amountToTake--; // stops taking when hits 0 or nothing left to take
+  });
+  if (shortData.length) {
+    app.displayMedia(shortData.reverse(), $(`.tester`), app.getItemCardHtml);
+  }
   /* retrieves the latest most recent added from app.list */
+  /* amount retrieved is specifie by app.recentAmount or whatever is available (if short of recentAmount) */
   /* passes the retrieved medias to displayMedia, algon with location of the Recently Added, and the getItemCardHtml function (as the getHtml callback) */
-  /* ----> the length of the array passed is determined by app.recentAmount */
 };
 
 app.getByKeyword = function(keyword) {
@@ -102,7 +109,8 @@ app.getByKeyword = function(keyword) {
       query: keyword
     }
   }).then(data => {
-    app.displayMedia(data.results, $(`.tester`), app.getItemCardHtml);
+    const shortData = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
+    app.displayMedia(shortData, $(`.tester`), app.getItemCardHtml);
   });
   /* receives keyword provided by user */
   /* creates an url from baseUrl and the end point */
@@ -210,7 +218,7 @@ app.Handlers = function() {
 app.init = function() {
   // app.getByKeyword(`marvel`);
   // app.getDetailsById(`68716`, `tv`);
-  app.getPopularByType(`tv`);
+  app.getPopularByType(`movie`);
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
