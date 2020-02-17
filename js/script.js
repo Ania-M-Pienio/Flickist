@@ -1,26 +1,25 @@
 const app = {};
 //-------- API ---------------------------------------------------------- //
 app.api = {};
-app.api.baseUrl   = `https://api.themoviedb.org/3`;
-app.api.key       = `9b08417459f02bab4f2533c48a22feab`;
-app.api.lang      = `en-US`;
+app.api.baseUrl = `https://api.themoviedb.org/3`;
+app.api.key = `9b08417459f02bab4f2533c48a22feab`;
+app.api.lang = `en-US`;
 //-------- SETTINGS ------------------------------------------------------//
-app.recentAmount  = 3;  // app setting for how many recent will display on load
-app.popularAmount = 4;  // app setting for how many popular will display on load
+app.recentAmount = 3; // app setting for how many recent will display on load
+app.popularAmount = 4; // app setting for how many popular will display on load
 app.resultsAmount = 20; // app setting for how many results to show
-app.listAmount    = 20; // app setting for how many can be be stored in the list
+app.listAmount = 20; // app setting for how many can be be stored in the list
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
-app.dom.$recent   = ``;
-app.dom.$popular  = ``;
-app.dom.$list     = ``;
-app.dom.$detail   = ``;
-app.dom.$add      = ``;
-app.dom.$remove   = ``;
+app.dom.$recent = ``;
+app.dom.$popular = ``;
+app.dom.$list = ``;
+app.dom.$detail = ``;
+app.dom.$add = ``;
+app.dom.$remove = ``;
 // ------ DATA ----------------------------------------------------------//
-app.list = [];  // stores the media added to the list
-app.detail;     // stores the media shown in the details view
-
+app.list = []; // stores the media added to the list
+app.detail; // stores the media shown in the details view
 
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
@@ -98,9 +97,7 @@ app.getPopularByType = function(type) {
 
 app.getRecent = function(list) {
   let amountToTake = app.recentAmount;
-  const shortData = _.takeRightWhile(list, () => {
-    return amountToTake--; // stops taking when hits 0 or nothing left to take
-  });
+  const shortData = _.takeRightWhile(list, () => amountToTake--); // stops taking when hits 0 or nothing left to take
   if (shortData.length) {
     app.displayMedia(shortData.reverse(), $(`.tester`), app.getItemCardHtml);
   }
@@ -159,9 +156,7 @@ app.getDetailsById = function(id, type) {
 /* ------                        UPDATERS &  HELPERS                     -----*/
 /* ---------------------------------------------------------------------------*/
 
-
-
-app.findById = function(id) { 
+app.findById = function(id) {
   return _.findIndex(app.list, item => item.id === id);
   /* receives a media id */
   /* runs a lodash findIndex to find index of the media with the given id */
@@ -184,7 +179,7 @@ app.addToList = function(media) {
 
 app.removeFromList = function(id) {
   /* receives a media id */
-  /* calls app.findById to see if that media is even in the list and passed it the id *\
+  /* calls app.findById and passes it the id to see if that media is even in the list  */
   /* stores the returned index from app.checkListById */
   /* checks that returned index is 0 or greater */
   /* if it is: */
