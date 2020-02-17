@@ -143,15 +143,24 @@ app.getDetailsById = function(id, type) {
   /* passes the new array to displayMedia, along with the location of the Details Card, and the getItemDetailCardHtml function (as the getHtml callback) */
 };
 
-/* ----------------------------------------------------------------------*/
-/* ------                       HELPERS                             -----*/
-/* ----------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* ------                        UPDATERS &  HELPERS                     -----*/
+/* ---------------------------------------------------------------------------*/
+
+
+
+app.findById = function(id) { 
+  return _.findIndex(app.list, item => item.id === id);
+  /* receives a media id */
+  /* runs a lodash findIndex to find index of the media with the given id */
+  /* returns index (returns negative if not found) */
+};
 
 app.addToList = function(media) {
   /* receives a media */
   /* checks if there is space in the app.list array for another media */
   /* if there is: */
-  /* checks that the media is not already in the list by calling app.checkListById and passing it the media's id */
+  /* checks that the media is not already in the list by calling app.findById and passing it the media's id */
   /* if it is not already there: */
   /* pushes the media to the app.list array */
   /* passes the app.list to displayMedia along with the location of Watch List, and the getListItemHtml funtion (as the getHtml callback)  */
@@ -161,17 +170,9 @@ app.addToList = function(media) {
   /* warning no room */
 };
 
-app.checkListById = function(id) {
-  /* receives a media id */
-  /* declares a variable for index (default -1)
-  /* runs a forEach on  app.list to check if the received id is stored  */
-  /* when a match - updates index variable for current index */
-  /* returns index (stays negative value if not found) */
-};
-
 app.removeFromList = function(id) {
   /* receives a media id */
-  /* calls app.checListById to see if that media is even in the list and passed it the id *\
+  /* calls app.findById to see if that media is even in the list and passed it the id *\
   /* stores the returned index from app.checkListById */
   /* checks that returned index is 0 or greater */
   /* if it is: */
@@ -207,18 +208,18 @@ app.Handlers = function() {
   /* [5] On click any ADD to list icon ( requires even delegation) 
   /*    constructs media object form the one that was clicked $(this) 
   /*    ------> id (for future Details Card), title (for list), image(for the list avatar) */
-  /*    calls addtoList and passes the media object
+  /*    calls app.addtoList and passes the media object
   /* ---------------------------------------*/
   /* [6] On click any REMOVE from list icon ( requires event delegation) 
   /*    takes the id from the object that was clicked ($this)
-  /*    calls removeFromList and passes the id to be removed
+  /*    calls app.removeFromList and passes the id to be removed
   /* ---------------------------------------*/
 };
 
 app.init = function() {
   // app.getByKeyword(`marvel`);
   // app.getDetailsById(`68716`, `tv`);
-  app.getPopularByType(`movie`);
+  // app.getPopularByType(`movie`);
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
