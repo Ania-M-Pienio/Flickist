@@ -1,14 +1,26 @@
 const app = {};
+//-------- API ---------------------------------------------------------- //
 app.api = {};
-app.api.baseUrl = `https://api.themoviedb.org/3`;
-app.api.key = `9b08417459f02bab4f2533c48a22feab`;
-app.api.lang = `en-US`;
-app.recentAmount = 3; // app setting for how many recent will display on load
-app.popularAmount = 4; // app setting for how many popular will display on load
-app.resultsAmount = 20;
-app.listCap = 20;
+app.api.baseUrl   = `https://api.themoviedb.org/3`;
+app.api.key       = `9b08417459f02bab4f2533c48a22feab`;
+app.api.lang      = `en-US`;
+//-------- SETTINGS ------------------------------------------------------//
+app.recentAmount  = 3;  // app setting for how many recent will display on load
+app.popularAmount = 4;  // app setting for how many popular will display on load
+app.resultsAmount = 20; // app setting for how many results to show
+app.listAmount    = 20; // app setting for how many can be be stored in the list
+// ------- DOM ---------------------------------------------------------- //
+app.dom = {};
+app.dom.$recent   = ``;
+app.dom.$popular  = ``;
+app.dom.$list     = ``;
+app.dom.$detail   = ``;
+app.dom.$add      = ``;
+app.dom.$remove   = ``;
+// ------ DATA ----------------------------------------------------------//
+app.list = [];  // stores the media added to the list
+app.detail;     // stores the media shown in the details view
 
-app.list = []; // stores the media added to the list
 
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
@@ -158,7 +170,7 @@ app.findById = function(id) {
 
 app.addToList = function(media) {
   /* receives a media */
-  /* checks if there is space in the app.list array for another media */
+  /* checks if there is space in the app.list array for another media (uses app.listAmount)*/
   /* if there is: */
   /* checks that the media is not already in the list by calling app.findById and passing it the media's id */
   /* if it is not already there: */
