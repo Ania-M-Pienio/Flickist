@@ -135,11 +135,11 @@ app.getDetailsById = function(id, type) {
     media.push(data);
     app.displayMedia(media, $(`.tester`), app.getItemDetailCard);
   });
-  /* receives id and type for the target media */
-  /* creates an url from baseUrl and the end point + interpolates id and type */
+  /* receives 'id' and 'type' for the media to be retrieved */
+  /* creates an url from baseUrl and the end point (interpolates id and type as the endpoint) */
   /* make an AJAX call */
   /* declares an empty array
-  /* pushes the result media to the newly created array as an index (first and only)*/
+  /* pushes the result media to the newly created array as the first index */
   /* passes the new array to displayMedia, along with the location of the Details Card, and the getItemDetailCardHtml function (as the getHtml callback) */
 };
 
