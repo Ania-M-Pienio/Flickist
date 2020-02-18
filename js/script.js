@@ -11,11 +11,11 @@ app.resultsAmount = 20; // app setting for how many results to show upon search
 app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
-app.dom.$recent = $(`.recent`);
 app.dom.$popular = {
   tv: $(`.tv`),
   movie: $(`.movie`),
 };
+app.dom.$recent = $(`.recent`);
 app.dom.$result = $(`.result`);
 app.dom.$list = $(`.list`);
 app.dom.$detail = $(`.detail`);
@@ -91,7 +91,7 @@ app.getPopularByType = function(type) {
   }).then(data => {
     // app.getRecent(data.results); // for testing
     const shortData = data.results.slice(0, app.popularAmount); // first x amount as specified in settings
-    app.displayMedia(shortData, app.dom.$popular, app.getItemCardHtml);
+    app.displayMedia(shortData, app.dom.$popular[`${type}`], app.getItemCardHtml);
   });
   /* makes an AJAX call to API */
   /* retrieves popular movies/tv */
