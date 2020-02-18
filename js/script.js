@@ -6,13 +6,17 @@ app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
 //-------- SETTINGS ------------------------------------------------------//
 app.recentAmount = 3; // app setting for how many recent will display on load
-app.popularAmount = 4; // app setting for how many popular will display on load
-app.resultsAmount = 20; // app setting for how many results to show
-app.listAmount = 20; // app setting for how many can be be stored in the list
+app.popularAmount = 3; // app setting for how many popular will display on load
+app.resultsAmount = 20; // app setting for how many results to show upon search
+app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$recent = ``;
-app.dom.$popular = ``;
+app.dom.$popular = {
+  tv: ``,
+  movie: ``,
+};
+app.dom.$result = ``;
 app.dom.$list = ``;
 app.dom.$detail = ``;
 app.dom.$add = ``;
@@ -87,7 +91,7 @@ app.getPopularByType = function(type) {
   }).then(data => {
     // app.getRecent(data.results); // for testing
     const shortData = data.results.slice(0, app.popularAmount); // first x amount as specified in settings
-    app.displayMedia(shortData, $(`.tester.${type}`), app.getItemCardHtml);
+    app.displayMedia(shortData, app.dom.$popular, app.getItemCardHtml);
   });
   /* makes an AJAX call to API */
   /* retrieves popular movies/tv */
@@ -97,9 +101,9 @@ app.getPopularByType = function(type) {
 
 app.getRecent = function(list) {
   let amountToTake = app.recentAmount;
-  const shortData = _.takeRightWhile(list, () => amountToTake--); // stops taking when hits 0 or nothing left to take
+  const shortData = _.takeRightWhile(list, () => amountToTake-- ); // stops taking when amountToTake hits 0 or nothing left to take
   if (shortData.length) {
-    app.displayMedia(shortData.reverse(), $(`.tester`), app.getItemCardHtml);
+    app.displayMedia(shortData.reverse(), app.dom.$recent, app.getItemCardHtml);
   }
   /* retrieves the latest most recent added from app.list */
   /* amount retrieved is specifie by app.recentAmount or whatever is available (if short of recentAmount) */
@@ -119,7 +123,7 @@ app.getByKeyword = function(keyword) {
     }
   }).then(data => {
     const shortData = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
-    app.displayMedia(shortData, $(`.tester`), app.getItemCardHtml);
+    app.displayMedia(shortData, app.dom.$result, app.getItemCardHtml);
   });
   /* receives keyword provided by user */
   /* creates an url from baseUrl and the end point */
@@ -142,7 +146,7 @@ app.getDetailsById = function(id, type) {
   }).then(data => {
     const media = [];
     media.push(data);
-    app.displayMedia(media, $(`.tester`), app.getItemDetailCard);
+    app.displayMedia(media, app.dom.$detail, app.getItemDetailCard);
   });
   /* receives 'id' and 'type' for the media to be retrieved */
   /* creates an url from baseUrl and the end point (interpolates id and type as the endpoint) */
