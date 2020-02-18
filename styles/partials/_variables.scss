@@ -1,0 +1,18 @@
+/* VARIABLE STYLES */
+
+$primary-color: #153e50;
+$secondary-color: #F2F3F4;
+
+
+$primary-font: 'Archivo Black', sans-serif;
+$secondary-font: 'Roboto', sans-serif;
+
+
+/* MIX INS */
+
+/* FLEXBOX CENTERING */
+@mixin flexboxCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
