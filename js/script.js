@@ -5,7 +5,7 @@ app.api.baseUrl = `https://api.themoviedb.org/3`;
 app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
 //-------- SETTINGS ------------------------------------------------------//
-app.recentAmount = 5; // app setting for how many recent will display on load
+app.recentAmount = 25; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
 app.resultsAmount = 20; // app setting for how many results to show upon search
 app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
@@ -108,11 +108,17 @@ app.getPopularByType = function(type) {
 
 app.getRecent = function(list) {
   let amountToTake = app.recentAmount;
-  const shortData = _.takeRightWhile(list, () => amountToTake--); // stops taking when amountToTake hits 0 or nothing left to take
+  const shortData = [];
+ list.forEach((item) => {    
+    if (amountToTake-- > 0) {
+      shortData.push(item);    
+    }
+  });
+  list.reverse();
   if (shortData.length) {
     app.displayMedia(shortData.reverse(), app.dom.$recent, app.getItemCardHtml);
   }
-  console.log(shortData);
+ 
   /* retrieves the latest most recent added from app.list */
   /* amount retrieved is specifie by app.recentAmount or whatever is available (if short of recentAmount) */
   /* passes the retrieved medias to displayMedia, algon with location of the Recently Added, and the getItemCardHtml function (as the getHtml callback) */
@@ -171,10 +177,17 @@ app.getDetailsById = function(id, type) {
 /* ---------------------------------------------------------------------------*/
 
 app.findById = function(id) {
-  return _.findIndex(app.list, item => item.id === id);
+  const foundIndex = -1;
+  app.list.forEach((item, index) => {
+    if (item.id === id) {
+      foundIndex = index;
+    }
+  });
+  return foundIndex;
   /* receives a media id */
   /* runs a lodash findIndex to find index of the media with the given id */
   /* returns index (returns negative if not found) */
+  /* return index or negative 1 */
 };
 
 app.addToList = function(media) {
@@ -197,12 +210,10 @@ app.addToList = function(media) {
   /* warning already existins */
   /* if there is no room: */
   /* warning no room */
-};
+
 
 app.removeFromList = function(id) {
-
-  const index = app.findById(media.id);
-
+  const index = app.findById(id);
   if (index <= 0) {
     app.list.splice(index, 1);
     app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
@@ -257,9 +268,9 @@ app.Handlers = function() {
 };
 
 app.init = function() {
-  // app.getByKeyword(`marvel`);
+  app.getByKeyword(`marvel`);
   // app.getDetailsById(`68716`, `tv`);
-  app.getPopularByType(`movie`);
+  // app.getPopularByType(`movie`);
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
