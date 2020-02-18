@@ -179,6 +179,14 @@ app.findById = function(id) {
 
 app.addToList = function(media) {
   /* receives a media */
+  const index = app.findById(media.id);
+  if (app.list.length < app.listAmount && index < 0) {
+      app.list.push(media); 
+      app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
+    } else {
+      // WARNING, ID ALREADY EXIST, SO DON'T ADD!
+    }
+  } 
   /* checks if there is space in the app.list array for another media (uses app.listAmount)*/
   /* if there is: */
   /* checks that the media is not already in the list by calling app.findById and passing it the media's id */
@@ -192,6 +200,17 @@ app.addToList = function(media) {
 };
 
 app.removeFromList = function(id) {
+
+  const index = app.findById(media.id);
+
+  if (index <= 0) {
+    app.list.splice(index, 1);
+    app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
+  } else {
+    // warning, does not exist
+  }
+
+
   /* receives a media id */
   /* calls app.findById and passes it the id to see if that media is even in the list  */
   /* stores the returned index from app.checkListById */
