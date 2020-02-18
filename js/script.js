@@ -11,16 +11,16 @@ app.resultsAmount = 20; // app setting for how many results to show upon search
 app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
-app.dom.$recent = ``;
+app.dom.$recent = $(`.recent`);
 app.dom.$popular = {
-  tv: ``,
-  movie: ``,
+  tv: $(`.tv`),
+  movie: $(`.movie`),
 };
-app.dom.$result = ``;
-app.dom.$list = ``;
-app.dom.$detail = ``;
-app.dom.$add = ``;
-app.dom.$remove = ``;
+app.dom.$result = $(`.result`);
+app.dom.$list = $(`.list`);
+app.dom.$detail = $(`.detail`);
+app.dom.$add = $(`.add`);
+app.dom.$remove = $(`.remove`);
 // ------ DATA ----------------------------------------------------------//
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
