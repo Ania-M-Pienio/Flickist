@@ -22,6 +22,7 @@ app.dom.$detail = $(`.detail`); // location
 app.dom.$add = $(`.add`); // button
 app.dom.$remove = $(`.remove`); // button
 // ------ DATA ----------------------------------------------------------//
+app.results = []; // stores the results of a search
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
 
@@ -31,35 +32,40 @@ app.detail; // stores the media shown in the details view
 
 app.getItemCardHtml = function(item) {
   return `
-    <li> 
-      <h3>${item.title ? item.title : item.name}</h3>
-      <p> ${item.media_type}</p> 
-    </li>
-  `;
+  <li> 
+      <button type="button" class="add" data-id="${item.id}"> Add </button>
+      <div class="info" data-id="${item.id}">
+        <h3> ${item.title ? item.title : item.name} </h3>
+        <p> ${item.media_type} id: ${item.id} </p> 
+      </div>
+  </li>`;
   /* receives item and constructs item card html */
   /* returns the constructed html */
+  /* critical components: data-id = "${item.id}" on the button AND the info div (class of button is consistent (i.e. .add)) */
 };
 
 app.getListItemtHtml = function(item) {
   return `
-    <li>   
-      <h3>
-       <button type="button" class="remove" data-id="${item.id}">Remove From List</button> 
-      ${item.title ? item.title : item.name}</h3>
-      <p> ${item.media_type} id: ${item.id} </p>
-    </li>
-  `;
+  <li>   
+      <button type="button" class="remove" data-id="${item.id}">Remove</button> 
+      <div class="info" data-id="${item.id}">
+        <h3> ${item.title ? item.title : item.name}</h3>
+        <p> ${item.media_type} id: ${item.id} </p>
+      </div>
+    </li>`;
   /* recieves item and constructs a list item html */
   /* returns the constructed html */
+  /* critical components: data-id = "${item.id}" on the button AND the info div (class of button is consistent (i.e. .remove)) */
 };
 
 app.getItemDetailCard = function(item) {
   return `
-  <div> 
+  <div data-id="${item.id}"> 
     <h2> ${item.title ? item.title : item.name} </h2>
     <p> ${item.overview}</p>
   </div>
   `;
+  /* critical components: data-id = "${item.id}" on top-div, class of button is consistent (i.e. .add or .remove) */
 };
 
 /* ----------------------------------------------------------------------*/
@@ -106,7 +112,8 @@ app.getPopularByType = function(type) {
       app.dom.$popular[`${type}`],
       app.getItemCardHtml
     );
-  });  /* makes an AJAX call to API */
+  });
+  /* makes an AJAX call to API */
   /* retrieves popular movies/tv */
   /*  passes medias to displayMedia, along with location(based on type), and the getItemCardHtml function (as the getHtml callback)  */
   /* -----> the length of the array passed is determined by app.popularAmount */
@@ -142,15 +149,9 @@ app.getByKeyword = function(keyword) {
       query: keyword
     }
   }).then(data => {
-    // console.log(data);
-    /* testing */
-    // app.getRecent(data.results);
-    data.results.forEach(item => {
-      app.addToList(item);
-    });
     /* implementation */
-    // const shortData = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
-    // app.displayMedia(shortData, app.dom.$result, app.getItemCardHtml);
+    app.results = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
+    app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
   });
   /* receives keyword provided by user */
   /* creates an url from baseUrl and the end point */
@@ -187,23 +188,21 @@ app.getDetailsById = function(id, type) {
 /* ------                        UPDATERS &  HELPERS                     -----*/
 /* ---------------------------------------------------------------------------*/
 
-app.findById = function(id) {
+app.findIndexById = function(list, id) {
   let foundIndex = -1;
-  app.list.forEach((item, index) => {
+  list.forEach((item, index) => {
     if (item.id === id) {
       foundIndex = index;
     }
   });
   return foundIndex;
-  /* receives a media id */
-  /* runs forEach to find index of the media with the given id */
-  /* returns index (returns negative if not found) */
-  /* return index or negative 1 */
+  /* receives a media id and the list to search*/
+  /* runs forEach to find index of the media with the given id inside the given list */
+  /* returns index (or returns negative if not found) */
 };
 
 app.addToList = function(media) {
-  /* receives a media */
-  const index = app.findById(media.id);
+  const index = app.findIndexById(app.list, media.id);
   if (app.list.length < app.listAmount && index < 0) {
     app.list.push(media);
     app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
@@ -211,6 +210,7 @@ app.addToList = function(media) {
     // WARNING, ID ALREADY EXIST, SO DON'T ADD!
   }
 };
+/* receives a media */
 /* checks if there is space in the app.list array for another media (uses app.listAmount)*/
 /* if there is: */
 /* checks that the media is not already in the list by calling app.findById and passing it the media's id */
@@ -223,7 +223,7 @@ app.addToList = function(media) {
 /* warning no room */
 
 app.removeFromList = function(id) {
-  const index = app.findById(id);
+  const index = app.findIndexById(app.list, id);
   if (index >= 0) {
     app.list.splice(index, 1);
     app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
@@ -275,9 +275,22 @@ app.Handlers = function() {
   /* ---------------------------------------*/
 
   /* TESTING */
-  $(`.listContainer`).on(`click`, `.remove`, function() {
-    // console.log();
+
+  /* [5] */
+  $(`.lists.container ul`).on(`click`, `button.remove`, function() {
+    console.log(`button remove clicked`);
     app.removeFromList($(this).data(`id`));
+  });
+
+  /* [6] */
+  $(`.results.container ul`).on(`click`, `button.add`, function() {
+    const index = app.findIndexById(app.results, $(this).data(`id`));
+    app.addToList(app.results[index]);
+  });
+
+  /* [4] */
+  $(`ul`).on(`click`, `.info`, function(e) {
+
   });
 };
 

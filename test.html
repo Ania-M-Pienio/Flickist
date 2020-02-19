@@ -5,23 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    ul li {
+      display: flex;
+    }
+
+   
+  </style>
   <body>
-    <h1>Recent</h1>
-    <ul class="recent"></ul>
+    <div class="recents container">
+      <h1>Recent</h1>
+      <ul class="recent"></ul>
+    </div>
 
-    <div class="listContainer">
-      <h1>List</h1>
+    <div class="lists container">
+      <h1>MyList</h1>
       <ul class="list"></ul>
-    </div>  
+    </div>
 
-    <h1>Removed</h1>
-    <ul class="removed"></ul>
+    <div class="results container">
+      <h1>Results</h1>
+      <ul class="result"></ul>
+    </div>
 
-    <h1>Popular TV</h1>
-    <ul class="tv"></ul>
+    <div class="tvContainer">
+      <h1>Popular TV</h1>
+      <ul class="tv"></ul>
+    </div>
 
-    <h1>Popular Movies</h1>
-    <ul class="movie"></ul>
+    <div class="movieContainer">
+      <h1>Popular Movies</h1>
+      <ul class="movie"></ul>
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
