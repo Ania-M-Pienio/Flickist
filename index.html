@@ -17,7 +17,9 @@
         </div>
         <div class="watchListContainer">
             <h3>Watch List</h3> 
-            <i class="fas fa-plus-circle addToListBtn"></i>
+            <button class="add addToListBtn">
+                <i class="fas fa-plus-circle"></i>
+            </button>
             <ul class="watchList">
 
             </ul>
@@ -29,26 +31,28 @@
     </aside>
     <div class="container">
         <header>
-            <div class="mainNavContainer">
+            <div class="mainNavContainer wrapper">
                 <div class="logoContainer">
-                    <h1>Movie Db</h1>
+                    <h1>Flickist</h1>
                 </div>
-            <form action="GET" id="searchForm" name="search" class="">
-                <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..."> 
-            </form>
-            <div class="homeContainer">
-                <a href="#home" id="home" class="homeButton">Home</a>
-            </div>
+                <form action="GET" id="searchForm" name="search" class="">
+                    <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..."> 
+                </form>
+                <div class="homeContainer">
+                    <a href="#home" id="home" class="homeButton">Home</a>
+                </div>
             </div>
         </header>
-        <main>
-            <section class="wrapper moviesContainer">
+        <main class="wrapper">
+            <section class="moviesContainer">
                 <div class="categoryTitleContainer">
                     <h2>Top Movies</h2>
                 </div>
                 <ul class="topMovies collection">
                     <li>
-                        <div><img src="./assets/test.jpg" alt=""><i class="far fa-star"></i></div>
+                        <div class="thumbnailOverlay">
+                            <img src="./assets/test.jpg" alt=""><i class="far fa-star"></i>
+                        </div>
                     </li>
                     <li>
                         <div><img src="" alt=""></div>
@@ -64,7 +68,7 @@
                     </li>
                 </ul>
             </section>
-            <section class="wrapper tvContainer">
+            <section class="tvContainer">
                 <div class="categoryTitleContainer">
                     <h2>Top Tv Shows</h2>
                 </div>
@@ -86,7 +90,7 @@
                     </li>
                 </ul>
             </section>
-            <section class="wrapper recentlyAddedContainer">
+            <section class="recentlyAddedContainer">
                 <div class="categoryTitleContainer">
                     <h2>Recently Added</h2>
                 </div>

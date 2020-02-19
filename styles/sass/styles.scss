@@ -24,8 +24,12 @@ img {
     
 }
 
-h3 {
+h2 {
     font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2.2rem;
 }
 
 .container {
@@ -117,12 +121,18 @@ h1 {
     }
 }
 
+.watchListItem {
+    text-align: left;
+}
+
 .addToListBtn {
     position: absolute;
-    top: 7px;
-    right: 3px;
+    top: 0px;
+    right: 0px;
     font-size: 2rem;
-    cursor: pointer;
+    background-color: $tertiary-color;
+    border: none;
+    color: $secondary-color;
 }
 
 // COLLECTION STYLE
@@ -155,6 +165,16 @@ h1 {
     height: 300px;
     margin: 5px;
 }
+
+//thumbnail overlay for Home and Results
+
+// .thumbnailOverlay {
+//     width: 100%;
+//     height: 100%;
+//     transition: all 0.5s ease;
+//     @include flexboxCenter();
+//     position: absolute;
+// }
 
 //  background-color: #199fdb;
 

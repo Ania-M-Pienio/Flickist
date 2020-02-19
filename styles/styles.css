@@ -191,6 +191,7 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 
 .largeOverlay {
   height: 70%;
+  max-width: 800px;
   width: 60%;
   padding: 10px 15px;
   display: -webkit-box;
@@ -284,7 +285,8 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .addToWatchListBtn:hover {
-  background-color: #F2F3F4;
+  background-color: #E2AA5F;
+  color: #F2F3F4;
 }
 
 .test {
@@ -359,8 +361,12 @@ img {
      object-fit: cover;
 }
 
-h3 {
+h2 {
   font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2.2rem;
 }
 
 .container {
@@ -472,12 +478,18 @@ h1 {
   background-color: #E2AA5F;
 }
 
+.watchListItem {
+  text-align: left;
+}
+
 .addToListBtn {
   position: absolute;
-  top: 7px;
-  right: 3px;
+  top: 0px;
+  right: 0px;
   font-size: 2rem;
-  cursor: pointer;
+  background-color: #E2AA5F;
+  border: none;
+  color: #F2F3F4;
 }
 
 .collection {

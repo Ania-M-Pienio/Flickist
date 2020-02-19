@@ -41,6 +41,11 @@ app.getItemCardHtml = function(item) {
 };
 
 app.getListItemtHtml = function(item) {
+  return `
+    <li>
+      <h3>${item.title ? item.title : item.name}</h3>
+    </li>
+  `; //list title? maybe add any other element?
   /* recieves item and constructs a list item html */
   /* returns the constructed html */
 };

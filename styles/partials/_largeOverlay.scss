@@ -9,6 +9,7 @@
 
 .largeOverlay {
     height: 70%;
+    max-width: 800px;
     width: 60%;
     padding: 10px 15px;
     display: flex;
@@ -80,7 +81,8 @@
     font-size: 1.5rem;
 
     &:hover {
-        background-color: $secondary-color;
+        background-color: $tertiary-color;
+        color: $secondary-color;
     }
 }
 
