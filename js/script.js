@@ -44,7 +44,7 @@ app.getListItemtHtml = function(item) {
   return `
     <li>   
       <h3>
-       <button type="button" data-id="${item.id}">Remove From List</button> 
+       <button type="button" class="remove" data-id="${item.id}">Remove From List</button> 
       ${item.title ? item.title : item.name}</h3>
       <p> ${item.media_type} id: ${item.id} </p>
     </li>
@@ -275,7 +275,7 @@ app.Handlers = function() {
   /* ---------------------------------------*/
 
   /* TESTING */
-  $(`.listContainer`).on(`click`, `button`, function() {
+  $(`.listContainer`).on(`click`, `.remove`, function() {
     // console.log();
     app.removeFromList($(this).data(`id`));
   });
