@@ -278,19 +278,21 @@ app.Handlers = function() {
 
   /* [5] */
   $(`.lists.container ul`).on(`click`, `button.remove`, function() {
-    console.log(`button remove clicked`);
+    // console.log(`clicked on the button only`);
     app.removeFromList($(this).data(`id`));
   });
 
   /* [6] */
   $(`.results.container ul`).on(`click`, `button.add`, function() {
+    // console.log(`clicked on the button only`);
     const index = app.findIndexById(app.results, $(this).data(`id`));
     app.addToList(app.results[index]);
   });
 
   /* [4] */
-  $(`ul`).on(`click`, `.info`, function(e) {
-
+  $(`ul`).on(`click`, `.info`, function() {
+    // console.log(`clicked on the actual whole item on the list`) 
+     
   });
 };
 
