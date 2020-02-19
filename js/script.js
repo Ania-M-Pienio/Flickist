@@ -4,6 +4,7 @@ app.api = {};
 app.api.baseUrl = `https://api.themoviedb.org/3`;
 app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
+app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
 app.recentAmount = 5; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
@@ -28,12 +29,20 @@ app.detail; // stores the media shown in the details view
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
+// <h3>${item.title ? item.title : item.name}</h3>
+// <p> ${item.media_type}</p> 
 
 app.getItemCardHtml = function(item) {
+
+  const itemImgUrl = app.api.imgUrl + item.poster_path;
+  console.log(itemImgUrl);
+
   return `
-    <li> 
-      <h3>${item.title ? item.title : item.name}</h3>
-      <p> ${item.media_type}</p> 
+    <li>
+        <h3>${item.title ? item.title : item.name}</h3>
+        <div>
+            <img src="${itemImgUrl} alt="${item.title ? item.title : item.name} poster."
+        </div>
     </li>
   `;
   /* receives item and constructs item card html */
@@ -51,13 +60,26 @@ app.getListItemtHtml = function(item) {
 };
 
 app.getItemDetailCard = function(item) {
+  
+  const itemImgUrl = app.api.imgUrl + item.poster_path;
+  console.log(itemImgUrl);
+  
   return `
-  <div> 
-    <h2> ${item.title ? item.title : item.name} </h2>
-    <p> ${item.overview}</p>
+  <div class="topLargeOverlay"
+      <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
+      <h3 class="releaseDate"> ${item.release_date}</h3>
+  </div>
+  <div class="imgLargeOverlay">
+      <img src="${itemImgUrl}" class="test" alt="${item.title ? item.title : item.name} poster."
+  </div>
+  <div class="descriptionLargeOverlay">
+      <p> ${item.overview}</p>
   </div>
   `;
+
 };
+
+
 
 /* ----------------------------------------------------------------------*/
 /* ------                       DISPLAYS                            -----*/
@@ -268,6 +290,16 @@ app.init = function() {
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
+
+  //test
+  let item = {
+    title: "working title",
+    id: 54123,
+    poster_path: "/wNncYNqZfnmLtcaHscCM28muNqk.jpg",
+  }
+
+  app.getItemDetailCard(item);
+
 };
 
 $(() => {
