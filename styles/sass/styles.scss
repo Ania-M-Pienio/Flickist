@@ -1,5 +1,6 @@
 @import "../partials/setup";
 @import "../partials/variables";
+@import "../partials/largeOverlay";
 
 html {
     font-size: 62.5%;
@@ -21,6 +22,10 @@ img {
     width: 100%;
     object-fit: cover;
     
+}
+
+h3 {
+    font-size: 2.5rem;
 }
 
 .container {
@@ -96,6 +101,30 @@ h1 {
     padding: 10px;
 }
 
+.myListContainer {
+    border-bottom: 1px solid $secondary-color;
+}
+
+.myList {
+    font-size: 3rem;
+}
+
+.watchListContainer {
+    position: relative;
+    
+        h3 {
+        background-color: $tertiary-color;
+    }
+}
+
+.addToListBtn {
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 // COLLECTION STYLE
 
 
@@ -106,109 +135,27 @@ h1 {
 
 .collection li {
     width: 250px;
-    height: 200px;
+    height: 280px;
     margin: 10px;
     border: 1px solid red;
 }
 
-// LARGE OVERLAY STYLES (thumbnail when selected)
-
-.largeOverlayWrapper {
-    border: 1px solid $secondary-color;
-    margin: 0 auto;
-    width: 50%;
-    max-width: 750px;
-
-}
-
-.largeOverlay {
-    height: 80%;
-    width: 55%;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: $primary-color;
-    color: $secondary-color;
-    margin: 0 auto;
-    position: relative;
-}
-
-.topLargeOverlay {
-    width: 100%;
-    text-transform: uppercase;
-    font-size: 2rem;
-
-    .movieTitle {
-        text-align: left;
-    }
-
-    .releaseDate {
-        justify-content: flex-end;
-    }
-}
-
-.exitBtn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    transition: 0.5s ease;
-
-    &:hover {
-        color: red;
-        transform: scale(1.3);
-    }
-}
-
-.descriptionLargeOverlay {
-    font-size: 1.6rem;
-    padding: 10px 50px;
-    font-family: $secondary-font;
-}
-
-.bottomLargeOverlay {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 20px;
-}
-
-.addToWatchListBtn {
-    text-decoration: none;
-    color: #E2AA5F;
-    text-transform: uppercase;
-    border: 2px solid #E2AA5F;
-    padding: 10px 30px;
-}
-
-
-// backdrop styles to provide focus to large card overlay, use jquery add class to selected card
-
-.backDropOverlay {
-    background-color: rgba(0,0,0, .5);
-    height: 100vh;
-    width: 100vw;
-    // position:fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    transition: all 1s;
-}
 
 // SEARCH RESULTS GRID CONTAINER 
 
 .resultsContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-gap: 15px 10px;
+    display: flex;
+    flex-flow: row wrap;
     padding: 20px;
 }
 
-.gridCell {
+.flexItem {
     border: 1px solid red;
     width: 200px;
-    height: 200px;
+    height: 300px;
+    margin: 5px;
 }
+
+//  background-color: #199fdb;
 
 

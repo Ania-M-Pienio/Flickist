@@ -12,11 +12,15 @@
 </head>
 <body>
     <aside class="listDrawer">
-        <div>
+        <div class="myListContainer">
             <h2 class ="myList">My List</h2>
         </div>
-        <div>
-            <h3 class="myWatchList">Watch List</h3> 
+        <div class="watchListContainer">
+            <h3>Watch List</h3> 
+            <i class="fas fa-plus-circle addToListBtn"></i>
+            <ul class="watchList">
+
+            </ul>
         </div>
         <div class="infoContainer">
             <h3>Info on how to use</h3>
@@ -27,68 +31,24 @@
         <header>
             <div class="mainNavContainer">
                 <div class="logoContainer">
-                    <h1>FlickFlist</h1>
+                    <h1>Movie Db</h1>
                 </div>
             <form action="GET" id="searchForm" name="search" class="">
                 <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..."> 
             </form>
             <div class="homeContainer">
-                <a href="#home" class="homeButton">Home</a>
+                <a href="#home" id="home" class="homeButton">Home</a>
             </div>
             </div>
         </header>
         <main>
-            <section class="wrapper popularContainer">
-            <div class="categoryTitleContainer">
-                <h2>Popular Now</h2>
-            </div>
-                <ul class="popular collection">
-                    <li>
-                        <div><img src="./assets/test.jpg" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                </ul>    
-            </section>
-            <section class="wrapper recentlyAddedContainer">
-                <div class="categoryTitleContainer">
-                    <h2>Recently Added</h2>
-                </div>
-                <ul class="recentlyAdded collection">
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                </ul>
-            </section>
             <section class="wrapper moviesContainer">
                 <div class="categoryTitleContainer">
                     <h2>Top Movies</h2>
                 </div>
                 <ul class="topMovies collection">
                     <li>
-                        <div><img src="" alt=""></div>
+                        <div><img src="./assets/test.jpg" alt=""><i class="far fa-star"></i></div>
                     </li>
                     <li>
                         <div><img src="" alt=""></div>
@@ -109,6 +69,28 @@
                     <h2>Top Tv Shows</h2>
                 </div>
                 <ul class="topTvShows collection">
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                </ul>
+            </section>
+            <section class="wrapper recentlyAddedContainer">
+                <div class="categoryTitleContainer">
+                    <h2>Recently Added</h2>
+                </div>
+                <ul class="recentlyAdded collection">
                     <li>
                         <div><img src="" alt=""></div>
                     </li>

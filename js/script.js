@@ -197,7 +197,7 @@ app.addToList = function(media) {
   /* warning already existins */
   /* if there is no room: */
   /* warning no room */
-};
+
 
 app.removeFromList = function(id) {
 
