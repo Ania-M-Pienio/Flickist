@@ -12,15 +12,15 @@ app.listAmount = 20; // app setting for max amount of medias that can be be stor
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$popular = {
-  tv: $(`.tv`),
-  movie: $(`.movie`)
+  tv: $(`.tv`),  // location
+  movie: $(`.movie`)  // location
 };
-app.dom.$recent = $(`.recent`);
-app.dom.$result = $(`.result`);
-app.dom.$list = $(`.list`);
-app.dom.$detail = $(`.detail`);
-app.dom.$add = $(`.add`);
-app.dom.$remove = $(`.remove`);
+app.dom.$recent = $(`.recent`); // location
+app.dom.$result = $(`.result`); // location
+app.dom.$list = $(`.list`); // location
+app.dom.$detail = $(`.detail`); // location
+app.dom.$add = $(`.add`); // button
+app.dom.$remove = $(`.remove`); // button
 // ------ DATA ----------------------------------------------------------//
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
@@ -41,6 +41,12 @@ app.getItemCardHtml = function(item) {
 };
 
 app.getListItemtHtml = function(item) {
+    return `
+    <li> 
+      <h3>${item.title ? item.title : item.name}</h3>
+      <p> ${item.media_type}</p> 
+    </li>
+  `;
   /* recieves item and constructs a list item html */
   /* returns the constructed html */
 };
@@ -68,7 +74,6 @@ app.displayMedia = function(
     let htmlToAppend = getHtml(item);
     $location.append(htmlToAppend);
   });
-
   /* receives medias items, location and an getHtml function */
   /* clears out the given location */
   /* calls forEach on the given medias */
