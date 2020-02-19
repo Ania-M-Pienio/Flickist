@@ -12,8 +12,8 @@ app.listAmount = 20; // app setting for max amount of medias that can be be stor
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$popular = {
-  tv: $(`.tv`),  // location
-  movie: $(`.movie`)  // location
+  tv: $(`.tv`), // location
+  movie: $(`.movie`) // location
 };
 app.dom.$recent = $(`.recent`); // location
 app.dom.$result = $(`.result`); // location
@@ -41,10 +41,12 @@ app.getItemCardHtml = function(item) {
 };
 
 app.getListItemtHtml = function(item) {
-    return `
-    <li> 
-      <h3>${item.title ? item.title : item.name}</h3>
-      <p> ${item.media_type} id: ${item.id} </p> 
+  return `
+    <li>   
+      <h3>
+       <button type="button" data-id="${item.id}">Remove From List</button> 
+      ${item.title ? item.title : item.name}</h3>
+      <p> ${item.media_type} id: ${item.id} </p>
     </li>
   `;
   /* recieves item and constructs a list item html */
@@ -104,8 +106,7 @@ app.getPopularByType = function(type) {
       app.dom.$popular[`${type}`],
       app.getItemCardHtml
     );
-  });
-  /* makes an AJAX call to API */
+  });  /* makes an AJAX call to API */
   /* retrieves popular movies/tv */
   /*  passes medias to displayMedia, along with location(based on type), and the getItemCardHtml function (as the getHtml callback)  */
   /* -----> the length of the array passed is determined by app.popularAmount */
@@ -114,16 +115,16 @@ app.getPopularByType = function(type) {
 app.getRecent = function(list) {
   let amountToTake = app.recentAmount;
   const shortData = [];
- list.forEach((item) => {    
+  list.forEach(item => {
     if (amountToTake-- > 0) {
-      shortData.push(item);    
+      shortData.push(item);
     }
   });
   list.reverse();
   if (shortData.length) {
     app.displayMedia(shortData.reverse(), app.dom.$recent, app.getItemCardHtml);
   }
- 
+
   /* retrieves the latest most recent added from app.list */
   /* amount retrieved is specifie by app.recentAmount or whatever is available (if short of recentAmount) */
   /* passes the retrieved medias to displayMedia, algon with location of the Recently Added, and the getItemCardHtml function (as the getHtml callback) */
@@ -144,7 +145,9 @@ app.getByKeyword = function(keyword) {
     // console.log(data);
     /* testing */
     // app.getRecent(data.results);
-    app.addToList(data.results[0]);
+    data.results.forEach(item => {
+      app.addToList(item);
+    });
     /* implementation */
     // const shortData = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
     // app.displayMedia(shortData, app.dom.$result, app.getItemCardHtml);
@@ -185,7 +188,7 @@ app.getDetailsById = function(id, type) {
 /* ---------------------------------------------------------------------------*/
 
 app.findById = function(id) {
-  let foundIndex = -1; 
+  let foundIndex = -1;
   app.list.forEach((item, index) => {
     if (item.id === id) {
       foundIndex = index;
@@ -193,7 +196,7 @@ app.findById = function(id) {
   });
   return foundIndex;
   /* receives a media id */
-  /* runs a lodash findIndex to find index of the media with the given id */
+  /* runs forEach to find index of the media with the given id */
   /* returns index (returns negative if not found) */
   /* return index or negative 1 */
 };
@@ -201,35 +204,32 @@ app.findById = function(id) {
 app.addToList = function(media) {
   /* receives a media */
   const index = app.findById(media.id);
-  if ((app.list.length < app.listAmount) && (index < 0)) {
-      app.list.push(media); 
-      app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
-    } else {
-      // WARNING, ID ALREADY EXIST, SO DON'T ADD!
-    }
-  } 
-  /* checks if there is space in the app.list array for another media (uses app.listAmount)*/
-  /* if there is: */
-  /* checks that the media is not already in the list by calling app.findById and passing it the media's id */
-  /* if it is not already there: */
-  /* pushes the media to the app.list array */
-  /* passes the app.list to displayMedia along with the location of Watch List, and the getListItemHtml funtion (as the getHtml callback)  */
-  /* if it is already there: */
-  /* warning already existins */
-  /* if there is no room: */
-  /* warning no room */
-
+  if (app.list.length < app.listAmount && index < 0) {
+    app.list.push(media);
+    app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
+  } else {
+    // WARNING, ID ALREADY EXIST, SO DON'T ADD!
+  }
+};
+/* checks if there is space in the app.list array for another media (uses app.listAmount)*/
+/* if there is: */
+/* checks that the media is not already in the list by calling app.findById and passing it the media's id */
+/* if it is not already there: */
+/* pushes the media to the app.list array */
+/* passes the app.list to displayMedia along with the location of Watch List, and the getListItemHtml funtion (as the getHtml callback)  */
+/* if it is already there: */
+/* warning already existins */
+/* if there is no room: */
+/* warning no room */
 
 app.removeFromList = function(id) {
   const index = app.findById(id);
   if (index >= 0) {
     app.list.splice(index, 1);
-    app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
+    app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
   } else {
     // warning, does not exist
   }
-
-
   /* receives a media id */
   /* calls app.findById and passes it the id to see if that media is even in the list  */
   /* stores the returned index from app.checkListById */
@@ -275,10 +275,11 @@ app.Handlers = function() {
   /* ---------------------------------------*/
 
   /* TESTING */
-  $(`button`).on(`click`, function () {
-    app.removeFromList(299537);
+  $(`.listContainer`).on(`click`, `button`, function() {
+    // console.log();
+    app.removeFromList($(this).data(`id`));
   });
-}
+};
 
 app.init = function() {
   app.getByKeyword(`marvel`);
