@@ -44,7 +44,7 @@ app.getListItemtHtml = function(item) {
     return `
     <li> 
       <h3>${item.title ? item.title : item.name}</h3>
-      <p> ${item.media_type}</p> 
+      <p> ${item.media_type} id: ${item.id} </p> 
     </li>
   `;
   /* recieves item and constructs a list item html */
@@ -142,7 +142,10 @@ app.getByKeyword = function(keyword) {
     }
   }).then(data => {
     // console.log(data);
-    app.getRecent(data.results);
+    /* testing */
+    // app.getRecent(data.results);
+    app.addToList(data.results[0]);
+    /* implementation */
     // const shortData = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
     // app.displayMedia(shortData, app.dom.$result, app.getItemCardHtml);
   });
@@ -182,7 +185,7 @@ app.getDetailsById = function(id, type) {
 /* ---------------------------------------------------------------------------*/
 
 app.findById = function(id) {
-  const foundIndex = -1;
+  let foundIndex = -1; 
   app.list.forEach((item, index) => {
     if (item.id === id) {
       foundIndex = index;
@@ -198,9 +201,9 @@ app.findById = function(id) {
 app.addToList = function(media) {
   /* receives a media */
   const index = app.findById(media.id);
-  if (app.list.length < app.listAmount && index < 0) {
+  if ((app.list.length < app.listAmount) && (index < 0)) {
       app.list.push(media); 
-      app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
+      app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
     } else {
       // WARNING, ID ALREADY EXIST, SO DON'T ADD!
     }
@@ -219,7 +222,7 @@ app.addToList = function(media) {
 
 app.removeFromList = function(id) {
   const index = app.findById(id);
-  if (index <= 0) {
+  if (index >= 0) {
     app.list.splice(index, 1);
     app.displayMedia(app.list, app.dom.$list, app.getListItemHtml);
   } else {
@@ -270,7 +273,12 @@ app.Handlers = function() {
   /*    takes the id from the object that was clicked ($this)
   /*    calls app.removeFromList and passes the id to be removed
   /* ---------------------------------------*/
-};
+
+  /* TESTING */
+  $(`button`).on(`click`, function () {
+    app.removeFromList(299537);
+  });
+}
 
 app.init = function() {
   app.getByKeyword(`marvel`);
@@ -279,6 +287,7 @@ app.init = function() {
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
+  app.Handlers();
 };
 
 $(() => {
