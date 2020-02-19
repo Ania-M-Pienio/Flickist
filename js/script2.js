@@ -263,7 +263,10 @@ app.Handlers = function() {
   /*    extracts keyword from search input */
   /*    passes the keyword to getByKeword */
   /* ---------------------------------------*/
-  /* [2] On click Home Icon
+  /* [2] On click Home Icon */
+  $(`button.homeButton`).on(`click`, function() {
+    // hide result, show the popular and recent again
+  });
   /*    calls getPopular */
   /*    calls getRecent */
   /*    switches page to home */
@@ -276,30 +279,25 @@ app.Handlers = function() {
   /*    takes the media type and id from the object that was clicked ($this)
   /*    calls getDetailsById and passes the type and id
   /* ---------------------------------------*/
-  /* [5] On click any ADD to list icon ( requires even delegation) 
+  /* [5] On click any REMOVE to list icon ( requires even delegation) */
+    $(`.container`).on(`click`, `button.remove`, function() {
+      app.removeFromList($(this).data(`id`));
+    });
+
   /*    constructs media object form the one that was clicked $(this) 
   /*    ------> id (for future Details Card), title (for list), image(for the list avatar) */
   /*    calls app.addtoList and passes the media object
   /* ---------------------------------------*/
-  /* [6] On click any REMOVE from list icon ( requires event delegation) 
+  /* [6] On click any ADD from list icon ( requires event delegation) */
+    $(`.container`).on(`click`, `button.add`, function() {
+      const index = app.findIndexById(app.results, $(this).data(`id`));
+      app.addToList(app.results[index]);
+    });
   /*    takes the id from the object that was clicked ($this)
   /*    calls app.removeFromList and passes the id to be removed
   /* ---------------------------------------*/
 
-  /* TESTING */
-
-  /* [5] */
-  $(`.container`).on(`click`, `button.remove`, function() {
-    app.removeFromList($(this).data(`id`));
-  });
-
-  /* [6] */
-  $(`.container`).on(`click`, `button.add`, function() {
-    const index = app.findIndexById(app.results, $(this).data(`id`));
-    app.addToList(app.results[index]);
-  });
-
-  /* [4] */
+  /* [3 & 4] */
   $(`ul`).on(`click`, `.info`, function() {
     const id = $(this).data(`id`);
     const type = $(this).data(`type`);   
@@ -315,11 +313,6 @@ app.init = function() {
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
   app.Handlers();
-  let item = {
-    id: 456789,
-    title:  `test`,
-  }
-
 };
 
 $(() => {
