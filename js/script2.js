@@ -33,8 +33,12 @@ app.detail; // stores the media shown in the details view
 app.getItemCardHtml = function(item) {
   return `
   <li> 
-      <button type="button" class="add" data-id="${item.id}"> Add </button>
-      <div class="info" data-id="${item.id}">
+      ${
+        app.findIndexById(app.list, item.id) >= 0
+          ? `<button type="button" class="remove" data-id="${item.id}">Remove</button>`
+          : `<button type="button" class="add" data-id="${item.id}">Add</button>`
+      }
+      <div class="info" data-id="${item.id}" data-type="${item.media_type}">
         <h3> ${item.title ? item.title : item.name} </h3>
         <p> ${item.media_type} id: ${item.id} </p> 
       </div>
@@ -48,7 +52,7 @@ app.getListItemtHtml = function(item) {
   return `
   <li>   
       <button type="button" class="remove" data-id="${item.id}">Remove</button> 
-      <div class="info" data-id="${item.id}">
+      <div class="info" data-id="${item.id}" data-type="${item.media_type}">
         <h3> ${item.title ? item.title : item.name}</h3>
         <p> ${item.media_type} id: ${item.id} </p>
       </div>
@@ -60,8 +64,12 @@ app.getListItemtHtml = function(item) {
 
 app.getItemDetailCard = function(item) {
   return `
-  <div data-id="${item.id}"> 
-    <h2> ${item.title ? item.title : item.name} </h2>
+  <div data-id="${item.id}"> ${
+    (app.findIndexById(app.list, item.id) >= 0) ?
+    `<button type="button" class="remove" data-id="${item.id}">Remove</button>` 
+     : `<button type="button" class="add" data-id="${item.id}">Add</button>` 
+    }
+    <h3> ${item.title ? item.title : item.name} </h3>
     <p> ${item.overview}</p>
   </div>
   `;
@@ -247,7 +255,11 @@ app.removeFromList = function(id) {
 
 app.Handlers = function() {
   /* ---------------------------------------*/
-  /* [1] On click Search Button */
+  /* [1] On start search */
+     $(`input.search`).on(`keyup`, function() {
+       const keyword = $(this).val();
+       app.getByKeyword(keyword);
+     });
   /*    extracts keyword from search input */
   /*    passes the keyword to getByKeword */
   /* ---------------------------------------*/
@@ -277,33 +289,37 @@ app.Handlers = function() {
   /* TESTING */
 
   /* [5] */
-  $(`.lists.container ul`).on(`click`, `button.remove`, function() {
-    // console.log(`clicked on the button only`);
+  $(`.container`).on(`click`, `button.remove`, function() {
     app.removeFromList($(this).data(`id`));
   });
 
   /* [6] */
-  $(`.results.container ul`).on(`click`, `button.add`, function() {
-    // console.log(`clicked on the button only`);
+  $(`.container`).on(`click`, `button.add`, function() {
     const index = app.findIndexById(app.results, $(this).data(`id`));
     app.addToList(app.results[index]);
   });
 
   /* [4] */
   $(`ul`).on(`click`, `.info`, function() {
-    // console.log(`clicked on the actual whole item on the list`) 
-     
+    const id = $(this).data(`id`);
+    const type = $(this).data(`type`);   
+    app.getDetailsById(id, type);     
   });
 };
 
 app.init = function() {
-  app.getByKeyword(`marvel`);
+  // app.getByKeyword(`marvel`);
   // app.getDetailsById(`68716`, `tv`);
   // app.getPopularByType(`movie`);
   /* calls getPopularByType  for movies */
   /* calls getRecentByType for tv */
   /* calls to set up app.Handlers  */
   app.Handlers();
+  let item = {
+    id: 456789,
+    title:  `test`,
+  }
+
 };
 
 $(() => {
