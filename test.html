@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
-  <h1> Recent </h1>
-  <ul class="recent"></ul>
-  
-  <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
-  <script src="js/script.js"></script>
-</body>
+    ul li {
+      display: flex;
+    }
+  </style>
+  <body>
+    <form action="GET" id="searchForm" name="search" class="">
+      <input
+        type="text"
+        name="search"
+        class="search"
+        placeholder="Search Movies/Tv Shows..."
+      />
+    </form>
+    <div class="recents container">
+      <h1>Recent</h1>
+      <ul class="recent">
+        <!-- dynamic item goes here (getMediaCardHtml) -->
+      </ul>
+    </div>
+
+    <div class="lists container">
+      <h1>MyList</h1>
+      <ul class="list"></ul>
+    </div>
+
+    <div class="results container">
+      <h1>Results</h1>
+      <ul class="result">
+        <!-- dynamic item goes here (getDetailCardHtml) -->
+      </ul>
+    </div>
+
+    <div class="details container">
+      <h1>DETAIL</h1>
+      <div class="detail">
+        <!-- dynamic item goes here (getDetailCardHtml) -->
+      </div>
+    </div>
+
+    <!-- <div class="tvContainer">
+      <h1>Popular TV</h1>
+      <ul class="tv"></ul>
+    </div>
+
+    <div class="movieContainer">
+      <h1>Popular Movies</h1>
+      <ul class="movie"></ul>
+    </div> -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/script.js"></script>
+  </body>
 </html>
