@@ -19,29 +19,25 @@
   </head>
   <body>
     <aside class="listDrawer">
-        <div class="myListContainer">
-            <h2 class ="myList">My List</h2>
-        </div>
-        <div class="watchListContainer container">
-            <h3>Watch List</h3> 
-            <!-- <button class="add addToListBtn">
-                <i class="fas fa-plus-circle"></i>
-            </button> -->
-            <ul class="watchList">
-
-            </ul>
-        </div>
-        <div class="infoContainer">
-            <h3>Info on how to use</h3>
-            <i class="far fa-question-circle"></i>
-        </div>
+      <div class="myListContainer">
+        <h2 class="myList">My List</h2>
+      </div>
+      <div class="watchListContainer container">
+        <!-- <h3>Watch List</h3> -->
+        <ul class="watchList">
+          <!-- dynamic list items here -->
+        </ul>
+      </div>
+      <div class="infoContainer">
+        <h3>Info on how to use</h3>
+        <i class="far fa-question-circle fa-3x"></i>
+      </div>
     </aside>
 
-
     <div class="mainContainer">
-    <header>
+      <header>
         <div class="mainNavContainer">
-        <div class="logoContainer">
+          <div class="logoContainer">
             <h1>FlickFlist</h1>
           </div>
           <form action="GET" id="searchForm" name="search" class="">
@@ -52,51 +48,62 @@
               placeholder="Search Movies/Tv Shows..."
             />
           </form>
-        <div class="homeContainer">
+          <div class="homeContainer">
             <button type="button" class="homeButton">Home</button>
+          </div>
         </div>
-        </div>
-    </header>
-    <main class="wrapper">
-        <div class="home"> 
-            <section class="moviesContainer container">
-                <div class="categoryTitleContainer">
-                    <h2>Top Movies</h2>
-                </div>
-                <ul class="topMovies collection">
-                    <!-- dynamic list of top movies -->
-                </ul>
-            </section>
-            <section class="tvContainer container">
-                <div class="categoryTitleContainer">
-                    <h2>Top Tv Shows</h2>
-                </div>
-                <ul class="topTvShows collection">
-                    <!-- dynamic list of top tv shows -->                   
-                </ul>
-            </section>
-            <section class="recentlyAddedContainer container">
-                <div class="categoryTitleContainer">
-                    <h2>Recently Added</h2>
-                </div>
-                <ul class="recentlyAdded collection">
-                  <!-- dynamic list of recently added to list --> 
-                </ul>
-            </section>
-        
-        </div> 
-        <section class="wrapper resultsContainer container">
+      </header>
+      <main class="wrapper">
+        <div class="home">
+          <section class="moviesContainer container">
             <div class="categoryTitleContainer">
-                <h2>Results</h2>
+              <h2>Top Movies</h2>
             </div>
-            <ul class="resultsSearch">
-              <!-- dynamic item goes here (getDetailCardHtml) -->
+            <ul class="topMovies collection">
+              <!-- dynamic list of top movies -->
             </ul>
+          </section>
+          <section class="tvContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Top Tv Shows</h2>
+            </div>
+            <ul class="topTvShows collection">
+              <!-- dynamic list of top tv shows -->
+            </ul>
+          </section>
+          <section class="recentlyAddedContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Recently Added</h2>
+            </div>
+            <ul class="recentlyAdded collection">
+              <!-- dynamic list of recently added to list -->
+            </ul>
+          </section>
+        </div>
+        <section class="wrapper resultsContainer container">
+          <div class="categoryTitleContainer">
+            <h2>Results</h2>
+          </div>
+          <ul class="resultsSearch">
+            <!-- dynamic item goes here (getDetailCardHtml) -->
+          </ul>
         </section>
-    </main>
+      </main>
+      <!-- /* my changes */ -->
+      <div class="backDropOverlay">
+        <div class="overLayWrapper">
+          <div class="largeOverlay container">
+            <div class="exitBtn exit">
+              <i class="far fa-times-circle fa-2x"></i>
+            </div>
+            <div class="detailsCard">
+              <!-- dynamic details here (getItemDetailHtml) -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/script2.js"></script>
-
   </body>
 </html>

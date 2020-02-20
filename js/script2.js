@@ -6,7 +6,7 @@ app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
 app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
-app.recentAmount = 25; // app setting for how many recent will display on load
+app.recentAmount = 5; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
 app.resultsAmount = 20; // app setting for how many results to show upon search
 app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
@@ -16,20 +16,21 @@ app.dom.$popular = {
   tv: $(`.topTvShows`), // location
   movie: $(`.topMovies`) // location
 };
-app.dom.$recent = $(`.recent`); // location
+app.dom.$recent = $(`.recentlyAdded`); // location
 app.dom.$result = $(`.resultsSearch`); // location
 app.dom.$list = $(`.watchList`); // location
-app.dom.$detail = $(`.detail`); // location
+app.dom.$detail = $(`.detailsCard`); // location
 app.dom.$add = $(`.add`); // button
 app.dom.$remove = $(`.remove`); // button
 app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
 app.dom.$HOME = $(`.home`); // section for home
+app.dom.$DETAIL = $(`.backDropOverlay`);
 // ------ DATA ----------------------------------------------------------//
 app.results = []; // stores the results of a search
 app.popular = {
   tv: [], // stores popular tv shows
   movie: [] // stores popular movies
-}; 
+};
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
 app.keyword = ``;
@@ -47,43 +48,58 @@ app.getItemCardHtml = function(item) {
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
           : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
       }
-      <div class="info imgContainer" data-id="${item.id}" data-type="${
-    item.media_type
-  }">
-          <img src="${itemImgUrl}" class="movieTvImg" alt="${
-    item.title ? item.title : item.name
-  } poster.">
-        </div>
+      <div 
+        class="info imgContainer" 
+        data-id="${item.id}" 
+        data-type="${item.media_type}">
+        <img 
+          class="movieTvImg" 
+          src="${itemImgUrl}" 
+          alt="${item.title ? item.title : item.name} poster">
+      </div>
     </li>
   `;
 };
 
 app.getListItemtHtml = function(item) {
   return `
-  <li>   
-      <button type="button" class="remove" data-id="${item.id}">Remove</button> 
+      <button 
+        type="button" 
+        class="remove" 
+        data-id="${item.id}">
+        <i class="fas fa-times-circle fa-2x"></i>
+        </button> 
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
         <h3> ${item.title ? item.title : item.name}</h3>
-        <p> ${item.media_type} id: ${item.id} </p>
-      </div>
-    </li>`;
-  /* recieves item and constructs a list item html */
-  /* returns the constructed html */
-  /* critical components: data-id = "${item.id}" on the button AND the info div (class of button is consistent (i.e. .remove)) */
+      </div>`;
 };
 
-app.getItemDetailCard = function(item) {
+app.getItemDetailHtml = function(item) {
+  const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-  <div data-id="${item.id}"> ${
-    app.findIndexById(app.list, item.id) >= 0
-      ? `<button type="button" class="remove" data-id="${item.id}">Remove</button>`
-      : `<button type="button" class="add" data-id="${item.id}">Add</button>`
-  }
-    <h3> ${item.title ? item.title : item.name} </h3>
-    <p> ${item.overview}</p>
+  <li data-id="${item.id}>
+  <div class="topLargeOverlay">
+        ${
+          app.findIndexById(app.list, item.id) >= 0
+            ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
+            : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
+        }
+      <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
+      <h3 class="releaseDate"> Release: ${
+        item.release_date ? item.release_date : item.first_air_date
+      } </h3>
   </div>
+  <div class="imgLargeOverlay">
+      <img 
+        src="${itemImgUrl}"   
+        class="test" 
+        alt="${item.title ? item.title : item.name} poster">
+  </div>
+  <div class="descriptionLargeOverlay">
+      <p> ${item.overview}</p>
+  </div>
+  <li>
   `;
-  /* critical components: data-id = "${item.id}" on top-div, class of button is consistent (i.e. .add or .remove) */
 };
 
 /* ----------------------------------------------------------------------*/
@@ -97,16 +113,9 @@ app.displayMedia = function(
 ) {
   $location.html(``);
   medias.forEach(item => {
-    let htmlToAppend = getHtml(item);
+    const htmlToAppend = getHtml(item);
     $location.append(htmlToAppend);
   });
-  /* receives medias items, location and an getHtml function */
-  /* clears out the given location */
-  /* calls forEach on the given medias */
-  /* --inside forEach
-  /*    calls the given getHtml function (passes the individual media item) */
-  /*    receives the constructed Html
-  /*    apends the Html to given location */
 };
 
 /* ----------------------------------------------------------------------*/
@@ -125,21 +134,24 @@ app.getPopularByType = function(type) {
     }
   }).then(data => {
     app.popular[type] = data.results.slice(0, app.popularAmount);
+    // adds the media type
+    app.popular[type] = app.popular[type].map(item => {
+      item.media_type = type;
+      return item;
+    });
     app.displayMedia(
       app.popular[type],
       app.dom.$popular[type],
       app.getItemCardHtml
     );
   });
-  /* makes an AJAX call to API */
-  /* retrieves popular movies/tv */
-  /*  passes medias to displayMedia, along with location(based on type), and the getItemCardHtml function (as the getHtml callback)  */
-  /* -----> the length of the array passed is determined by app.popularAmount */
 };
 
 app.getRecent = function(list) {
+  console.log(`getRecent`, list);
   let amountToTake = app.recentAmount;
   const shortData = [];
+  list.reverse();
   list.forEach(item => {
     if (amountToTake-- > 0) {
       shortData.push(item);
@@ -147,12 +159,10 @@ app.getRecent = function(list) {
   });
   list.reverse();
   if (shortData.length) {
-    app.displayMedia(shortData.reverse(), app.dom.$recent, app.getItemCardHtml);
+    app.displayMedia(shortData, app.dom.$recent, app.getItemCardHtml);
+  } else {
+    app.dom.$recent.html(``);
   }
-
-  /* retrieves the latest most recent added from app.list */
-  /* amount retrieved is specifie by app.recentAmount or whatever is available (if short of recentAmount) */
-  /* passes the retrieved medias to displayMedia, algon with location of the Recently Added, and the getItemCardHtml function (as the getHtml callback) */
 };
 
 app.getByKeyword = function(keyword) {
@@ -167,8 +177,6 @@ app.getByKeyword = function(keyword) {
       query: keyword
     }
   }).then(data => {
-    /* implementation */
-
     app.results = data.results
       .filter(item => {
         return item.media_type === `movie` || item.media_type === `tv`;
@@ -176,19 +184,13 @@ app.getByKeyword = function(keyword) {
       .filter(item => {
         return item.poster_path;
       })
-      .slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
+      .slice(0, app.resultsAmount); // first x amount as specified in settings
     app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
   });
-  /* receives keyword provided by user */
-  /* creates an url from baseUrl and the end point */
-  /* makes an AJAX call based on the keyword */
-  /* passes the returned medias to displayMedia along with the location of Results, and the getItemCardHtml function (as the getHtml callback) */
-  /* ---> the length of the array passed is determined by app.resultsAmount */
 };
 
 app.getDetailsById = function(id, type) {
   const url = `${app.api.baseUrl}/${type}/${id}`;
-  /* receives the id and type of the media */
   $.ajax({
     url: url,
     method: `GET`,
@@ -200,14 +202,8 @@ app.getDetailsById = function(id, type) {
   }).then(data => {
     const media = [];
     media.push(data);
-    app.displayMedia(media, app.dom.$detail, app.getItemDetailCard);
+    app.displayMedia(media, app.dom.$detail, app.getItemDetailHtml);
   });
-  /* receives 'id' and 'type' for the media to be retrieved */
-  /* creates an url from baseUrl and the end point (interpolates id and type as the endpoint) */
-  /* make an AJAX call */
-  /* declares an empty array
-  /* pushes the result media to the newly created array as the first index */
-  /* passes the new array to displayMedia, along with the location of the Details Card, and the getItemDetailCardHtml function (as the getHtml callback) */
 };
 
 /* ---------------------------------------------------------------------------*/
@@ -222,9 +218,6 @@ app.findIndexById = function(list, id) {
     }
   });
   return foundIndex;
-  /* receives a media id and the list to search*/
-  /* runs forEach to find index of the media with the given id inside the given list */
-  /* returns index (or returns negative if not found) */
 };
 
 app.addToList = function(media) {
@@ -236,17 +229,6 @@ app.addToList = function(media) {
     // WARNING, ID ALREADY EXIST, SO DON'T ADD!
   }
 };
-/* receives a media */
-/* checks if there is space in the app.list array for another media (uses app.listAmount)*/
-/* if there is: */
-/* checks that the media is not already in the list by calling app.findById and passing it the media's id */
-/* if it is not already there: */
-/* pushes the media to the app.list array */
-/* passes the app.list to displayMedia along with the location of Watch List, and the getListItemHtml funtion (as the getHtml callback)  */
-/* if it is already there: */
-/* warning already existins */
-/* if there is no room: */
-/* warning no room */
 
 app.removeFromList = function(id) {
   const index = app.findIndexById(app.list, id);
@@ -256,15 +238,6 @@ app.removeFromList = function(id) {
   } else {
     // warning, does not exist
   }
-  /* receives a media id */
-  /* calls app.findById and passes it the id to see if that media is even in the list  */
-  /* stores the returned index from app.checkListById */
-  /* checks that returned index is 0 or greater */
-  /* if it is: */
-  /* splices out the media at the returned index for app.list
-    /* passes the app.list to displayMedia along with the location of Watch List, and the getListItemHtml funtion (as the getHtml callback)  */
-  /* if it is not: */
-  /* it warns - not in list */
 };
 
 /* ----------------------------------------------------------------------*/
@@ -280,9 +253,7 @@ app.Handlers = function() {
     app.dom.$HOME.hide(`slow`);
     app.dom.$SEARCH.show("slow");
   });
-  /*    extracts keyword from search input */
-  /*    passes the keyword to getByKeword */
-  /* ---------------------------------------*/
+
   /* [2] On click Home Icon */
   $(`button.homeButton`).on(`click`, function() {
     // hide result, show the popular and recent again
@@ -291,55 +262,54 @@ app.Handlers = function() {
     app.getPopularByType(`movie`);
     app.getPopularByType(`tv`);
   });
-  /*    calls getPopular */
-  /*    calls getRecent */
-  /*    switches page to home */
-  /* ---------------------------------------*/
-  /* [3] On click any Madia Card (requires event delegation)
-  /*    takes the media type and id from the object that was clicked ($this)
-  /*    calls getDetailsById and passes the type and id
-  /* ---------------------------------------*/
-  /* [4] On click to VIEW any List Item (requires event delegation)
-  /*    takes the media type and id from the object that was clicked ($this)
-  /*    calls getDetailsById and passes the type and id
-  /* ---------------------------------------*/
+
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
   $(`.container`).on(`click`, `button.remove`, function() {
-    app.removeFromList($(this).data(`id`));
+    const id = $(this).data(`id`);
+    app.removeFromList(id);
     app.getByKeyword(app.keyword);
+    app.loadHome();
+    app.dom.$DETAIL.hide(`fast`);
   });
 
-  /*    constructs media object form the one that was clicked $(this) 
-  /*    ------> id (for future Details Card), title (for list), image(for the list avatar) */
-  /*    calls app.addtoList and passes the media object
-  /* ---------------------------------------*/
   /* [6] On click any ADD from list icon ( requires event delegation) */
   $(`.container`).on(`click`, `button.add`, function() {
-    const listPool = app.popular.tv.concat(app.popular.movie).concat(app.results);
-    const index = app.findIndexById(listPool, $(this).data(`id`));
-    app.addToList(listPool[index]);
+    const id = $(this).data(`id`);
+    const listPool = app.popular.tv
+      .concat(app.popular.movie)
+      .concat(app.results);
+    const index = app.findIndexById(listPool, id);
+    const media = listPool[index];
+    app.addToList(media);
     app.getByKeyword(app.keyword);
+    app.loadHome();
+    app.dom.$DETAIL.hide(`fast`);
   });
-  /*    takes the id from the object that was clicked ($this)
-  /*    calls app.removeFromList and passes the media to be added
-  /* ---------------------------------------*/
 
   /* [3 & 4] */
   $(`ul`).on(`click`, `.info`, function() {
     const id = $(this).data(`id`);
     const type = $(this).data(`type`);
     app.getDetailsById(id, type);
+    app.dom.$DETAIL.show(`slow`);
+  });
+
+  /* [7] */
+  $(`.exit`).on(`click`, function() {
+    app.dom.$DETAIL.hide(`fast`);
   });
 };
 
+app.loadHome = function() {
+  console.log(`loadHome`);
+  app.getPopularByType(`movie`);
+  app.getPopularByType(`tv`);
+  app.getRecent(app.list);
+};
+
 app.init = function() {
-  // app.getByKeyword(`marvel`);
-  // app.getDetailsById(`68716`, `tv`);
-  // app.getPopularByType(`movie`);
-  /* calls getPopularByType  for movies */
-  /* calls getRecentByType for tv */
-  /* calls to set up app.Handlers  */
   app.Handlers();
+  app.loadHome();
 };
 
 $(() => {

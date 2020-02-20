@@ -95,6 +95,7 @@
 // backdrop styles to provide focus to large card overlay, use jquery add class to selected card
 
 .backDropOverlay {
+    display: none;
     background-color: rgba(0,0,0,.6);
     height: 100vh;
     width: 100vw;

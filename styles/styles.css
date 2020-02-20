@@ -323,6 +323,7 @@ input::-moz-focus-inner {
 }
 
 .backDropOverlay {
+  display: none;
   background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: 100vw;
