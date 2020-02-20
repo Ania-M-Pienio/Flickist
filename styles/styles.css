@@ -551,7 +551,7 @@ h1 {
 
 .flexItem {
   border: 1px solid red;
-  width: calc(20% - 10px);
+  width: calc(25% - 10px);
   height: 420px;
   margin: 5px;
 }
