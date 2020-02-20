@@ -133,7 +133,6 @@ h1 {
     background-color: $tertiary-color;
     border: none;
     color: $secondary-color;
- 
 }
 
 // COLLECTION STYLE
@@ -147,13 +146,13 @@ h1 {
     width: 250px;
     height: 280px;
     margin: 10px;
-    border: 1px solid red;
+    height: auto;
 }
 
 
 // SEARCH RESULTS GRID CONTAINER and home page styles
 
-.resultsContainer {
+.resultsSearch {
     display: flex;
     flex-flow: row wrap;
     padding: 0px;
@@ -171,14 +170,31 @@ h1 {
 }
 
 .flexItem {
-    width: calc(25% - 10px);
-    margin: 5px;
+    width: calc(33.3% - 30px);
+    margin: 15px;
 }
 
 
-.resultsContainer li {
+.collection li {
     position: relative;
+    transition: all 0.5s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+
+}
+
+
+.resultsSearch li {
     margin-bottom: 15px;
+    position: relative;
+    transition: all 0.5s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
 
