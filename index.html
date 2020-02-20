@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HTML component // Home Page</title>
+        <title>Flickist</title>
         <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -30,9 +30,8 @@
             </button>
         <!-- </div> -->
         <div class="watchListContainer container">
-            <h3>Watch List</h3> 
             <ul class="watchList">
-
+            <!-- dynamic list items here -->
             </ul>
         </div>
         <!-- <div class="infoContainer">
@@ -40,13 +39,11 @@
             <i class="far fa-question-circle"></i>
         </div> -->
     </aside>
-
     <div class="mainContainer">
     <header>
         <div class="mainNavContainer wrapper">
             <div class="logoContainer">
                 <h1>Flickist</h1>
-                <span class="listHamburger"></span>
             </div>
             <form action="GET" id="searchForm" name="search" class="">
                 <input
@@ -91,16 +88,45 @@
         </div> 
         <section class="wrapper resultsContainer container">
             <div class="categoryTitleContainer">
-                <h2>Results</h2>
+              <h2>Top Tv Shows</h2>
             </div>
-            <ul class="resultsSearch">
-              <!-- dynamic item goes here (getDetailCardHtml) -->
+            <ul class="topTvShows collection">
+              <!-- dynamic list of top tv shows -->
             </ul>
+          </section>
+          <section class="recentlyAddedContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Recently Added</h2>
+            </div>
+            <ul class="recentlyAdded collection">
+              <!-- dynamic list of recently added to list -->
+            </ul>
+          </section>
+        </div>
+        <section class="wrapper resultsContainer container">
+          <div class="categoryTitleContainer">
+            <h2>Results</h2>
+          </div>
+          <ul class="resultsSearch">
+            <!-- dynamic item goes here (getDetailCardHtml) -->
+          </ul>
         </section>
-    </main>
+      </main>
+      <!-- /* my changes */ -->
+      <div class="backDropOverlay">
+        <div class="overLayWrapper">
+          <div class="largeOverlay container">
+            <div class="exitBtn exit">
+              <i class="far fa-times-circle fa-2x"></i>
+            </div>
+            <div class="detailsCard">
+              <!-- dynamic details here (getItemDetailHtml) -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/script2.js"></script>
-
   </body>
 </html>

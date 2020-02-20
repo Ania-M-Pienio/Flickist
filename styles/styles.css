@@ -339,6 +339,18 @@ input::-moz-focus-inner {
   width: 220px;
 }
 
+.backDropOverlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
 @media (max-width: 850px) {
   .topLargeOverlay {
     -webkit-box-orient: vertical;
