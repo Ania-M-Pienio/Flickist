@@ -385,10 +385,10 @@ ul {
 
 img {
   width: 100%;
+  height: auto;
   display: inline-block;
   -o-object-fit: cover;
      object-fit: cover;
-  height: auto;
 }
 
 h2 {
@@ -549,7 +549,26 @@ h1 {
 
 .flexItem {
   border: 1px solid red;
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 380px;
   margin: 5px;
+}
+
+.title {
+  color: #153e50;
+  font-size: 1.6rem;
+  text-transform: capitalize;
+}
+
+.movieTvBtn {
+  padding: 10px 35px;
+  border: none;
+  text-transform: uppercase;
+  background-color: #153e50;
+  color: #E2AA5F;
+}
+
+.movieTvBtn:hover {
+  background-color: #E2AA5F;
+  color: #153e50;
 }
