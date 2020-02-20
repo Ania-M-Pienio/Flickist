@@ -303,7 +303,6 @@ app.Handlers = function() {
   $(`.container`).on(`click`, `button.remove`, function() {
     console.log(`handler for remove on click remove button`, $(this));
     app.removeFromList($(this).data(`id`));
-    // console.log(app.keyword);
     app.getByKeyword(app.keyword);
   });
 
@@ -315,7 +314,6 @@ app.Handlers = function() {
   $(`.container`).on(`click`, `button.add`, function() {
     const index = app.findIndexById(app.results, $(this).data(`id`));
     app.addToList(app.results[index]);
-    // console.log(app.keyword);
     app.getByKeyword(app.keyword);
   });
   /*    takes the id from the object that was clicked ($this)
