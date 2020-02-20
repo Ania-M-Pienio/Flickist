@@ -17,8 +17,8 @@ app.dom.$popular = {
   movie: $(`.topMovies`) // location
 };
 app.dom.$recent = $(`.recent`); // location
-app.dom.$result = $(`.result`); // location
-app.dom.$list = $(`.list`); // location
+app.dom.$result = $(`.resultsSearch`); // location
+app.dom.$list = $(`.watchList`); // location
 app.dom.$detail = $(`.detail`); // location
 app.dom.$add = $(`.add`); // button
 app.dom.$remove = $(`.remove`); // button
@@ -28,6 +28,7 @@ app.dom.$HOME = $(`.home`); // section for home
 app.results = []; // stores the results of a search
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
+app.keyword = ``;
 
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
@@ -35,7 +36,6 @@ app.detail; // stores the media shown in the details view
 
 app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
-  console.log(item);
   return `
     <li class="flexItem">
       ${
@@ -271,8 +271,8 @@ app.Handlers = function() {
   /* ---------------------------------------*/
   /* [1] On start search */
   $(`input.search`).on(`keyup`, function() {
-    const keyword = $(this).val();
-    app.getByKeyword(keyword);
+    app.keyword = $(this).val();
+    app.getByKeyword(app.keyword);
     app.dom.$HOME.hide(`slow`);
     app.dom.$SEARCH.show("slow");
   });
@@ -301,7 +301,10 @@ app.Handlers = function() {
   /* ---------------------------------------*/
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
   $(`.container`).on(`click`, `button.remove`, function() {
+    console.log(`handler for remove on click remove button`, $(this));
     app.removeFromList($(this).data(`id`));
+    // console.log(app.keyword);
+    app.getByKeyword(app.keyword);
   });
 
   /*    constructs media object form the one that was clicked $(this) 
@@ -312,6 +315,8 @@ app.Handlers = function() {
   $(`.container`).on(`click`, `button.add`, function() {
     const index = app.findIndexById(app.results, $(this).data(`id`));
     app.addToList(app.results[index]);
+    // console.log(app.keyword);
+    app.getByKeyword(app.keyword);
   });
   /*    takes the id from the object that was clicked ($this)
   /*    calls app.removeFromList and passes the id to be removed
