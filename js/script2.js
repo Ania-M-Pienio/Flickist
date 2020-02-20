@@ -39,8 +39,8 @@ app.getItemCardHtml = function(item) {
     <li class="flexItem">
       ${
         app.findIndexById(app.list, item.id) >= 0
-          ? `<button type="button" class="remove" data-id="${item.id}">Remove</button>`
-          : `<button type="button" class="add" data-id="${item.id}">Add</button>`
+          ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
+          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
       }
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
         <h3>${item.title ? item.title : item.name}</h3>
