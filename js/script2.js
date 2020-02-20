@@ -49,7 +49,7 @@ app.getItemCardHtml = function(item) {
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
-          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
+          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add To Watchlist</button>`
       }
       <div 
         class="info imgContainer" 
@@ -66,15 +66,12 @@ app.getItemCardHtml = function(item) {
 
 app.getListItemtHtml = function(item) {
   return `
-      <button 
-        type="button" 
-        class="remove" 
-        data-id="${item.id}">
-        <i class="fas fa-times-circle fa-2x"></i>
-        </button> 
+  <li class="listItem">   
+      <button type="button" class="remove removeBtn" data-id="${item.id}">Remove</button> 
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-        <h3> ${item.title ? item.title : item.name}</h3>
-      </div>`;
+        <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
+      </div>
+    </li>`;
 };
 
 app.getItemDetailHtml = function(item) {
