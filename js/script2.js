@@ -35,6 +35,7 @@ app.detail; // stores the media shown in the details view
 
 app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
+  console.log(item);
   return `
     <li class="flexItem">
       ${
@@ -165,6 +166,9 @@ app.getByKeyword = function(keyword) {
     app.results = data.results
       .filter(item => {
         return item.media_type === `movie` || item.media_type === `tv`;
+      })
+      .filter( item => {
+        return item.poster_path;
       })
       .slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
     app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
