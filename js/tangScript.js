@@ -29,8 +29,6 @@ app.detail; // stores the media shown in the details view
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
-// <h3>${item.title ? item.title : item.name}</h3>
-// <p> ${item.media_type}</p> 
 
 app.getItemCardHtml = function(item) {
 

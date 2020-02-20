@@ -1,110 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HTML component // Home Page</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap" rel="stylesheet">
-    <link rel="icon" href="./assets/favicon.ico" type="image/gif">
-    <link rel="stylesheet" href="./styles/styles.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/favicon.ico" type="image/gif" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
     <aside class="listDrawer">
-        <div>
+        <div class="myListContainer">
             <h2 class ="myList">My List</h2>
         </div>
-        <div>
-            <h3 class="myWatchList">Watch List</h3> 
+        <div class="watchListContainer">
+            <h3>Watch List</h3> 
+            <button class="add addToListBtn">
+                <i class="fas fa-plus-circle"></i>
+            </button>
+            <ul class="watchList">
+
+            </ul>
         </div>
         <div class="infoContainer">
             <h3>Info on how to use</h3>
             <i class="far fa-question-circle"></i>
         </div>
     </aside>
+
+
     <div class="container">
-        <header>
-            <div class="mainNavContainer">
-                <div class="logoContainer">
-                    <h1>FlickFlist</h1>
-                </div>
-            <form action="GET" id="searchForm" name="search" class="">
-                <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..."> 
-            </form>
-            <div class="homeContainer">
-                <button type="button" class="homeButton"> Home </button>
-            </div>
-            </div>
-        </header>
-        <main>
-            <section class="wrapper popularContainer">
-            <div class="categoryTitleContainer">
-                <h2>Popular Now</h2>
-            </div>
-                <ul class="popular collection">
-                    <li>
-                        <div><img src="./assets/test.jpg" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                </ul>    
-            </section>
-            <section class="wrapper recentlyAddedContainer">
-                <div class="categoryTitleContainer">
-                    <h2>Recently Added</h2>
-                </div>
-                <ul class="recentlyAdded collection">
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                </ul>
-            </section>
-            <section class="wrapper moviesContainer">
+      <header>
+        <div class="mainNavContainer">
+          <div class="logoContainer">
+            <h1>FlickFlist</h1>
+          </div>
+          <form action="GET" id="searchForm" name="search" class="">
+            <input
+              type="text"
+              name="search"
+              class="search"
+              placeholder="Search Movies/Tv Shows..."
+            />
+          </form>
+          <div class="homeContainer">
+            <button type="button" class="homeButton">Home</button>
+          </div>
+        </div>
+      </header>
+      <main class="wrapper">
+        <div class="home"> 
+            <section class="moviesContainer">
                 <div class="categoryTitleContainer">
                     <h2>Top Movies</h2>
                 </div>
                 <ul class="topMovies collection">
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
-                    <li>
-                        <div><img src="" alt=""></div>
-                    </li>
+                    <!-- dynamic li -->
                 </ul>
             </section>
-            <section class="wrapper tvContainer">
+            <section class="tvContainer">
                 <div class="categoryTitleContainer">
                     <h2>Top Tv Shows</h2>
                 </div>
@@ -126,11 +89,42 @@
                     </li>
                 </ul>
             </section>
-        </main>
+            <section class="recentlyAddedContainer">
+                <div class="categoryTitleContainer">
+                    <h2>Recently Added</h2>
+                </div>
+                <ul class="recentlyAdded collection">
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                    <li>
+                        <div><img src="" alt=""></div>
+                    </li>
+                </ul>
+            </section>
+        
+         </div> 
+        <section class="wrapper resultsContainer">
+            <div class="categoryTitleContainer">
+              <h2>Results</h2>
+            </div>
+            <ul class="result resultsContainer">
+              <!-- dynamic item goes here (getDetailCardHtml) -->
+            </ul>
+        </section>
+      </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/script2.js"></script>
 
-    <!-- Use Flickity for result scrolling?!-->
-    <!-- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> -->
-</body>
-
+  </body>
 </html>

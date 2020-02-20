@@ -385,8 +385,10 @@ ul {
 
 img {
   width: 100%;
+  display: inline-block;
   -o-object-fit: cover;
      object-fit: cover;
+  height: auto;
 }
 
 h2 {

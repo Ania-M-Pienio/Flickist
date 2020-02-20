@@ -20,8 +20,9 @@ ul {
 
 img {
     width: 100%;
+    display: inline-block;
     object-fit: cover;
-    
+    height: auto;    
 }
 
 h2 {
@@ -178,4 +179,11 @@ h1 {
 
 //  background-color: #199fdb;
 
+.popularContainer,
+.recentlyAddedContainer, 
+.moviesContainer,
+.tvContainer
+{
+    // display: none;
+}
 
