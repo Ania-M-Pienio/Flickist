@@ -42,7 +42,10 @@ app.keyword = ``;
 app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-    <li class="flexItem">
+    <li 
+      role="button"
+      tabindex="0"
+      class="flexItem">
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
@@ -134,7 +137,6 @@ app.getPopularByType = function(type) {
     }
   }).then(data => {
     app.popular[type] = data.results.slice(0, app.popularAmount);
-    // adds the media type
     app.popular[type] = app.popular[type].map(item => {
       item.media_type = type;
       return item;
@@ -148,7 +150,6 @@ app.getPopularByType = function(type) {
 };
 
 app.getRecent = function(list) {
-  console.log(`getRecent`, list);
   let amountToTake = app.recentAmount;
   const shortData = [];
   list.reverse();
@@ -298,10 +299,16 @@ app.Handlers = function() {
   $(`.exit`).on(`click`, function() {
     app.dom.$DETAIL.hide(`fast`);
   });
+
+  /* [8] */
+  $(`ul`).on(`focus`, `li`, function() {
+    // console.log(`li focused`);
+    // $(this).css({border: `6px solid red`});
+
+  });
 };
 
 app.loadHome = function() {
-  console.log(`loadHome`);
   app.getPopularByType(`movie`);
   app.getPopularByType(`tv`);
   app.getRecent(app.list);
