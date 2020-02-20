@@ -26,6 +26,7 @@ app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
 app.dom.$HOME = $(`.home`); // section for home
 // ------ DATA ----------------------------------------------------------//
 app.results = []; // stores the results of a search
+app.popular = []; // stores the popular tvs and movies
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
 app.keyword = ``;
@@ -120,7 +121,9 @@ app.getPopularByType = function(type) {
       language: app.api.lang
     }
   }).then(data => {
-    const shortData = data.results.slice(0, app.popularAmount); // first x amount as specified in settings
+    const shortData = data.results.slice(0, app.popularAmount);
+    app.popular = app.popular.concat(shortData);
+    console.log(app.popular); // first x amount as specified in settings
     app.displayMedia(
       shortData,
       app.dom.$popular[`${type}`],
@@ -224,6 +227,7 @@ app.findIndexById = function(list, id) {
 };
 
 app.addToList = function(media) {
+  console.log(media);
   const index = app.findIndexById(app.list, media.id);
   if (app.list.length < app.listAmount && index < 0) {
     app.list.push(media);
@@ -313,6 +317,7 @@ app.Handlers = function() {
   /* ---------------------------------------*/
   /* [6] On click any ADD from list icon ( requires event delegation) */
   $(`.container`).on(`click`, `button.add`, function() {
+    console.log(`handler for add on click remove button`, $(this));
     const index = app.findIndexById(app.results, $(this).data(`id`));
     app.addToList(app.results[index]);
     // console.log(app.keyword);
