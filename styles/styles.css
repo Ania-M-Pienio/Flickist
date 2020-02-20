@@ -207,6 +207,19 @@ input::-moz-focus-inner {
   overflow: hidden;
 }
 
+.skip-link {
+  position: absolute;
+  left: -1000px;
+  top: 5px;
+  z-index: 999;
+  background: white;
+  color: black;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
 /* VARIABLE STYLES */
 /* MIX INS */
 /* FLEXBOX CENTERING */
@@ -219,12 +232,14 @@ input::-moz-focus-inner {
 
 .largeOverlay {
   height: 70%;
-  max-width: 800px;
   width: 60%;
   padding: 10px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -258,13 +273,14 @@ input::-moz-focus-inner {
 }
 
 .topLargeOverlay .movieTitle {
-  text-align: center;
+  text-align: left;
   color: #E2AA5F;
   font-size: 4rem;
 }
 
 .topLargeOverlay .releaseDate {
   font-size: 4rem;
+  padding-left: 20px;
 }
 
 .exitBtn {
@@ -273,13 +289,13 @@ input::-moz-focus-inner {
   right: 10px;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
-  font-size: 2rem;
+  font-size: 3.5rem;
 }
 
 .exitBtn:hover {
   color: #E2AA5F;
-  -webkit-transform: scale(1.6);
-          transform: scale(1.6);
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
 }
 
 .descriptionLargeOverlay {
@@ -306,9 +322,10 @@ input::-moz-focus-inner {
 
 .addToWatchListBtn {
   text-decoration: none;
-  color: #E2AA5F;
+  color: #153e50;
+  background-color: #F2F3F4;
   text-transform: uppercase;
-  border: 2px solid #E2AA5F;
+  border: none;
   padding: 10px 30px;
   font-size: 1.5rem;
 }
@@ -320,18 +337,6 @@ input::-moz-focus-inner {
 
 .test {
   width: 220px;
-}
-
-.backDropOverlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  -webkit-transition: all 1s;
-  transition: all 1s;
 }
 
 @media (max-width: 850px) {
@@ -350,9 +355,11 @@ input::-moz-focus-inner {
   }
   .topLargeOverlay .movieTitle {
     font-size: 3rem;
+    text-align: center;
   }
   .topLargeOverlay .releaseDate {
     font-size: 2.5rem;
+    padding: 0;
   }
   .descriptionLargeOverlay {
     width: 100%;
@@ -394,6 +401,7 @@ img {
 
 h1 {
   font-size: 4rem;
+  color: #F2F3F4;
 }
 
 h2 {
@@ -414,6 +422,13 @@ h3 {
   margin: 0 auto;
 }
 
+.search:focus,
+.homeButton:focus,
+.movieTvBtn:focus,
+.removeBtn:focus {
+  border: 2px solid #153e50;
+}
+
 .mainNavContainer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -432,10 +447,6 @@ h3 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-h1 {
-  color: white;
 }
 
 .search {
@@ -477,7 +488,7 @@ h1 {
   text-transform: uppercase;
   padding: 10px 25px;
   font-size: 1rem;
-  border: 2px solid white;
+  border: none;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
 }
@@ -497,6 +508,8 @@ h1 {
   width: 25vw;
   color: #fff;
   padding: 15px;
+  position: relative;
+  z-index: 1001;
 }
 
 .myListContainer {
@@ -519,6 +532,8 @@ h1 {
   text-align: left;
   list-style: none;
   position: relative;
+  padding-top: 5px;
+  margin: auto 15px;
 }
 
 .addListItem {
@@ -530,22 +545,23 @@ h1 {
   text-transform: uppercase;
   position: absolute;
   right: 0;
-  bottom: -10px;
+  bottom: -13px;
 }
 
 .removeBtn:hover {
-  color: #000;
-  background-color: #f00;
+  color: #F2F3F4;
+  background-color: crimson;
 }
 
-.addToListBtn {
+.listDrawerBtn {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  font-size: 2rem;
-  background-color: #E2AA5F;
+  display: inline-block;
+  top: 500px;
+  right: -22px;
+  font-size: 3.5rem;
+  background-color: #000;
   border: none;
-  color: #F2F3F4;
+  color: #E2AA5F;
 }
 
 .collection {
@@ -600,8 +616,8 @@ h1 {
 
 .collection li:hover,
 .resultsSearch li:hover {
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
 }
 
 .resultsSearch li {
@@ -622,7 +638,7 @@ h1 {
   background-color: #E2AA5F;
   color: #153e50;
   position: absolute;
-  bottom: -10px;
+  bottom: -20px;
   right: 0;
 }
 
@@ -632,6 +648,23 @@ h1 {
 }
 
 @media (max-width: 1050px) {
+  .mainNavContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 25vh;
+  }
+  h1 {
+    padding: 0;
+  }
+  .collection li {
+    width: calc(33.3% - 30px);
+    margin: 15px;
+  }
   .flexItem {
     width: calc(50% - 30px);
     margin: 15px;
@@ -662,7 +695,7 @@ h1 {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    height: 30vh;
+    height: 25vh;
   }
   h1 {
     font-size: 5rem;
@@ -687,3 +720,15 @@ h1 {
 .home {
   display: none;
 }
+
+/* TO DO LIST 
+- create a hamburger menu to display list drawer
+- additional adjustments to media queries
+- COME UP WITH A BETTER name for project
+- additional styling to the list drawer
+- add largeOverlay detail to thumbnails when clicked
+- maybe add background to design???
+- make sure recently added items follow same styling as tv and movies
+- accessbility, be able to tab through page, even the thumbnails and such
+- on click to show and animate list drawer
+*/

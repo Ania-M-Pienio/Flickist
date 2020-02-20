@@ -9,10 +9,11 @@
 
 .largeOverlay {
     height: 70%;
-    max-width: 800px;
+    // max-width: 800px;
     width: 60%;
     padding: 10px 15px;
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: $primary-color;
@@ -32,13 +33,14 @@
     justify-content: space-between;
 
     .movieTitle {
-        text-align: center;
+        text-align: left;
         color: $tertiary-color;
         font-size: 4rem;
     }
 
     .releaseDate {
         font-size: 4rem;
+        padding-left: 20px;
     }
 }
 
@@ -47,11 +49,11 @@
     top: 10px;
     right: 10px;
     transition: 0.5s ease;
-    font-size: 2rem;
+    font-size: 3.5rem;
 
     &:hover {
         color: $tertiary-color;
-        transform: scale(1.6);
+        transform: scale(1.3);
     }
 }
 
@@ -75,9 +77,10 @@
 
 .addToWatchListBtn {
     text-decoration: none;
-    color: #E2AA5F;
+    color: $primary-color;
+    background-color: $secondary-color;
     text-transform: uppercase;
-    border: 2px solid #E2AA5F;
+    border: none;
     padding: 10px 30px;
     font-size: 1.5rem;
 
@@ -91,19 +94,18 @@
     width: 220px;
 }
 
-
 // backdrop styles to provide focus to large card overlay, use jquery add class to selected card
 
-.backDropOverlay {
-    background-color: rgba(0,0,0,.6);
-    height: 100vh;
-    width: 100vw;
-    position:fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    transition: all 1s;
-}
+// .backDropOverlay {
+//     background-color: rgba(0,0,0,.6);
+//     height: 100vh;
+//     width: 100vw;
+//     position:fixed;
+//     top: 0;
+//     left: 0;
+//     z-index: 999;
+//     transition: all 1s;
+// }
 
 @media (max-width: 850px) {
     .topLargeOverlay {
@@ -117,10 +119,12 @@
 
         .movieTitle {
             font-size: 3rem;
+            text-align: center;
         }
 
         .releaseDate {
             font-size: 2.5rem;
+            padding: 0;
         }
     }
 
@@ -134,4 +138,6 @@
     .releaseDate {
         display: none;
     }
+
+    
 }
