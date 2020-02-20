@@ -13,8 +13,8 @@ app.listAmount = 20; // app setting for max amount of medias that can be be stor
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$popular = {
-  tv: $(`.tv`), // location
-  movie: $(`.movie`) // location
+  tv: $(`.topTvShows`), // location
+  movie: $(`.topMovies`) // location
 };
 app.dom.$recent = $(`.recent`); // location
 app.dom.$result = $(`.result`); // location
@@ -43,7 +43,9 @@ app.getItemCardHtml = function(item) {
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
           : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
       }
-      <div class="info imgContainer" data-id="${item.id}" data-type="${item.media_type}">
+      <div class="info imgContainer" data-id="${item.id}" data-type="${
+    item.media_type
+  }">
           <img src="${itemImgUrl}" class="movieTvImg" alt="${
     item.title ? item.title : item.name
   } poster.">
@@ -167,7 +169,7 @@ app.getByKeyword = function(keyword) {
       .filter(item => {
         return item.media_type === `movie` || item.media_type === `tv`;
       })
-      .filter( item => {
+      .filter(item => {
         return item.poster_path;
       })
       .slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
@@ -272,8 +274,7 @@ app.Handlers = function() {
     const keyword = $(this).val();
     app.getByKeyword(keyword);
     app.dom.$HOME.hide(`slow`);
-    app.dom.$SEARCH.show('slow');
-
+    app.dom.$SEARCH.show("slow");
   });
   /*    extracts keyword from search input */
   /*    passes the keyword to getByKeword */
@@ -281,6 +282,10 @@ app.Handlers = function() {
   /* [2] On click Home Icon */
   $(`button.homeButton`).on(`click`, function() {
     // hide result, show the popular and recent again
+    app.dom.$HOME.show(`slow`);
+    app.dom.$SEARCH.hide("slow");
+    app.getPopularByType(`movie`);
+    app.getPopularByType(`tv`);
   });
   /*    calls getPopular */
   /*    calls getRecent */

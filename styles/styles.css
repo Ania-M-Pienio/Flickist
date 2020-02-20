@@ -593,9 +593,6 @@ h1 {
   color: #E2AA5F;
 }
 
-.popularContainer,
-.recentlyAddedContainer,
-.moviesContainer,
-.tvContainer {
+.home {
   display: none;
 }

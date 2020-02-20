@@ -115,8 +115,7 @@ h1 {
 }
 
 .watchListContainer {
-    position: relative;
-    
+    position: relative;    
         h3 {
         background-color: $tertiary-color;
     }
@@ -223,10 +222,7 @@ h1 {
 //  background-color: #199fdb;
 
 
-.popularContainer,
-.recentlyAddedContainer, 
-.moviesContainer,
-.tvContainer
+.home
 {
     display: none;
 }
