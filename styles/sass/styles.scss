@@ -137,7 +137,6 @@ h1 {
 
 // COLLECTION STYLE
 
-
 .collection {
     display: flex;
     list-style: none;
@@ -151,7 +150,7 @@ h1 {
 }
 
 
-// SEARCH RESULTS GRID CONTAINER 
+// SEARCH RESULTS GRID CONTAINER and home page styles
 
 .resultsContainer {
     display: flex;
@@ -161,9 +160,31 @@ h1 {
 
 .flexItem {
     border: 1px solid red;
-    width: 200px;
-    height: 300px;
+    width: 250px;
+    height: 380px;
     margin: 5px;
+
+}
+
+.title {
+    color: $primary-color;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+}
+
+.movieTvBtn {
+    padding: 10px 35px;
+    border: none;
+    text-transform: uppercase;
+    background-color: $primary-color;
+    color: $tertiary-color;
+    
+    
+    &:hover {
+        background-color: $tertiary-color;
+        color: $primary-color;
+    }
+
 }
 
 //thumbnail overlay for Home and Results
