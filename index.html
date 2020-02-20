@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML component // Home Page</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="./assets/favicon.ico" type="image/gif" />
-    <link rel="stylesheet" href="./styles/styles.css" />
-  </head>
-  <body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTML component // Home Page</title>
+        <link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous"
+        />
+        <link
+        href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap"
+        rel="stylesheet"
+        />
+        <link rel="icon" href="./assets/favicon.ico" type="image/gif" />
+        <link rel="stylesheet" href="./styles/styles.css" />
+    </head>
+    <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
     <aside class="listDrawer">
         <div class="myListContainer">
             <h2 class ="myList">My List</h2>
         </div>
+        <!-- <div class="listdrawerBtnContainer"> -->
+            <button class="listDrawerBtn">
+                <i class="fas fa-arrows-alt-h"></i>
+            </button>
+        <!-- </div> -->
         <div class="watchListContainer container">
             <h3>Watch List</h3> 
-            <!-- <button class="add addToListBtn">
-                <i class="fas fa-plus-circle"></i>
-            </button> -->
             <ul class="watchList">
 
             </ul>
         </div>
-        <div class="infoContainer">
+        <!-- <div class="infoContainer">
             <h3>Info on how to use</h3>
             <i class="far fa-question-circle"></i>
-        </div>
+        </div> -->
     </aside>
-
 
     <div class="mainContainer">
     <header>
-        <div class="mainNavContainer">
-        <div class="logoContainer">
-            <h1>FlickFlist</h1>
-          </div>
-          <form action="GET" id="searchForm" name="search" class="">
-            <input
-              type="text"
-              name="search"
-              class="search"
-              placeholder="Search Movies/Tv Shows..."
-            />
-          </form>
-        <div class="homeContainer">
-            <button type="button" class="homeButton">Home</button>
-        </div>
+        <div class="mainNavContainer wrapper">
+            <div class="logoContainer">
+                <h1>Flickist</h1>
+                <span class="listHamburger"></span>
+            </div>
+            <form action="GET" id="searchForm" name="search" class="">
+                <input
+                type="text"
+                name="search"
+                class="search"
+                placeholder="Search Movies/Tv Shows..."
+                />
+            </form>
+            <div class="homeContainer">
+                <button type="button" class="homeButton">Suggestions</button>
+            </div>
         </div>
     </header>
-    <main class="wrapper">
+    <main class="wrapper" id="main">
         <div class="home"> 
             <section class="moviesContainer container">
                 <div class="categoryTitleContainer">
