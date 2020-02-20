@@ -42,7 +42,7 @@ app.getItemCardHtml = function(item) {
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
-          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
+          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add To Watchlist</button>`
       }
       <div class="info imgContainer" data-id="${item.id}" data-type="${
     item.media_type
@@ -57,16 +57,16 @@ app.getItemCardHtml = function(item) {
 
 app.getListItemtHtml = function(item) {
   return `
-  <li>   
-      <button type="button" class="remove" data-id="${item.id}">Remove</button> 
+  <li class="listItem">   
+      <button type="button" class="remove removeBtn" data-id="${item.id}">Remove</button> 
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-        <h3> ${item.title ? item.title : item.name}</h3>
-        <p> ${item.media_type} id: ${item.id} </p>
+        <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
       </div>
     </li>`;
   /* recieves item and constructs a list item html */
   /* returns the constructed html */
   /* critical components: data-id = "${item.id}" on the button AND the info div (class of button is consistent (i.e. .remove)) */
+  // <p> ${item.media_type} id: ${item.id} </p>
 };
 
 app.getItemDetailCard = function(item) {
