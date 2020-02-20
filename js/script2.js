@@ -42,13 +42,10 @@ app.getItemCardHtml = function(item) {
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
           : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
       }
-      <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-        <h3>${item.title ? item.title : item.name}</h3>
-        <div>
-          <img src="${itemImgUrl}" alt="${
+      <div class="info imgContainer" data-id="${item.id}" data-type="${item.media_type}">
+          <img src="${itemImgUrl}" class="movieTvImg" alt="${
     item.title ? item.title : item.name
   } poster.">
-        </div>
         </div>
     </li>
   `;

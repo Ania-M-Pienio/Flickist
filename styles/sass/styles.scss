@@ -20,8 +20,8 @@ ul {
 
 img {
     width: 100%;
-    height: auto;
-    display: inline-block;
+    max-width: 100%;
+    display: block;
     object-fit: cover;
 }
 
@@ -77,12 +77,12 @@ h1 {
 
 .homeButton {
     text-decoration: none;
-    color: $secondary-color;
+    color: $tertiary-color;
     text-transform: uppercase;
     padding: 10px 25px;
+    font-size: 1rem;
     border: 2px solid white;
     transition: 0.3s ease-in;
-    border-radius: 50%;
 
     &:hover {
         background-color: white;
@@ -134,6 +134,7 @@ h1 {
     background-color: $tertiary-color;
     border: none;
     color: $secondary-color;
+ 
 }
 
 // COLLECTION STYLE
@@ -156,19 +157,29 @@ h1 {
 .resultsContainer {
     display: flex;
     flex-flow: row wrap;
-    padding: 20px;
+    padding: 0px;
     list-style: none;
 }
 
+.imgContainer {
+    height: auto;
+
+}
+
+.movieTvImg {
+    width: 100%;
+    height: 100%;
+}
+
 .flexItem {
-    border: 1px solid red;
     width: calc(25% - 10px);
-    height: 420px;
     margin: 5px;
 }
 
-.result li {
+
+.resultsContainer li {
     position: relative;
+    margin-bottom: 15px;
 }
 
 
@@ -179,16 +190,22 @@ h1 {
 }
 
 .movieTvBtn {
+    width: 100%;
     padding: 10px 35px;
     border: none;
     text-transform: uppercase;
-    background-color: $primary-color;
-    color: $tertiary-color;
+    background-color: $tertiary-color;
+    color: $primary-color;
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    box-shadow: 5px 5px 2px 2px #fff;
+
     
     
     &:hover {
-        background-color: $tertiary-color;
-        color: $primary-color;
+        background-color: $primary-color;
+        color: $tertiary-color;
     }
 
 }

@@ -37,7 +37,6 @@ app.getItemCardHtml = function(item) {
 
   return `
     <li>
-        <h3>${item.title ? item.title : item.name}</h3>
         <div>
             <img src="${itemImgUrl}" alt="${item.title ? item.title : item.name} poster.">
         </div>
