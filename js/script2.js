@@ -4,6 +4,7 @@ app.api = {};
 app.api.baseUrl = `https://api.themoviedb.org/3`;
 app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
+app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
 app.recentAmount = 25; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
@@ -21,6 +22,8 @@ app.dom.$list = $(`.list`); // location
 app.dom.$detail = $(`.detail`); // location
 app.dom.$add = $(`.add`); // button
 app.dom.$remove = $(`.remove`); // button
+app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
+app.dom.$HOME = $(`.home`); // section for home
 // ------ DATA ----------------------------------------------------------//
 app.results = []; // stores the results of a search
 app.list = []; // stores the media added to the list
@@ -31,21 +34,24 @@ app.detail; // stores the media shown in the details view
 /* ----------------------------------------------------------------------*/
 
 app.getItemCardHtml = function(item) {
+  const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-  <li> 
+    <li class="flexItem">
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="remove" data-id="${item.id}">Remove</button>`
           : `<button type="button" class="add" data-id="${item.id}">Add</button>`
       }
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-        <h3> ${item.title ? item.title : item.name} </h3>
-        <p> ${item.media_type} id: ${item.id} </p> 
-      </div>
-  </li>`;
-  /* receives item and constructs item card html */
-  /* returns the constructed html */
-  /* critical components: data-id = "${item.id}" on the button AND the info div (class of button is consistent (i.e. .add)) */
+        <h3>${item.title ? item.title : item.name}</h3>
+        <div>
+          <img src="${itemImgUrl}" alt="${
+    item.title ? item.title : item.name
+  } poster.">
+        </div>
+        </div>
+    </li>
+  `;
 };
 
 app.getListItemtHtml = function(item) {
@@ -65,10 +71,10 @@ app.getListItemtHtml = function(item) {
 app.getItemDetailCard = function(item) {
   return `
   <div data-id="${item.id}"> ${
-    (app.findIndexById(app.list, item.id) >= 0) ?
-    `<button type="button" class="remove" data-id="${item.id}">Remove</button>` 
-     : `<button type="button" class="add" data-id="${item.id}">Add</button>` 
-    }
+    app.findIndexById(app.list, item.id) >= 0
+      ? `<button type="button" class="remove" data-id="${item.id}">Remove</button>`
+      : `<button type="button" class="add" data-id="${item.id}">Add</button>`
+  }
     <h3> ${item.title ? item.title : item.name} </h3>
     <p> ${item.overview}</p>
   </div>
@@ -158,7 +164,12 @@ app.getByKeyword = function(keyword) {
     }
   }).then(data => {
     /* implementation */
-    app.results = data.results.slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
+
+    app.results = data.results
+      .filter(item => {
+        return item.media_type === `movie` || item.media_type === `tv`;
+      })
+      .slice(0, app.resultsAmount); // first x amount as specified in settings // first x amount as specified in settings
     app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
   });
   /* receives keyword provided by user */
@@ -256,10 +267,13 @@ app.removeFromList = function(id) {
 app.Handlers = function() {
   /* ---------------------------------------*/
   /* [1] On start search */
-     $(`input.search`).on(`keyup`, function() {
-       const keyword = $(this).val();
-       app.getByKeyword(keyword);
-     });
+  $(`input.search`).on(`keyup`, function() {
+    const keyword = $(this).val();
+    app.getByKeyword(keyword);
+    app.dom.$HOME.hide(`slow`);
+    app.dom.$SEARCH.show('slow');
+
+  });
   /*    extracts keyword from search input */
   /*    passes the keyword to getByKeword */
   /* ---------------------------------------*/
@@ -280,19 +294,19 @@ app.Handlers = function() {
   /*    calls getDetailsById and passes the type and id
   /* ---------------------------------------*/
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
-    $(`.container`).on(`click`, `button.remove`, function() {
-      app.removeFromList($(this).data(`id`));
-    });
+  $(`.container`).on(`click`, `button.remove`, function() {
+    app.removeFromList($(this).data(`id`));
+  });
 
   /*    constructs media object form the one that was clicked $(this) 
   /*    ------> id (for future Details Card), title (for list), image(for the list avatar) */
   /*    calls app.addtoList and passes the media object
   /* ---------------------------------------*/
   /* [6] On click any ADD from list icon ( requires event delegation) */
-    $(`.container`).on(`click`, `button.add`, function() {
-      const index = app.findIndexById(app.results, $(this).data(`id`));
-      app.addToList(app.results[index]);
-    });
+  $(`.container`).on(`click`, `button.add`, function() {
+    const index = app.findIndexById(app.results, $(this).data(`id`));
+    app.addToList(app.results[index]);
+  });
   /*    takes the id from the object that was clicked ($this)
   /*    calls app.removeFromList and passes the id to be removed
   /* ---------------------------------------*/
@@ -300,8 +314,8 @@ app.Handlers = function() {
   /* [3 & 4] */
   $(`ul`).on(`click`, `.info`, function() {
     const id = $(this).data(`id`);
-    const type = $(this).data(`type`);   
-    app.getDetailsById(id, type);     
+    const type = $(this).data(`type`);
+    app.getDetailsById(id, type);
   });
 };
 

@@ -386,6 +386,8 @@ ul {
 
 img {
   width: 100%;
+  height: auto;
+  display: inline-block;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -570,4 +572,11 @@ h1 {
 .movieTvBtn:hover {
   background-color: #E2AA5F;
   color: #153e50;
+}
+
+.popularContainer,
+.recentlyAddedContainer,
+.moviesContainer,
+.tvContainer {
+  display: none;
 }
