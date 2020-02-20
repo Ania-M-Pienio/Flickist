@@ -26,7 +26,10 @@ app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
 app.dom.$HOME = $(`.home`); // section for home
 // ------ DATA ----------------------------------------------------------//
 app.results = []; // stores the results of a search
-app.popular = []; // stores the popular tvs and movies
+app.popular = {
+  tv: [], // stores popular tv shows
+  movie: [] // stores popular movies
+}; 
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
 app.keyword = ``;
@@ -121,12 +124,10 @@ app.getPopularByType = function(type) {
       language: app.api.lang
     }
   }).then(data => {
-    const shortData = data.results.slice(0, app.popularAmount);
-    app.popular = app.popular.concat(shortData);
-    console.log(app.popular); // first x amount as specified in settings
+    app.popular[type] = data.results.slice(0, app.popularAmount);
     app.displayMedia(
-      shortData,
-      app.dom.$popular[`${type}`],
+      app.popular[type],
+      app.dom.$popular[type],
       app.getItemCardHtml
     );
   });
@@ -227,7 +228,6 @@ app.findIndexById = function(list, id) {
 };
 
 app.addToList = function(media) {
-  console.log(media);
   const index = app.findIndexById(app.list, media.id);
   if (app.list.length < app.listAmount && index < 0) {
     app.list.push(media);
@@ -305,9 +305,7 @@ app.Handlers = function() {
   /* ---------------------------------------*/
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
   $(`.container`).on(`click`, `button.remove`, function() {
-    console.log(`handler for remove on click remove button`, $(this));
     app.removeFromList($(this).data(`id`));
-    // console.log(app.keyword);
     app.getByKeyword(app.keyword);
   });
 
@@ -317,14 +315,13 @@ app.Handlers = function() {
   /* ---------------------------------------*/
   /* [6] On click any ADD from list icon ( requires event delegation) */
   $(`.container`).on(`click`, `button.add`, function() {
-    console.log(`handler for add on click remove button`, $(this));
-    const index = app.findIndexById(app.results, $(this).data(`id`));
-    app.addToList(app.results[index]);
-    // console.log(app.keyword);
+    const listPool = app.popular.tv.concat(app.popular.movie).concat(app.results);
+    const index = app.findIndexById(listPool, $(this).data(`id`));
+    app.addToList(listPool[index]);
     app.getByKeyword(app.keyword);
   });
   /*    takes the id from the object that was clicked ($this)
-  /*    calls app.removeFromList and passes the id to be removed
+  /*    calls app.removeFromList and passes the media to be added
   /* ---------------------------------------*/
 
   /* [3 & 4] */
