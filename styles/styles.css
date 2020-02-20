@@ -273,6 +273,7 @@ input::-moz-focus-inner {
   right: 10px;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
+  font-size: 2rem;
 }
 
 .exitBtn:hover {
@@ -571,4 +572,11 @@ h1 {
 .movieTvBtn:hover {
   background-color: #E2AA5F;
   color: #153e50;
+}
+
+.popularContainer,
+.recentlyAddedContainer,
+.moviesContainer,
+.tvContainer {
+  display: none;
 }

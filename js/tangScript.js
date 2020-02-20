@@ -39,7 +39,7 @@ app.getItemCardHtml = function(item) {
     <li>
         <h3>${item.title ? item.title : item.name}</h3>
         <div>
-            <img src="${itemImgUrl} alt="${item.title ? item.title : item.name} poster."
+            <img src="${itemImgUrl}" alt="${item.title ? item.title : item.name} poster.">
         </div>
     </li>
   `;
@@ -76,7 +76,6 @@ app.getItemDetailCard = function(item) {
   `;
 
 };
-
 
 
 /* ----------------------------------------------------------------------*/
