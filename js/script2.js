@@ -42,10 +42,7 @@ app.keyword = ``;
 app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-    <li 
-      role="button"
-      tabindex="0"
-      class="flexItem">
+    <li class="flexItem">
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`

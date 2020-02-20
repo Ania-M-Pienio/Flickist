@@ -289,7 +289,7 @@ input::-moz-focus-inner {
   right: 10px;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
 
 .exitBtn:hover {
@@ -347,10 +347,11 @@ input::-moz-focus-inner {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 5000;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
+
 @media (max-width: 850px) {
   .topLargeOverlay {
     -webkit-box-orient: vertical;
@@ -427,6 +428,7 @@ h3 {
 .mainContainer {
   width: 75vw;
   background-color: #F2F3F4;
+  padding-bottom: 50px;
 }
 
 .wrapper {
@@ -438,7 +440,7 @@ h3 {
 .homeButton:focus,
 .movieTvBtn:focus,
 .removeBtn:focus {
-  border: 2px solid #153e50;
+  border: 8px solid #E2AA5F;
 }
 
 .mainNavContainer {
@@ -515,7 +517,7 @@ h3 {
 }
 
 .listDrawer {
-  height: auto;
+  min-height: 100vh;
   background-color: #153e50;
   width: 25vw;
   color: #fff;
@@ -537,7 +539,7 @@ h3 {
 }
 
 .watchListContainer h3 {
-  background-color: #E2AA5F;
+  font-size: 2rem;
 }
 
 .listItem {
@@ -546,6 +548,7 @@ h3 {
   position: relative;
   padding-top: 5px;
   margin: auto 15px;
+  border-bottom: 2px solid #E2AA5F;
 }
 
 .addListItem {
@@ -557,7 +560,8 @@ h3 {
   text-transform: uppercase;
   position: absolute;
   right: 0;
-  bottom: -13px;
+  bottom: 0;
+  background-color: #E2AA5F;
 }
 
 .removeBtn:hover {
@@ -622,8 +626,6 @@ h3 {
   position: relative;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  -webkit-box-shadow: 2px 2px 2px 2px #153e50;
-          box-shadow: 2px 2px 2px 2px #153e50;
 }
 
 .collection li:hover,
@@ -652,6 +654,7 @@ h3 {
   position: absolute;
   bottom: -20px;
   right: 0;
+  font-size: 1.4rem;
 }
 
 .movieTvBtn:hover {

@@ -3,325 +3,326 @@
 @import "../partials/largeOverlay";
 
 html {
-    font-size: 62.5%;
-    scroll-behavior: smooth;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {
-    display: flex;
-    font-family: $primary-font;
-    color: $primary-color;
+  display: flex;
+  font-family: $primary-font;
+  color: $primary-color;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+  li {
+    &:focus {
+    }
+  }
 }
 
 img {
-    width: 100%;
-    max-width: 100%;
-    display: block;
-    object-fit: cover;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 h1 {
-    font-size: 4rem;
-    color: $secondary-color;
+  font-size: 4rem;
+  color: $secondary-color;
 }
 
 h2 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 h3 {
-    font-size: 2.2rem;
+  font-size: 2.2rem;
 }
 
 .mainContainer {
-    width: 75vw;
-    background-color: $secondary-color;
+  width: 75vw;
+  background-color: $secondary-color;
+  padding-bottom: 50px;
 }
 
 .wrapper {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 
-// ACCESSBILITY 
+// ACCESSBILITY
 .search,
 .homeButton,
 .movieTvBtn,
 .removeBtn {
-    &:focus {
-        border: 2px solid $primary-color;
-    }
+  &:focus {
+    border: 8px solid $tertiary-color;
+  }
 }
-
 
 // HEADER STYLE
 
 .mainNavContainer {
-    display: flex;
-    width: 100%;
-    flex-flow: row nowrap;
-    background-color: 	#103140;
-    padding: 10px 50px;
-    height: 10vh;
-    justify-content: space-between;
-    align-items: center;
-} 
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  background-color: #103140;
+  padding: 10px 50px;
+  height: 10vh;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .search {
-    @include flexboxCenter();
-    border-radius: 4px;
-    border: 2px solid #ccc;
-    background-color: $secondary-color;
-    transition: width 0.4s ease;
-    padding: 10px 15px;
-    width: 300px;
-    font-size: 1.4rem;
+  @include flexboxCenter();
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  background-color: $secondary-color;
+  transition: width 0.4s ease;
+  padding: 10px 15px;
+  width: 300px;
+  font-size: 1.4rem;
 }
 
 .homeContainer {
-    @include flexboxCenter();
+  @include flexboxCenter();
 }
 
 .homeButton {
-    background-color: $tertiary-color;
-    text-decoration: none;
-    color: $primary-color;
-    text-transform: uppercase;
-    padding: 10px 25px;
-    font-size: 1rem;
-    border: none;
-    transition: 0.3s ease-in;
+  background-color: $tertiary-color;
+  text-decoration: none;
+  color: $primary-color;
+  text-transform: uppercase;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  transition: 0.3s ease-in;
 
-    &:hover {
-        background-color: white;
-        color: $primary-color;
-    }
+  &:hover {
+    background-color: white;
+    color: $primary-color;
+  }
 }
 
 // HOME PAGE STYLES
 
 .categoryTitleContainer {
-    border-bottom: solid 8px $primary-color;
+  border-bottom: solid 8px $primary-color;
 }
 
-// DRAWER LIST STYLE 
+// DRAWER LIST STYLE
 
 .listDrawer {
-    height: auto;
-    background-color: $primary-color;
-    width: 25vw;
-    color: #fff;
-    padding: 15px;
-    position: relative;
-    z-index: 1001;
+  min-height: 100vh;
+  background-color: $primary-color;
+  width: 25vw;
+  color: #fff;
+  padding: 15px;
+  position: relative;
+  z-index: 1001;
 }
 
 .myListContainer {
-    border-bottom: 1px solid $secondary-color;
+  border-bottom: 1px solid $secondary-color;
 }
 
 .myList {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 .watchListContainer {
-    position: relative;    
-        h3 {
-        background-color: $tertiary-color;
-    }
+  position: relative;
+  h3 {
+    font-size: 2rem;  
+  }
 }
 
 .listItem {
-    text-align: left;
-    list-style: none;
-    position: relative;
-    padding-top: 5px;
-    margin: auto 15px;
+  text-align: left;
+  list-style: none;
+  position: relative;
+  padding-top: 5px;
+  margin: auto 15px;
+  border-bottom: 2px solid $tertiary-color;
 }
 
 .addListItem {
-    font-size: 1.6rem;
+  font-size: 1.6rem;
 }
 
 .removeBtn {
-    border: none;
-    text-transform: uppercase;
-    position: absolute;
-    right: 0;
-    bottom: -13px;
-    &:hover {
-        color: $secondary-color;
-        background-color: crimson;
-    }
+  border: none;
+  text-transform: uppercase;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: $tertiary-color;
+  &:hover {
+    color: $secondary-color;
+    background-color: crimson;
+  }
 }
 
 .listDrawerBtn {
-    position: absolute;
-    display: inline-block;
-    top: 500px;
-    right: -22px;
-    font-size: 3.5rem;
-    background-color: #000;
-    border: none;
-    color: $tertiary-color;
+  position: absolute;
+  display: inline-block;
+  top: 500px;
+  right: -22px;
+  font-size: 3.5rem;
+  background-color: #000;
+  border: none;
+  color: $tertiary-color;
 }
 
 // COLLECTION STYLE
 
 .collection {
-    display: flex;
-    list-style: none;
-    flex-wrap: wrap;
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
 }
 
 .collection li {
-    width: calc(20% - 20px);
-    margin: 10px;
-    height: auto;
+  width: calc(20% - 20px);
+  margin: 10px;
+  height: auto;
 }
 
 // SEARCH RESULTS GRID CONTAINER and home page styles
 
 .resultsSearch {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 0px;
-    list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0px;
+  list-style: none;
 }
 
 .imgContainer {
-    height: auto;
+  height: auto;
 }
 
 .movieTvImg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .flexItem {
-    width: calc(33.3% - 30px);
-    margin: 15px;
+  width: calc(33.3% - 30px);
+  margin: 15px;
 }
 
 .collection li,
 .resultsSearch li {
-    position: relative;
-    transition: all 0.5s ease;
-    box-shadow: 2px 2px 2px 2px $primary-color;
-
-    &:hover {
-        transform: scale(1.02);
-        
-    }
+  position: relative;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 .resultsSearch li {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .title {
-    color: $primary-color;
-    font-size: 1.5rem;
-    text-transform: capitalize;
+  color: $primary-color;
+  font-size: 1.5rem;
+  text-transform: capitalize;
 }
 
 .movieTvBtn {
-    width: 100%;
-    padding: 10px 0px;
-    border: none;
-    text-transform: uppercase;
-    background-color: $tertiary-color;
-    color: $primary-color;
-    position: absolute;
-    bottom: -20px;
-    right: 0;
-    // box-shadow: 2px 2px 2px 2px $primary-color;
+  width: 100%;
+  padding: 10px 0px;
+  border: none;
+  text-transform: uppercase;
+  background-color: $tertiary-color;
+  color: $primary-color;
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  font-size: 1.4rem;
 
-    &:hover {
-        background-color: $primary-color;
-        color: $tertiary-color;
-    }
+  &:hover {
+    background-color: $primary-color;
+    color: $tertiary-color;
+  }
 }
 
 //result media query
 
 @media (max-width: 1050px) {
+  .mainNavContainer {
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+  }
 
-    .mainNavContainer {
-        flex-direction: column;
-        align-items: center;
-        height: 25vh;
-    }
+  h1 {
+    padding: 0;
+  }
 
-    h1 {
-        padding: 0;
-    }
+  .collection li {
+    width: calc(33.3% - 30px);
+    margin: 15px;
+  }
 
-    .collection li {
-        width: calc(33.3% - 30px);
-        margin: 15px;
-    }
-
-    .flexItem {
-        width: calc(50% - 30px);
-        margin: 15px;
-    }
+  .flexItem {
+    width: calc(50% - 30px);
+    margin: 15px;
+  }
 }
 
-// HIDE LIST DRAWER 
+// HIDE LIST DRAWER
 
 @media (max-width: 850px) {
+  .wrapper {
+    width: 100%;
+  }
 
-    .wrapper {
-        width: 100%;
-    }
+  .listDrawer {
+    display: none;
+  }
 
-    .listDrawer {
-        display: none;
-    }
+  .mainContainer {
+    width: 100%;
+  }
 
-    .mainContainer {
-        width: 100%;
-    }
-
-    .categoryTitleContainer {
-        text-align: center;
-    }
+  .categoryTitleContainer {
+    text-align: center;
+  }
 }
 
 @media (max-width: 750px) {
-    .mainNavContainer {
-        flex-direction: column;
-        align-items: center;
-        height: 25vh;
-    }
+  .mainNavContainer {
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+  }
 
-    h1 {
-        font-size: 5rem;
-        margin: 0 auto;
-    }
+  h1 {
+    font-size: 5rem;
+    margin: 0 auto;
+  }
 
-    .collection li {
-        width: calc(50% - 30px);
-        margin: 15px;
-    }
+  .collection li {
+    width: calc(50% - 30px);
+    margin: 15px;
+  }
 }
 
-// MOBILE MEDIA QUERY 
+// MOBILE MEDIA QUERY
 
 @media (max-width: 500px) {
-    .collection li,
-    .flexItem {
-        width: 100%;
-        margin: 15px;
-        box-shadow: none;
-    }
-    // remove hover effects using javascript or css?!
+  .collection li,
+  .flexItem {
+    width: 100%;
+    margin: 15px;
+    box-shadow: none;
+  }
+  // remove hover effects using javascript or css?!
 }
 
 //thumbnail overlay for Home and Results
@@ -336,10 +337,8 @@ h3 {
 
 //  background-color: #199fdb;
 
-
-.home
-{
-    display: none;
+.home {
+  display: none;
 }
 
 /* TO DO LIST 
@@ -353,4 +352,3 @@ h3 {
 - accessbility, be able to tab through page, even the thumbnails and such
 - on click to show and animate list drawer
 */
-
