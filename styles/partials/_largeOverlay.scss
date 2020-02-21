@@ -11,7 +11,8 @@
     height: 70%;
     // max-width: 800px;
     width: 60%;
-    padding: 10px 15px;
+    max-width: 750px;
+    padding: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,28 +21,17 @@
     color: $secondary-color;
     margin: 0 auto;
     position: relative;
-    box-shadow: 2px 5px 20px 6px $tertiary-color;
+    list-style: none;
 }
 
-.topLargeOverlay {
-    width: 100%;
-    text-transform: uppercase;
-    font-size: 2rem;
+.overLayWrapper {
+    @include flexboxCenter();
+    height: 100%;
+}
+
+.imgDescriptionContainer {
     display: flex;
-    flex-flow: row nowrap;
-    padding: 0px 30px;
-    justify-content: space-between;
-
-    .movieTitle {
-        text-align: left;
-        color: $tertiary-color;
-        font-size: 4rem;
-    }
-
-    .releaseDate {
-        font-size: 4rem;
-        padding-left: 20px;
-    }
+    justify-content: space-between !important;
 }
 
 .exitBtn {
@@ -57,11 +47,34 @@
     }
 }
 
+.movieTitle {
+    text-align: center;
+    color: $tertiary-color;
+    font-size: 4rem;
+    margin: 0;
+    border-bottom: 2px solid $tertiary-color;
+}
+
+.releaseDate {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.imgLargeOverlay {
+    margin: 0 auto;
+}
+
+.descriptionTitle {
+    margin: 2%;
+}
+
+
 .descriptionLargeOverlay {
     font-size: 1.6rem;
     padding: 10px 30px;
     font-family: $secondary-font;
-    width: 80%;
+    width: 50%;
+    border-top: 2px solid $tertiary-color;
 }
 
 .bottomLargeOverlay {
@@ -75,7 +88,7 @@
     font-size: 6rem;
 }
 
-.addToWatchListBtn {
+.movieTvBtn.detailBtn {
     text-decoration: none;
     color: $primary-color;
     background-color: $secondary-color;
@@ -84,14 +97,17 @@
     padding: 10px 30px;
     font-size: 1.5rem;
 
+
     &:hover {
         background-color: $tertiary-color;
         color: $secondary-color;
     }
 }
 
-.test {
-    width: 220px;
+.detailImg {
+    width: 240px;
+    margin: 0 auto;
+    border: 2px solid $tertiary-color;
 }
 
 // backdrop styles to provide focus to large card overlay, use jquery add class to selected card
@@ -106,7 +122,6 @@
     top: 0;
     left: 0;
     z-index: 5000;
-    transition: all 1s;
 }
 
 @media (max-width: 850px) {
@@ -128,6 +143,10 @@
             font-size: 2.5rem;
             padding: 0;
         }
+    }
+
+    .largeOverlay {
+        height: 60%;
     }
 
     .descriptionLargeOverlay {

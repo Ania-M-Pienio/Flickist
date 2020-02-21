@@ -42,7 +42,10 @@ app.keyword = ``;
 app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-    <li class="flexItem">
+    <li 
+      role="button"
+      tabindex="0"
+      class="flexItem">
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
@@ -74,27 +77,32 @@ app.getListItemtHtml = function(item) {
 app.getItemDetailHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-  <li data-id="${item.id}>
-  <div class="topLargeOverlay">
-        ${
-          app.findIndexById(app.list, item.id) >= 0
-            ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
-            : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add</button>`
-        }
-      <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
-      <h3 class="releaseDate"> Release: ${
-        item.release_date ? item.release_date : item.first_air_date
-      } </h3>
-  </div>
-  <div class="imgLargeOverlay">
-      <img 
-        src="${itemImgUrl}"   
-        class="test" 
-        alt="${item.title ? item.title : item.name} poster">
-  </div>
-  <div class="descriptionLargeOverlay">
-      <p> ${item.overview}</p>
-  </div>
+  <li data-id="${item.id}" class="clearfix">
+    <div class="topLargeOverlay">
+          ${
+            app.findIndexById(app.list, item.id) >= 0
+              ? `<button type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
+              : `<button type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
+          }
+        <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
+    </div>
+    <div class="releaseDateContainer">
+        <h3 class="releaseDate"> Release: ${
+          item.release_date ? item.release_date : item.first_air_date
+            } </h3>
+    </div>
+    <div class="imgDescriptionContainer">
+      <div class="imgLargeOverlay">
+          <img 
+            src="${itemImgUrl}"   
+            class="detailImg" 
+            alt="${item.title ? item.title : item.name} poster">
+      </div>
+      <div class="descriptionLargeOverlay">
+          <h3 class="descriptionTitle">Description</h3>
+          <p> ${item.overview}</p>
+      </div>
+    </div>
   <li>
   `;
 };
@@ -286,7 +294,7 @@ app.Handlers = function() {
     const id = $(this).data(`id`);
     const type = $(this).data(`type`);
     app.getDetailsById(id, type);
-    app.dom.$DETAIL.show(`slow`);
+    app.dom.$DETAIL.show(`fast`);
   });
 
   /* [7] */

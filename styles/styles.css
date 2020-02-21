@@ -233,7 +233,8 @@ input::-moz-focus-inner {
 .largeOverlay {
   height: 70%;
   width: 60%;
-  padding: 10px 15px;
+  max-width: 750px;
+  padding: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -251,36 +252,29 @@ input::-moz-focus-inner {
   color: #F2F3F4;
   margin: 0 auto;
   position: relative;
-  -webkit-box-shadow: 2px 5px 20px 6px #E2AA5F;
-          box-shadow: 2px 5px 20px 6px #E2AA5F;
+  list-style: none;
 }
 
-.topLargeOverlay {
-  width: 100%;
-  text-transform: uppercase;
-  font-size: 2rem;
+.overLayWrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  padding: 0px 30px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
 }
 
-.topLargeOverlay .movieTitle {
-  text-align: left;
-  color: #E2AA5F;
-  font-size: 4rem;
-}
-
-.topLargeOverlay .releaseDate {
-  font-size: 4rem;
-  padding-left: 20px;
+.imgDescriptionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
 }
 
 .exitBtn {
@@ -298,11 +292,33 @@ input::-moz-focus-inner {
           transform: scale(1.3);
 }
 
+.movieTitle {
+  text-align: center;
+  color: #E2AA5F;
+  font-size: 4rem;
+  margin: 0;
+  border-bottom: 2px solid #E2AA5F;
+}
+
+.releaseDate {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.imgLargeOverlay {
+  margin: 0 auto;
+}
+
+.descriptionTitle {
+  margin: 2%;
+}
+
 .descriptionLargeOverlay {
   font-size: 1.6rem;
   padding: 10px 30px;
   font-family: "Roboto", sans-serif;
-  width: 80%;
+  width: 50%;
+  border-top: 2px solid #E2AA5F;
 }
 
 .bottomLargeOverlay {
@@ -320,7 +336,7 @@ input::-moz-focus-inner {
   font-size: 6rem;
 }
 
-.addToWatchListBtn {
+.movieTvBtn.detailBtn {
   text-decoration: none;
   color: #153e50;
   background-color: #F2F3F4;
@@ -330,13 +346,15 @@ input::-moz-focus-inner {
   font-size: 1.5rem;
 }
 
-.addToWatchListBtn:hover {
+.movieTvBtn.detailBtn:hover {
   background-color: #E2AA5F;
   color: #F2F3F4;
 }
 
-.test {
-  width: 220px;
+.detailImg {
+  width: 240px;
+  margin: 0 auto;
+  border: 2px solid #E2AA5F;
 }
 
 .backDropOverlay {
@@ -348,8 +366,6 @@ input::-moz-focus-inner {
   top: 0;
   left: 0;
   z-index: 5000;
-  -webkit-transition: all 1s;
-  transition: all 1s;
 }
 
 @media (max-width: 850px) {
@@ -373,6 +389,9 @@ input::-moz-focus-inner {
   .topLargeOverlay .releaseDate {
     font-size: 2.5rem;
     padding: 0;
+  }
+  .largeOverlay {
+    height: 60%;
   }
   .descriptionLargeOverlay {
     width: 100%;
@@ -572,12 +591,14 @@ h3 {
 .listDrawerBtn {
   position: absolute;
   display: inline-block;
-  top: 500px;
-  right: -22px;
+  top: 50%;
+  left: -50px;
   font-size: 3.5rem;
   background-color: #000;
   border: none;
   color: #E2AA5F;
+  display: none;
+  z-index: 6000;
 }
 
 .collection {
@@ -692,6 +713,9 @@ h3 {
   }
   .listDrawer {
     display: none;
+  }
+  .listDrawerBtn {
+    display: inline-block !important;
   }
   .mainContainer {
     width: 100%;
