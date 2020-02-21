@@ -170,7 +170,7 @@ h3 {
   position: absolute;
   display: inline-block;
   top: 50%;
-  left: 0;
+  left: -20px;
   font-size: 3.5rem;
   background-color: #000;
   border: none;
@@ -328,6 +328,8 @@ h3 {
     margin: 15px;
     box-shadow: none;
   }
+
+  
   // remove hover effects using javascript or css?!
 }
 
