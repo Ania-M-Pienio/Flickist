@@ -280,12 +280,10 @@ app.removeFromList = function(id) {
 app.Handlers = function() {
   /* ---------------------------------------*/
   $(`input.search`).on(`focus`, function() {
-    console.log(`clicked on input`);
     $(`.homeButton`).fadeOut();
   });
 
     $(`input.search`).on(`blur`, function() {
-      console.log(`clicked on input`);
       $(`.homeButton`).fadeIn();
     });
 
