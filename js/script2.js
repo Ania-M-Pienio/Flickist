@@ -1,3 +1,5 @@
+import { isAbsolute } from "path";
+
 const app = {};
 //-------- API ---------------------------------------------------------- //
 app.api = {};
@@ -25,6 +27,7 @@ app.dom.$remove = $(`.remove`); // button
 app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
 app.dom.$HOME = $(`.home`); // section for home
 app.dom.$DETAIL = $(`.backDropOverlay`);
+app.dom.$DRAWER = $(`.listDrawer`);
 // ------ DATA ----------------------------------------------------------//
 app.results = []; // stores the results of a search
 app.popular = {
@@ -33,7 +36,8 @@ app.popular = {
 };
 app.list = []; // stores the media added to the list
 app.detail; // stores the media shown in the details view
-app.keyword = ``;
+app.keyword = ``; // stores users query
+app.isOpen = false;
 
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
@@ -67,7 +71,9 @@ app.getItemCardHtml = function(item) {
 app.getListItemtHtml = function(item) {
   return `
   <li class="listItem">   
-      <button type="button" class="remove removeBtn" data-id="${item.id}">Remove</button> 
+      <button type="button" class="remove removeBtn" data-id="${
+        item.id
+      }">Remove</button> 
       <div class="info" data-id="${item.id}" data-type="${item.media_type}">
         <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
       </div>
@@ -89,7 +95,7 @@ app.getItemDetailHtml = function(item) {
     <div class="releaseDateContainer">
         <h3 class="releaseDate"> Release: ${
           item.release_date ? item.release_date : item.first_air_date
-            } </h3>
+        } </h3>
     </div>
     <div class="imgDescriptionContainer">
       <div class="imgLargeOverlay">
@@ -306,7 +312,19 @@ app.Handlers = function() {
   $(`ul`).on(`focus`, `li`, function() {
     // console.log(`li focused`);
     // $(this).css({border: `6px solid red`});
+  });
 
+  $(`.listDrawerBtn`).on(`click`, function() {    
+    app.isOpen ?
+    app.dom.$DRAWER.css({
+      position: `relative`,
+      display: `none`,
+    })
+    : app.dom.$DRAWER.css({
+      position: `relative`,
+      display: `block`
+    });
+    app.isOpen = !app.isOpen;
   });
 };
 

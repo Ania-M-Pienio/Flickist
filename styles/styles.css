@@ -543,9 +543,10 @@ h3 {
 }
 
 .listDrawer {
+  display: block;
   min-height: 100vh;
   background-color: #153e50;
-  width: 25vw;
+  width: 25%;
   color: #fff;
   padding: 15px;
   position: relative;
@@ -587,6 +588,7 @@ h3 {
   position: absolute;
   right: 0;
   bottom: 0;
+  height: 22px;
   background-color: #E2AA5F;
 }
 
@@ -596,13 +598,13 @@ h3 {
 }
 
 .listDrawerBtn {
-  position: absolute;
+  position: fixed;
   display: inline-block;
   top: 50%;
   left: -20px;
   font-size: 3.5rem;
   background-color: #000;
-  border: none;
+  border: 1px solid #E2AA5F;
   color: #E2AA5F;
   display: none;
   z-index: 6000;
@@ -720,6 +722,7 @@ h3 {
   }
   .listDrawer {
     display: none;
+    width: 100%;
   }
   .listDrawerBtn {
     display: inline-block !important;
