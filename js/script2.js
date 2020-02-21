@@ -279,6 +279,17 @@ app.removeFromList = function(id) {
 
 app.Handlers = function() {
   /* ---------------------------------------*/
+  $(`input.search`).on(`focus`, function() {
+    console.log(`clicked on input`);
+    $(`.homeButton`).fadeOut();
+  });
+
+    $(`input.search`).on(`blur`, function() {
+      console.log(`clicked on input`);
+      $(`.homeButton`).fadeIn();
+    });
+
+
   /* [1] On start search */
   $(`input.search`).on(`keyup`, function() {
     app.keyword = $(this).val();
@@ -303,7 +314,6 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
-    // app.scrollToElem(`top`);
   });
 
   /* [6] On click any ADD from list icon ( requires event delegation) */
@@ -318,7 +328,6 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
-    // app.scrollToElem(`top`);
   });
 
   /* [3 & 4] */
@@ -345,7 +354,6 @@ app.Handlers = function() {
     } else {
       app.dom.$DRAWER.removeClass(`close`);
       app.dom.$DRAWER.addClass(`open`);
-      // app.scrollToElem(`top`);
     }
     app.isOpen = !app.isOpen;
   });
