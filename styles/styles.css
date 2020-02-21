@@ -544,13 +544,42 @@ h3 {
 
 .listDrawer {
   display: block;
+  position: relative;
+  width: 25%;
+  margin-left: 0;
   min-height: 100vh;
   background-color: #153e50;
-  width: 25%;
   color: #fff;
   padding: 15px;
-  position: relative;
   z-index: 1001;
+}
+
+.listDrawerBtn {
+  position: fixed;
+  display: none;
+  top: 50%;
+  left: -20px;
+  height: 50px;
+  font-size: 3.5rem;
+  background-color: #000;
+  border: 1px solid #E2AA5F;
+  color: #E2AA5F;
+  z-index: 6000;
+}
+
+.listDrawer.open,
+.listDrawer.close {
+  margin-left: 0;
+}
+
+.close {
+  margin-left: -1000px;
+  width: 25vw;
+}
+
+.open {
+  margin-left: 0;
+  width: 100%;
 }
 
 .myListContainer {
@@ -559,10 +588,6 @@ h3 {
 
 .myList {
   font-size: 3rem;
-}
-
-.watchListContainer {
-  position: relative;
 }
 
 .watchListContainer h3 {
@@ -595,19 +620,6 @@ h3 {
 .removeBtn:hover {
   color: #F2F3F4;
   background-color: crimson;
-}
-
-.listDrawerBtn {
-  position: fixed;
-  display: inline-block;
-  top: 50%;
-  left: -20px;
-  font-size: 3.5rem;
-  background-color: #000;
-  border: 1px solid #E2AA5F;
-  color: #E2AA5F;
-  display: none;
-  z-index: 6000;
 }
 
 .collection {
@@ -704,7 +716,8 @@ h3 {
     height: 25vh;
   }
   h1 {
-    padding: 0;
+    font-size: 5rem;
+    margin: 0 auto;
   }
   .collection li {
     width: calc(33.3% - 30px);
@@ -721,8 +734,15 @@ h3 {
     width: 100%;
   }
   .listDrawer {
-    display: none;
-    width: 100%;
+    position: absolute;
+    margin-left: -1000px;
+  }
+  .listDrawer.close {
+    position: absolute;
+    margin-left: -1000px;
+  }
+  .listDrawer.open {
+    margin-left: 0px;
   }
   .listDrawerBtn {
     display: inline-block !important;
@@ -745,10 +765,6 @@ h3 {
         -ms-flex-align: center;
             align-items: center;
     height: 25vh;
-  }
-  h1 {
-    font-size: 5rem;
-    margin: 0 auto;
   }
   .collection li {
     width: calc(50% - 30px);

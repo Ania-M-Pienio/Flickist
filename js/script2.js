@@ -308,20 +308,17 @@ app.Handlers = function() {
 
   /* [8] */
   $(`ul`).on(`focus`, `li`, function() {
-    // console.log(`li focused`);
-    // $(this).css({border: `6px solid red`});
+
   });
 
-  $(`.listDrawerBtn`).on(`click`, function() {    
-    app.isOpen ?
-    app.dom.$DRAWER.css({
-      position: `relative`,
-      display: `none`,
-    })
-    : app.dom.$DRAWER.css({
-      position: `relative`,
-      display: `block`
-    });
+  $(`.listDrawerBtn`).on(`click`, function() { 
+    if(app.isOpen) {
+      app.dom.$DRAWER.removeClass(`open`);
+      app.dom.$DRAWER.addClass(`close`);
+    } else {
+      app.dom.$DRAWER.removeClass(`close`);
+      app.dom.$DRAWER.addClass(`open`);
+    }
     app.isOpen = !app.isOpen;
   });
 };
