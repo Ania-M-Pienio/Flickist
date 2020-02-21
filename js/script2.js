@@ -8,8 +8,8 @@ app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
 app.recentAmount = 5; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
-app.resultsAmount = 20; // app setting for how many results to show upon search
-app.listAmount = 20; // app setting for max amount of medias that can be be stored in the list at any given time
+app.resultsAmount = 10; // app setting for how many results to show upon search
+app.listAmount = 10; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$popular = {
