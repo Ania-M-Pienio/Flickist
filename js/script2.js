@@ -303,7 +303,7 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
-    app.scrollToElem(`top`);
+    // app.scrollToElem(`top`);
   });
 
   /* [6] On click any ADD from list icon ( requires event delegation) */
@@ -318,7 +318,7 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
-    app.scrollToElem(`top`);
+    // app.scrollToElem(`top`);
   });
 
   /* [3 & 4] */
@@ -345,7 +345,7 @@ app.Handlers = function() {
     } else {
       app.dom.$DRAWER.removeClass(`close`);
       app.dom.$DRAWER.addClass(`open`);
-      app.scrollToElem(`top`);
+      // app.scrollToElem(`top`);
     }
     app.isOpen = !app.isOpen;
   });
