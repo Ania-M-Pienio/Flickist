@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./styles/styles.css" />
 </head>
 
-<body>
+<body id="top">
     <a class="skip-link" href="#main">Skip to main content</a>
     <button class="listDrawerBtn">
         <i class="fas fa-arrows-alt-h"></i>
@@ -34,7 +34,7 @@
                 <div class="logoContainer">
                     <h1>Flickist</h1>
                 </div>
-                <form action="GET" id="searchForm" name="search" class="">
+                <form>
                     <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..." />
                 </form>
                 <div class="homeContainer">
@@ -84,12 +84,12 @@
         <div class="backDropOverlay">
             <div class="overLayWrapper">
                 <div class="largeOverlay container">
-                    <div class="exitBtn exit">
+                    <button class="exitBtn exit" tabindex="0">
                         <i class="far fa-times-circle fa-2x"></i>
-                    </div>
-                    <div class="detailsCard">
+                    </button>
+                    <ul class="detailsCard">
                         <!-- dynamic details here (getItemDetailHtml) -->
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

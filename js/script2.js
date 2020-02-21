@@ -45,9 +45,14 @@ app.getItemCardHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
     <li 
-      role="button"
-      tabindex="0"
       class="flexItem">
+        <button 
+          type="button" 
+          class="infoBtn" 
+          data-id="${item.id}"
+          data-type="${item.media_type}"> 
+          <i class="fas fa-info-circle fa-4x"></i> 
+          </button>
       ${
         app.findIndexById(app.list, item.id) >= 0
           ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
@@ -68,7 +73,14 @@ app.getItemCardHtml = function(item) {
 
 app.getListItemtHtml = function(item) {
   return `
-  <li class="listItem">   
+  <li class="listItem"> 
+      <button 
+          type="button" 
+          class="infoBtn" 
+          data-id="${item.id}"
+          data-type="${item.media_type}"> 
+          <i class="fas fa-info-circle fa-4x"></i> 
+          </button>  
       <button type="button" class="remove removeBtn" data-id="${
         item.id
       }">Remove</button> 
@@ -81,12 +93,12 @@ app.getListItemtHtml = function(item) {
 app.getItemDetailHtml = function(item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
-  <li data-id="${item.id}" class="clearfix">
+  <li data-id="${item.id}">
     <div class="topLargeOverlay">
           ${
             app.findIndexById(app.list, item.id) >= 0
-              ? `<button type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
-              : `<button type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
+              ? `<button tabindex="0" type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
+              : `<button tabindex="0" type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
           }
         <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
     </div>
@@ -217,6 +229,20 @@ app.getDetailsById = function(id, type) {
 /* ------                        UPDATERS &  HELPERS                     -----*/
 /* ---------------------------------------------------------------------------*/
 
+app.loadOverlay = function($this) {
+    const id = $this.data(`id`);
+    const type = $this.data(`type`);
+    app.getDetailsById(id, type);
+    app.dom.$DETAIL.show(`fast`);
+    $(`.movieTvBtn.detailBtn`).focus();
+};
+
+// scrolls to the element with the given id
+app.scrollToElem = function(id) {
+  const element = document.getElementById(id);
+  element.scrollIntoView({ behavior: "smooth" });
+};
+
 app.findIndexById = function(list, id) {
   let foundIndex = -1;
   list.forEach((item, index) => {
@@ -277,6 +303,7 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
+    app.scrollToElem(`top`);
   });
 
   /* [6] On click any ADD from list icon ( requires event delegation) */
@@ -291,14 +318,16 @@ app.Handlers = function() {
     app.getByKeyword(app.keyword);
     app.loadHome();
     app.dom.$DETAIL.hide(`fast`);
+    app.scrollToElem(`top`);
   });
 
   /* [3 & 4] */
   $(`ul`).on(`click`, `.info`, function() {
-    const id = $(this).data(`id`);
-    const type = $(this).data(`type`);
-    app.getDetailsById(id, type);
-    app.dom.$DETAIL.show(`fast`);
+    app.loadOverlay($(this));
+  });
+
+  $(`ul`).on(`click`, `.infoBtn`, function() {
+    app.loadOverlay($(this));
   });
 
   /* [7] */
@@ -307,17 +336,16 @@ app.Handlers = function() {
   });
 
   /* [8] */
-  $(`ul`).on(`focus`, `li`, function() {
+  $(`ul`).on(`focus`, `li`, function() {});
 
-  });
-
-  $(`.listDrawerBtn`).on(`click`, function() { 
-    if(app.isOpen) {
+  $(`.listDrawerBtn`).on(`click`, function() {
+    if (app.isOpen) {
       app.dom.$DRAWER.removeClass(`open`);
       app.dom.$DRAWER.addClass(`close`);
     } else {
       app.dom.$DRAWER.removeClass(`close`);
       app.dom.$DRAWER.addClass(`open`);
+      app.scrollToElem(`top`);
     }
     app.isOpen = !app.isOpen;
   });
