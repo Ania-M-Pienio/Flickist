@@ -223,6 +223,31 @@ input::-moz-focus-inner {
 /* VARIABLE STYLES */
 /* MIX INS */
 /* FLEXBOX CENTERING */
+.backDropOverlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+}
+
+.backDropOverlay .overLayWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .largeOverlay {
   width: 80%;
   height: 70%;
@@ -254,20 +279,6 @@ input::-moz-focus-inner {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-}
-
-.overLayWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100%;
-  width: 100%;
 }
 
 .exitBtn {
@@ -408,17 +419,6 @@ input::-moz-focus-inner {
 .movieTvBtn.detailBtn:hover {
   background-color: #e2aa5f;
   color: #f2f3f4;
-}
-
-.backDropOverlay {
-  display: none;
-  background-color: rgba(0, 0, 0, 0.6);
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5000;
 }
 
 @media (max-width: 1090px) {
@@ -567,6 +567,7 @@ input::-moz-focus-inner {
     max-height: 690px;
     min-height: 690px;
     height: 690px;
+    margin-bottom: 20px;
   }
   .imgDescriptionContainer {
     padding-top: 0px;

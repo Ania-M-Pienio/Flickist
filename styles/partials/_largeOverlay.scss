@@ -1,5 +1,23 @@
 // LARGE OVERLAY STYLES (thumbnail when selected)
 
+// backdrop styles to provide focus to large card overlay, use jquery add class to selected card
+
+.backDropOverlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  .overLayWrapper {
+    @include flexboxCenter();
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .largeOverlay {
   // apply backdrop
   width: 80%;
@@ -24,12 +42,6 @@
       justify-content: flex-start;
     }
   }
-}
-
-.overLayWrapper {
-  @include flexboxCenter();
-  height: 100%;
-  width: 100%;
 }
 
 .exitBtn {
@@ -151,19 +163,6 @@
     background-color: $tertiary-color;
     color: $secondary-color;
   }
-}
-
-// backdrop styles to provide focus to large card overlay, use jquery add class to selected card
-
-.backDropOverlay {
-  display: none;
-  background-color: rgba(0, 0, 0, 0.6);
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5000;
 }
 
 @media (max-width: 1090px) {
@@ -311,6 +310,7 @@
     max-height: 690px;
     min-height: 690px;
     height: 690px;
+    margin-bottom: 20px;
   }
   .imgDescriptionContainer {
     padding-top: 0px;
