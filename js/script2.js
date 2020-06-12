@@ -14,7 +14,7 @@ app.listAmount = 10; // app setting for max amount of medias that can be be stor
 app.dom = {};
 app.dom.$popular = {
   tv: $(`.topTvShows`), // location
-  movie: $(`.topMovies`) // location
+  movie: $(`.topMovies`), // location
 };
 app.dom.$recent = $(`.recentlyAdded`); // location
 app.dom.$result = $(`.resultsSearch`); // location
@@ -30,10 +30,10 @@ app.dom.$DRAWER = $(`.listDrawer`);
 app.results = []; // stores the results of a search
 app.popular = {
   tv: [], // stores popular tv shows
-  movie: [] // stores popular movies
+  movie: [], // stores popular movies
 };
 app.list = []; // stores the media added to the list
-app.detail; // stores the media shown in the details view
+app.detail = {}; // stores the media shown in the details view
 app.keyword = ``; // stores users query
 app.isOpen = false;
 
@@ -41,7 +41,7 @@ app.isOpen = false;
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
 
-app.getItemCardHtml = function(item) {
+app.getItemCardHtml = function (item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
     <li 
@@ -51,7 +51,7 @@ app.getItemCardHtml = function(item) {
           class="infoBtn" 
           data-id="${item.id}"
           data-type="${item.media_type}"> 
-          <i class="fas fa-info-circle fa-4x"></i> 
+            <i class="fas fa-info-circle fa-4x"></i> 
           </button>
       ${
         app.findIndexById(app.list, item.id) >= 0
@@ -71,26 +71,34 @@ app.getItemCardHtml = function(item) {
   `;
 };
 
-app.getListItemtHtml = function(item) {
+app.getListItemtHtml = function (item) {
+  console.log(item);
+  const backImgUrl =
+    app.api.imgUrl +
+    (item.backdrop_path
+      ? item.backdrop_path
+      : item.poster_path);
   return `
-  <li class="listItem"> 
-      <button 
-          type="button" 
-          class="infoBtn" 
-          data-id="${item.id}"
-          data-type="${item.media_type}"> 
-          <i class="fas fa-info-circle fa-4x"></i> 
-          </button>  
-      <button type="button" class="remove removeBtn" data-id="${
-        item.id
-      }">Remove</button> 
-      <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-        <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
-      </div>
-    </li>`;
+  <li class="listItem" style="background-image:url(${backImgUrl})"> 
+    <div class="listItemBackWrapper">
+        <button 
+            type="button" 
+            class="infoBtn" 
+            data-id="${item.id}"
+            data-type="${item.media_type}"> 
+            <i class="fas fa-info-circle fa-4x"></i> 
+        </button>  
+        <button type="button" class="remove removeBtn" data-id="${
+          item.id
+        }">Remove</button> 
+        <div class="info" data-id="${item.id}" data-type="${item.media_type}">
+          <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
+        </div>
+    </div>  
+  </li>`;
 };
 
-app.getItemDetailHtml = function(item) {
+app.getItemDetailHtml = function (item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
   return `
   <li data-id="${item.id}">
@@ -127,13 +135,13 @@ app.getItemDetailHtml = function(item) {
 /* ------                       DISPLAYS                            -----*/
 /* ----------------------------------------------------------------------*/
 
-app.displayMedia = function(
+app.displayMedia = function (
   medias /* what info to display - as an array - what? */,
   $location /* cached jQuery object for location for inserting - where? */,
   getHtml /* callback for what it will look like - how? */
 ) {
   $location.html(``);
-  medias.forEach(item => {
+  medias.forEach((item) => {
     const htmlToAppend = getHtml(item);
     $location.append(htmlToAppend);
   });
@@ -143,7 +151,7 @@ app.displayMedia = function(
 /* ------                       GETTERS                             -----*/
 /* ----------------------------------------------------------------------*/
 
-app.getPopularByType = function(type) {
+app.getPopularByType = function (type) {
   const url = `${app.api.baseUrl}/${type}/popular`;
   $.ajax({
     url: url,
@@ -151,11 +159,11 @@ app.getPopularByType = function(type) {
     dataType: `json`,
     data: {
       api_key: app.api.key,
-      language: app.api.lang
-    }
-  }).then(data => {
+      language: app.api.lang,
+    },
+  }).then((data) => {
     app.popular[type] = data.results.slice(0, app.popularAmount);
-    app.popular[type] = app.popular[type].map(item => {
+    app.popular[type] = app.popular[type].map((item) => {
       item.media_type = type;
       return item;
     });
@@ -167,11 +175,11 @@ app.getPopularByType = function(type) {
   });
 };
 
-app.getRecent = function(list) {
+app.getRecent = function (list) {
   let amountToTake = app.recentAmount;
   const shortData = [];
   list.reverse();
-  list.forEach(item => {
+  list.forEach((item) => {
     if (amountToTake-- > 0) {
       shortData.push(item);
     }
@@ -184,7 +192,7 @@ app.getRecent = function(list) {
   }
 };
 
-app.getByKeyword = function(keyword) {
+app.getByKeyword = function (keyword) {
   const url = `${app.api.baseUrl}/search/multi`;
   $.ajax({
     url: url,
@@ -193,14 +201,14 @@ app.getByKeyword = function(keyword) {
     data: {
       api_key: app.api.key,
       languague: app.api.lang,
-      query: keyword
-    }
-  }).then(data => {
+      query: keyword,
+    },
+  }).then((data) => {
     app.results = data.results
-      .filter(item => {
+      .filter((item) => {
         return item.media_type === `movie` || item.media_type === `tv`;
       })
-      .filter(item => {
+      .filter((item) => {
         return item.poster_path;
       })
       .slice(0, app.resultsAmount); // first x amount as specified in settings
@@ -208,7 +216,7 @@ app.getByKeyword = function(keyword) {
   });
 };
 
-app.getDetailsById = function(id, type) {
+app.getDetailsById = function (id, type) {
   const url = `${app.api.baseUrl}/${type}/${id}`;
   $.ajax({
     url: url,
@@ -216,11 +224,13 @@ app.getDetailsById = function(id, type) {
     dataType: `json`,
     data: {
       api_key: app.api.key,
-      languague: app.api.lang
-    }
-  }).then(data => {
+      languague: app.api.lang,
+    },
+  }).then((data) => {
     const media = [];
     media.push(data);
+    app.detail = data;
+    app.setOverlayBackdrop();
     app.displayMedia(media, app.dom.$detail, app.getItemDetailHtml);
   });
 };
@@ -229,21 +239,42 @@ app.getDetailsById = function(id, type) {
 /* ------                        UPDATERS &  HELPERS                     -----*/
 /* ---------------------------------------------------------------------------*/
 
-app.loadOverlay = function($this) {
-    const id = $this.data(`id`);
-    const type = $this.data(`type`);
-    app.getDetailsById(id, type);
-    app.dom.$DETAIL.show(`fast`);
-    $(`.movieTvBtn.detailBtn`).focus();
+app.pause = function (miliseconds) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res();
+    }, miliseconds);
+  });
+};
+
+app.loadOverlay = async function ($this) {
+  const id = $this.data(`id`);
+  const type = $this.data(`type`);
+  app.getDetailsById(id, type);
+  app.dom.$DETAIL.show(`fast`);
+  $(`.movieTvBtn.detailBtn`).focus();
+};
+
+// sets the backdrop of the Overlay
+app.setOverlayBackdrop = function () {
+  console.log(app.detail);
+  const backImgUrl =
+    app.api.imgUrl +
+    (app.detail.backdrop_path
+      ? app.detail.backdrop_path
+      : app.detail.poster_path);
+  $(".largeOverlay").css({
+    "background-image": `url(${backImgUrl})`,
+  });
 };
 
 // scrolls to the element with the given id
-app.scrollToElem = function(id) {
+app.scrollToElem = function (id) {
   const element = document.getElementById(id);
   element.scrollIntoView({ behavior: "smooth" });
 };
 
-app.findIndexById = function(list, id) {
+app.findIndexById = function (list, id) {
   let foundIndex = -1;
   list.forEach((item, index) => {
     if (item.id === id) {
@@ -253,7 +284,7 @@ app.findIndexById = function(list, id) {
   return foundIndex;
 };
 
-app.addToList = function(media) {
+app.addToList = function (media) {
   const index = app.findIndexById(app.list, media.id);
   if (app.list.length < app.listAmount && index < 0) {
     app.list.push(media);
@@ -263,7 +294,7 @@ app.addToList = function(media) {
   }
 };
 
-app.removeFromList = function(id) {
+app.removeFromList = function (id) {
   const index = app.findIndexById(app.list, id);
   if (index >= 0) {
     app.list.splice(index, 1);
@@ -277,19 +308,18 @@ app.removeFromList = function(id) {
 /* ------                       HANDLERS                            -----*/
 /* ----------------------------------------------------------------------*/
 
-app.Handlers = function() {
+app.Handlers = function () {
   /* ---------------------------------------*/
-  $(`input.search`).on(`focus`, function() {
+  $(`input.search`).on(`focus`, function () {
     $(`.homeButton`).fadeOut();
   });
 
-    $(`input.search`).on(`blur`, function() {
-      $(`.homeButton`).fadeIn();
-    });
-
+  $(`input.search`).on(`blur`, function () {
+    $(`.homeButton`).fadeIn();
+  });
 
   /* [1] On start search */
-  $(`input.search`).on(`keyup`, function() {
+  $(`input.search`).on(`keyup`, function () {
     app.keyword = $(this).val();
     app.getByKeyword(app.keyword);
     app.dom.$HOME.hide(`slow`);
@@ -297,7 +327,7 @@ app.Handlers = function() {
   });
 
   /* [2] On click Home Icon */
-  $(`button.homeButton`).on(`click`, function() {
+  $(`button.homeButton`).on(`click`, function () {
     // hide result, show the popular and recent again
     app.dom.$HOME.show(`slow`);
     app.dom.$SEARCH.hide("slow");
@@ -306,7 +336,7 @@ app.Handlers = function() {
   });
 
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
-  $(`.container`).on(`click`, `button.remove`, function() {
+  $(`.container`).on(`click`, `button.remove`, function () {
     const id = $(this).data(`id`);
     app.removeFromList(id);
     app.getByKeyword(app.keyword);
@@ -315,7 +345,7 @@ app.Handlers = function() {
   });
 
   /* [6] On click any ADD from list icon ( requires event delegation) */
-  $(`.container`).on(`click`, `button.add`, function() {
+  $(`.container`).on(`click`, `button.add`, function () {
     const id = $(this).data(`id`);
     const listPool = app.popular.tv
       .concat(app.popular.movie)
@@ -328,24 +358,21 @@ app.Handlers = function() {
     app.dom.$DETAIL.hide(`fast`);
   });
 
-  /* [3 & 4] */
-  $(`ul`).on(`click`, `.info`, function() {
+  $(`ul`).on(`click`, `.info`, function () {
     app.loadOverlay($(this));
   });
 
-  $(`ul`).on(`click`, `.infoBtn`, function() {
+  $(`ul`).on(`click`, `.infoBtn`, function () {
     app.loadOverlay($(this));
   });
 
-  /* [7] */
-  $(`.exit`).on(`click`, function() {
+  $(`.exit`).on(`click`, function () {
     app.dom.$DETAIL.hide(`fast`);
   });
 
-  /* [8] */
-  $(`ul`).on(`focus`, `li`, function() {});
+  $(`ul`).on(`focus`, `li`, function () {});
 
-  $(`.listDrawerBtn`).on(`click`, function() {
+  $(`.listDrawerBtn`).on(`click`, function () {
     if (app.isOpen) {
       app.dom.$DRAWER.removeClass(`open`);
       app.dom.$DRAWER.addClass(`close`);
@@ -357,13 +384,13 @@ app.Handlers = function() {
   });
 };
 
-app.loadHome = function() {
+app.loadHome = function () {
   app.getPopularByType(`movie`);
   app.getPopularByType(`tv`);
   app.getRecent(app.list);
 };
 
-app.init = function() {
+app.init = function () {
   app.Handlers();
   app.loadHome();
 };

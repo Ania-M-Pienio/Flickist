@@ -1,19 +1,20 @@
 /* VARIABLE STYLES */
 
 $primary-color: #153e50;
-$secondary-color: #F2F3F4;
-$tertiary-color: #E2AA5F;
+$secondary-color: #f2f3f4;
+$tertiary-color: #e2aa5f;
+$shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+$accent: rgb(219, 214, 214);
+$backdrop: linear-gradient(#153e50a2, #153e50dc, #153e50f3, $primary-color);
 
-
-$primary-font: 'Archivo Black', sans-serif;
-$secondary-font: 'Roboto', sans-serif;
-
+$primary-font: "Archivo Black", sans-serif;
+$secondary-font: "Roboto", sans-serif;
 
 /* MIX INS */
 
 /* FLEXBOX CENTERING */
 @mixin flexboxCenter() {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

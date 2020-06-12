@@ -160,21 +160,9 @@ h3 {
 .watchListContainer {
   //   position: relative;
   h3 {
-    font-size: 2rem;
+    font-family: $secondary-font;
+    font-size: 1.5rem;
   }
-}
-
-.listItem {
-  text-align: left;
-  list-style: none;
-  position: relative;
-  padding-top: 20px;
-  margin: auto 15px;
-  border-bottom: 2px solid $tertiary-color;
-}
-
-.addListItem {
-  font-size: 1.6rem;
 }
 
 .removeBtn {
@@ -239,7 +227,17 @@ h3 {
   position: relative;
   transition: all 0.5s ease;
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
+    box-shadow: $shadow;
+  }
+  &:hover i {
+    color: $accent;
+    box-shadow: $shadow;
+  }
+  i {
+    border: 2px solid $tertiary-color;
+    border-radius: 50%;
+    background-color: white;
   }
 }
 
@@ -264,19 +262,10 @@ h3 {
   bottom: -20px;
   right: 0;
   font-size: 1.4rem;
-
   &:hover,
   &:focus {
     background-color: $primary-color;
     color: $tertiary-color;
-  }
-}
-
-.listItem .info {
-  width: 70%;
-  cursor: pointer;
-  &:hover {
-    color: $tertiary-color;    
   }
 }
 
@@ -285,32 +274,68 @@ h3 {
   background: none;
   color: $tertiary-color;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  &:hover {
-    font-size: 15px;
-    top: 10px;
-    right: 10px;
-  }
+  top: 5%;
+  right: 5%;
+  transition: all 1s;
+  &:hover,
   &:focus {
-    font-size: 15px;
-    top: 10px;
-    right: 10px;
-    color: $primary-color;
-    background-color: $tertiary-color;
-    border-radius: 15px;
+    font-size: 12px;
+    top: 2.5%;
+    right: 4%;
+  }
+  &:hover i,
+  &:focus i {
+    color: $accent;
+  }
+  i {
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid $tertiary-color;
   }
 }
 
-.listItem .infoBtn {
-  top: 15px;
-  right: 0;
-  &:hover,
-  &:focus {
-    top: 10px;
-    right: 0;
-    font-size: 12.5px;
-    border-radius: 15px;
+.listItem {
+  background-size: cover;
+  text-align: left;
+  list-style: none;
+  position: relative;
+  margin: auto 15px;
+  margin-top: 15px;
+  border-bottom: 2px solid $tertiary-color;
+  height: 100px;
+  overflow-y: hidden;
+  .listItemBackWrapper {
+    height: 100%;
+    width: 100%;
+    background: $backdrop;    
+    .infoBtn {
+      top: 30px;
+      right: 0;
+      &:hover,
+      &:focus {
+        font-size: 10px;
+      }
+      i {
+        font-size: 22px;
+      }
+    }
+    .info {
+      width: 70%;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding:  0px 0px 10px 10px;
+      &:hover {
+        color: $tertiary-color;
+      }
+
+      .addListItem {
+        font-size: 1.6rem;
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -336,14 +361,6 @@ h3 {
   .flexItem {
     width: calc(50% - 30px);
     margin: 15px;
-  }
-
-  .imgDescriptionContainer {
-    flex-direction: column;
-  }
-  .imgLargeOverlay,
-  .descriptionLargeOverlay {
-    width: 100%;
   }
 }
 
@@ -389,16 +406,6 @@ h3 {
     margin-left: 0;
     width: 100%;
   }
-
-  .imgLargeOverlay {
-    display: none;
-  }
-  .largeOverlay {
-    width: 100%;
-  }
-  //  .overLayWrapper {
-
-  //  }
 }
 
 @media (max-width: 750px) {
