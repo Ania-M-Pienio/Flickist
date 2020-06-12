@@ -564,20 +564,30 @@ input::-moz-focus-inner {
 
 @media (max-width: 460px) {
   .largeOverlay {
-    max-height: 690px;
-    min-height: 690px;
-    height: 690px;
-    margin-bottom: 20px;
+    max-height: 660px;
+    min-height: 660px;
+    height: 660px;
+    margin-bottom: 45px;
+    max-width: 370px;
+  }
+  .largeOverlay ul.detailsCard {
+    padding: 15px;
   }
   .imgDescriptionContainer {
-    padding-top: 0px;
+    max-width: 370px;
+    padding: 0px;
+    height: 87%;
   }
   .imgDescriptionContainer .imgLargeOverlay {
     height: 160px;
     width: 100px;
   }
+  .imgDescriptionContainer .descriptionLargeOverlay {
+    width: 100%;
+    min-width: 0px;
+  }
   .imgDescriptionContainer .descriptionLargeOverlay p.overview {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 

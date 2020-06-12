@@ -264,7 +264,6 @@ app.getDetailsById = function (id, type) {
   }).then((data) => {
     const media = [];
     media.push(data);
-    console.log(data);
     app.detail = data;
     app.setOverlayBackdrop();
     app.displayMedia(media, app.dom.$detail, app.getItemDetailHtml);
