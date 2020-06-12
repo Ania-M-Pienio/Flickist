@@ -111,7 +111,7 @@ app.getItemDetailHtml = function (item) {
   const homepageURL = item.homepage ? item.homepage : "";
   const homepageLinkIcon = item.homepage 
     ? `<i class="fas fa-globe-asia"></i>`
-    : "Not Available";
+    : "Unavailable";
   try {
     runtime = item.runtime
       ? Math.floor(item.runtime / 60) + " hr " + (item.runtime % 60) + " min"
