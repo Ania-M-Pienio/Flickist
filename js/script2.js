@@ -52,11 +52,17 @@ app.getItemCardHtml = function (item) {
           data-id="${item.id}"
           data-type="${item.media_type}"> 
             <i class="fas fa-info-circle fa-4x"></i> 
-          </button>
+        </button>    
+       
       ${
         app.findIndexById(app.list, item.id) >= 0
-          ? `<button type="button" class="movieTvBtn remove" data-id="${item.id}">Remove</button>`
-          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">Add To Watchlist</button>`
+          ? `
+          <button type="button" class="movieTvBtn remove" data-id="${item.id}">
+              Remove
+          </button>`
+          : `<button type="button" class="movieTvBtn add" data-id="${item.id}">
+                Add To List
+            </button>`
       }
       <div 
         class="info imgContainer" 
@@ -75,9 +81,7 @@ app.getListItemtHtml = function (item) {
   console.log(item);
   const backImgUrl =
     app.api.imgUrl +
-    (item.backdrop_path
-      ? item.backdrop_path
-      : item.poster_path);
+    (item.backdrop_path ? item.backdrop_path : item.poster_path);
   return `
   <li class="listItem" style="background-image:url(${backImgUrl})"> 
     <div class="listItemBackWrapper">
@@ -100,6 +104,30 @@ app.getListItemtHtml = function (item) {
 
 app.getItemDetailHtml = function (item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
+  const typeIcon = item.title ? "fas fa-film" : "fas fa-tv";
+  let runtime = "";
+  let genres = "";
+  const overview = item.overview ? item.overview : "Description Unavailable"
+  const homepageURL = item.homepage ? item.homepage : "";
+  const homepageLinkIcon = item.homepage 
+    ? `<i class="fas fa-globe-asia"></i>`
+    : "Not Available";
+  try {
+    runtime = item.runtime
+      ? Math.floor(item.runtime / 60) + " hr " + (item.runtime % 60) + " min"
+      : item.episode_run_time[0] + " min";
+  } catch (error) {
+    runtime = "Runtime Unknown";
+  }
+
+  try {
+    item.genres.forEach((genre, index) => {
+      genres += (index === 0 ? "" : ", ") + genre.name;
+    });
+  } catch (error) {
+    genres = "Gengre Unknown";
+  }
+
   return `
   <li data-id="${item.id}">
     <div class="topLargeOverlay">
@@ -117,14 +145,21 @@ app.getItemDetailHtml = function (item) {
     </div>
     <div class="imgDescriptionContainer">
       <div class="imgLargeOverlay">
-          <img 
+        <img 
             src="${itemImgUrl}"   
             class="detailImg" 
             alt="${item.title ? item.title : item.name} poster">
       </div>
       <div class="descriptionLargeOverlay">
-          <h3 class="descriptionTitle">Description</h3>
-          <p> ${item.overview}</p>
+          <p class="descriptionDetails">  
+            <b>Type</b>: ${item.title ? "Movie" : "TV Show"} <br>
+            <b>Runtime</b>: ${runtime} <br>
+            <b>Genre</b>: ${genres} <br>      
+            <b>Website</b>: <a href="${homepageURL}" target="_blank">${homepageLinkIcon}</a>
+          </p>  
+          <h3 class="descriptionTitle"><i class="${typeIcon}"></i> <span>Description</span></h3>
+
+          <p class="overview"> ${overview}</p>
       </div>
     </div>
   <li>
@@ -229,6 +264,7 @@ app.getDetailsById = function (id, type) {
   }).then((data) => {
     const media = [];
     media.push(data);
+    console.log(data);
     app.detail = data;
     app.setOverlayBackdrop();
     app.displayMedia(media, app.dom.$detail, app.getItemDetailHtml);
