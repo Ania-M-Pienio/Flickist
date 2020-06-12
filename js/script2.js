@@ -151,12 +151,14 @@ app.getItemDetailHtml = function (item) {
             alt="${item.title ? item.title : item.name} poster">
       </div>
       <div class="descriptionLargeOverlay">
-          <p class="descriptionDetails">  
-            <b>Type</b>: ${item.title ? "Movie" : "TV Show"} <br>
-            <b>Runtime</b>: ${runtime} <br>
-            <b>Genre</b>: ${genres} <br>      
-            <b>Website</b>: <a href="${homepageURL}" target="_blank">${homepageLinkIcon}</a>
-          </p>  
+          <div class="descriptionDetails"> 
+            <ul> 
+              <li><b>Type</b>: ${item.title ? "Movie" : "TV Show"} </li>
+              <li><b>Runtime</b>: ${runtime} </li>
+              <li> <b>Genre</b>: ${genres} </li>    
+              <li> <b>Website</b>: <a href="${homepageURL}" target="_blank">${homepageLinkIcon}</a> </li>
+            </ul>
+          </div>  
           <h3 class="descriptionTitle"><i class="${typeIcon}"></i> <span>Description</span></h3>
 
           <p class="overview"> ${overview}</p>

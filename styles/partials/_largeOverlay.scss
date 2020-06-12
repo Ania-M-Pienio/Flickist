@@ -327,7 +327,6 @@
     min-height: 99vh;
     max-height: 99vh;
     height: 850px;
-    border: 2px solid red;
     ul.detailsCard {
       padding: 10px;
       height: 100%;
@@ -338,9 +337,10 @@
         flex-direction: row;
         position: relative;
         .descriptionLargeOverlay {
-          height: 100%;
+          height: 80%;
           padding: 0px 15px;
           margin-left: 15px;
+          border-left: 2px solid $tertiary-color;
           .descriptionTitle {
             font-size: 1.6rem;
             margin-top: 0px;
@@ -349,7 +349,7 @@
             margin: 0px;
             height: 100%;
           }
-          p.descriptionDetails {
+          .descriptionDetails {
             position: absolute;
             top: 190px;
             left: 10px;
@@ -384,11 +384,45 @@
     ul.detailsCard {
       .imgDescriptionContainer {
         .imgLargeOverlay {
-          height: 150px;
-          width: 100px;
+          height: 70px;
+          width: 70px;
+          position: absolute;
+          top: -65px;
+          left: 20px;
+        }
+        .descriptionLargeOverlay {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          border-left: none;
+          .descriptionDetails {
+            width: 98%;
+            height: 40px;
+            position: static;
+            bottom: 0;
+            ul {
+              display: flex;
+              align-content: center;
+              margin: 10px 0;
+              li {
+                margin-right: 15px;
+              }
+            }
+          }
+          .descriptionTitle {
+            margin: 5px 0;
+          }
+          p.overview {
+            font-size: 1.3rem;
+            line-height: 1.35;
+            height: 60%;
+          }
         }
       }
     }
+  }
+  .exitBtn {
+    top: 30px;
   }
 }
 
