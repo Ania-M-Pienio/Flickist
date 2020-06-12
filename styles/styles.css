@@ -658,11 +658,14 @@ input::-moz-focus-inner {
 }
 
 @media (max-width: 800px) and (max-height: 470px) {
+  .largeOverlay ul.detailsCard .imgDescriptionContainer {
+    padding: 25px 10px;
+  }
   .largeOverlay ul.detailsCard .imgDescriptionContainer .imgLargeOverlay {
     height: 70px;
     width: 70px;
     position: absolute;
-    top: -65px;
+    top: -55px;
     left: 20px;
   }
   .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay {
