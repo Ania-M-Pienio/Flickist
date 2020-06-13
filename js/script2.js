@@ -107,17 +107,21 @@ app.getItemDetailHtml = function (item) {
   const typeIcon = item.title ? "fas fa-film" : "fas fa-tv";
   let runtime = "";
   let genres = "";
-  const overview = item.overview ? item.overview : "Description Unavailable"
+  const overview = item.overview ? item.overview : "Unavailable";
   const homepageURL = item.homepage ? item.homepage : "";
-  const homepageLinkIcon = item.homepage 
+  const homepageLinkIcon = item.homepage
     ? `<i class="fas fa-globe-asia"></i>`
     : "Unavailable";
+  const release = item.release_date
+    ? moment(item.release_date).format("MMMM Do, YYYY")
+    : moment(item.first_air_date).format("MMMM Do, YYYY");
+  const title = item.title ? item.title : item.name;
   try {
     runtime = item.runtime
       ? Math.floor(item.runtime / 60) + " hr " + (item.runtime % 60) + " min"
       : item.episode_run_time[0] + " min";
   } catch (error) {
-    runtime = "Runtime Unknown";
+    runtime = "Unknown";
   }
 
   try {
@@ -125,46 +129,44 @@ app.getItemDetailHtml = function (item) {
       genres += (index === 0 ? "" : ", ") + genre.name;
     });
   } catch (error) {
-    genres = "Gengre Unknown";
+    genres = "Unknown";
   }
 
   return `
-  <li data-id="${item.id}">
-    <div class="topLargeOverlay">
-          ${
-            app.findIndexById(app.list, item.id) >= 0
-              ? `<button tabindex="0" type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
-              : `<button tabindex="0" type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
-          }
-        <h3 class="movieTitle"> ${item.title ? item.title : item.name} </h3>
-    </div>
-    <div class="releaseDateContainer">
-        <h3 class="releaseDate"> Release: ${
-          item.release_date ? item.release_date : item.first_air_date
-        } </h3>
-    </div>
-    <div class="imgDescriptionContainer">
-      <div class="imgLargeOverlay">
-        <img 
-            src="${itemImgUrl}"   
-            class="detailImg" 
-            alt="${item.title ? item.title : item.name} poster">
+    <div class="overlay" data-id="${item.id}">
+      <div class="titleContainer">
+        <h1 class="movieTitle">${title}</h1>
       </div>
-      <div class="descriptionLargeOverlay">
-          <div class="descriptionDetails"> 
-            <ul> 
-              <li><b>Type</b>: ${item.title ? "Movie" : "TV Show"} </li>
-              <li><b>Runtime</b>: ${runtime} </li>
-              <li> <b>Genre</b>: ${genres} </li>    
-              <li> <b>Website</b>: <a href="${homepageURL}" target="_blank">${homepageLinkIcon}</a> </li>
-            </ul>
-          </div>  
-          <h3 class="descriptionTitle"><i class="${typeIcon}"></i> <span>Description</span></h3>
+      <div class="imgContainer">
+        <img
+          src="${itemImgUrl}"
+          class="detailImg"
+          alt=" ${title} poster"
+        />
+      </div>
 
-          <p class="overview"> ${overview}</p>
+      <div class="detailsContainer">
+        <ul>
+          <li><span>Release Date: </span> ${release} </li>
+          <li><span>Type:</span> ${item.title ? "Movie" : "TV Show"}</li>
+          <li><span>Runtime:</span> ${runtime}</li>
+          <li><span>Genre:</span> ${genres}</li>
+          <li>
+            <span>Website:</span>
+            <a href="${homepageURL}" target="_blank">${homepageLinkIcon}</a>
+          </li>
+        </ul>
       </div>
+      <div class="overviewContainer">
+        <h3><i class="${typeIcon}"></i> <span>Description</span></h3>
+        <p class="overview">${overview}</p>
+      </div>
+      ${
+        app.findIndexById(app.list, item.id) >= 0
+          ? `<button tabindex="0" type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
+          : `<button tabindex="0" type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
+      }
     </div>
-  <li>
   `;
 };
 

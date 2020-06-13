@@ -131,6 +131,9 @@ a {
   }
 }
 
+
+
+
 // HOME PAGE STYLES
 
 .categoryTitleContainer {
@@ -273,7 +276,23 @@ a {
   text-transform: capitalize;
 }
 
-
+.movieTvBtn {
+  width: 100%;
+  padding: 10px 0px;
+  border: none;
+  text-transform: uppercase;
+  background-color: $tertiary-color;
+  color: $primary-color;
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  font-size: 1.3rem;
+  &:hover,
+  &:focus {
+    background-color: $primary-color;
+    color: $tertiary-color;
+  }
+}
 
 .infoBtn {
   border: none;

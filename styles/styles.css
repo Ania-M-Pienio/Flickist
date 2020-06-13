@@ -245,40 +245,102 @@ input::-moz-focus-inner {
       -ms-flex-align: center;
           align-items: center;
   height: 100%;
-  width: 100vw;
+  width: 100%;
 }
 
 .largeOverlay {
   width: 80%;
+  max-width: 1000px;
+  min-width: 300px;
   height: 70%;
-  max-width: 980px;
-  min-height: 820px;
+  max-height: 850px;
+  min-height: 810px;
   color: #f2f3f4;
-  position: relative;
-  list-style: none;
   background-size: cover;
   background-position: center top;
+  position: relative;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
-.largeOverlay ul.detailsCard {
+.largeOverlay .detailsCard {
   background: -webkit-gradient(linear, left top, left bottom, from(#153e50a2), color-stop(#153e50dc), color-stop(#153e50f3), to(#153e50));
   background: linear-gradient(#153e50a2, #153e50dc, #153e50f3, #153e50);
   height: 100%;
-  padding: 30px;
+  width: 100%;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
-.largeOverlay ul.detailsCard li {
+.largeOverlay .detailsCard .overlay {
   height: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  width: 100%;
+  position: relative;
+  padding: 10px 80px 60px 30px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.overlay {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 0.8fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 0.8fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 0.8fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 0.8fr 1fr 1fr 1fr 1fr;
+  grid-gap: 30px;
+}
+
+.overlay .titleContainer {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 8;
+  grid-column: 1/9;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+}
+
+.overlay .imgContainer {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-column: 1/5;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 6;
+  grid-row: 2/8;
+}
+
+.overlay .detailsContainer {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 4;
+  grid-column: 5/9;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  grid-row: 2/4;
+}
+
+.overlay .overviewContainer {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 4;
+  grid-column: 5/9;
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 5;
+  grid-row: 4/9;
+}
+
+.overlay .movieTvBtn {
+  bottom: 0;
+}
+
+.overlay h1,
+.overlay h2,
+.overlay h3,
+.overlay p {
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: auto;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .exitBtn {
@@ -291,6 +353,7 @@ input::-moz-focus-inner {
   transition: 0.5s ease;
   font-size: 2rem;
   color: #f2f3f4;
+  z-index: 5000;
 }
 
 .exitBtn:hover, .exitBtn:focus {
@@ -305,82 +368,9 @@ input::-moz-focus-inner {
   border: 2px solid #e2aa5f;
 }
 
-.movieTvBtn {
-  width: 100%;
-  padding: 10px 0px;
-  border: none;
-  text-transform: uppercase;
-  background-color: #e2aa5f;
-  color: #153e50;
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-  font-size: 1.3rem;
-}
-
-.movieTvBtn:hover, .movieTvBtn:focus {
-  background-color: #153e50;
-  color: #e2aa5f;
-}
-
-.movieTitle {
+.titleContainer {
   text-align: center;
-  color: #e2aa5f;
-  font-size: 4rem;
-  margin: 0;
   border-bottom: 2px solid #e2aa5f;
-  -webkit-transition: all 1s;
-  transition: all 1s;
-}
-
-.releaseDateContainer {
-  border-bottom: 2px solid #e2aa5f;
-}
-
-.releaseDateContainer h3.releaseDate {
-  font-family: "Roboto", sans-serif;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.imgDescriptionContainer {
-  height: 80%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  padding: 30px 0px;
-}
-
-.imgLargeOverlay {
-  height: 500px;
-  width: 360px;
-  margin-right: 30px;
-  -webkit-transition: all 1s;
-  transition: all 1s;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-.imgLargeOverlay .detailImg {
-  height: 100%;
-  width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border: 2px solid #e2aa5f;
-}
-
-.descriptionLargeOverlay {
-  width: 50%;
-  min-width: 400px;
-  font-size: 1.6rem;
-  padding: 0 30px;
-  font-family: "Roboto", sans-serif;
-  line-height: 22px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -388,348 +378,189 @@ input::-moz-focus-inner {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.descriptionLargeOverlay .descriptionTitle {
-  margin: 2% 0;
-}
-
-.descriptionLargeOverlay .descriptionTitle i {
-  margin-right: 10px;
-}
-
-.descriptionLargeOverlay p {
-  font-size: 1.5rem;
-}
-
-.detailsLargeOverlay p {
-  font-size: 1.5rem;
-}
-
-.bottomLargeOverlay {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 20px;
-  width: 100%;
+  padding: 0 50px;
 }
 
-.ratingLargeOverlay {
-  font-size: 6rem;
+.titleContainer h1 {
+  color: #e2aa5f;
+  font-size: 3.4rem;
 }
 
-.movieTvBtn.detailBtn {
-  text-decoration: none;
-  color: #153e50;
-  background-color: #f2f3f4;
-  text-transform: uppercase;
-  border: none;
-  padding: 10px 30px;
-  font-size: 1.5rem;
+.detailsContainer {
+  font-size: 1.8rem;
+  font-family: "Roboto", sans-serif;
 }
 
-.movieTvBtn.detailBtn:hover {
-  background-color: #e2aa5f;
-  color: #f2f3f4;
+.detailsContainer span {
+  font-size: 2rem;
+  color: #e2aa5f;
+  margin-right: 10px;
+  font-weight: bolder;
 }
 
-@media (max-width: 1090px) {
-  .movieTitle {
-    font-size: 2.7rem;
+.detailsContainer ul li {
+  margin: 5px 0;
+}
+
+.overviewContainer {
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.overviewContainer i {
+  margin-right: 10px;
+}
+
+.overviewContainer h3 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+@media (max-height: 920px) {
+  .backDropOverlay .largeOverlay {
+    width: 80%;
+    max-width: 1200px;
+    min-width: 700px;
+    min-height: 100%;
+    max-height: 100%;
+    border: 4px solid fuchsia;
   }
-  .imgLargeOverlay {
-    height: 430px;
-    width: 280px;
-    margin-right: 15px;
-    -ms-flex-item-align: start;
-        align-self: flex-start;
-  }
-  .descriptionLargeOverlay {
-    width: 60%;
-    min-width: 380px;
-    padding-right: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-  }
-  .descriptionLargeOverlay .descriptionDetails {
-    margin-top: 0px;
-  }
-  .descriptionLargeOverlay p {
-    font-size: 1.4rem;
+  .backDropOverlay .largeOverlay .overlay {
+    padding: 10px 25px 60px 25px;
   }
 }
 
-@media (max-height: 900px) {
-  .largeOverlay {
-    height: 600px;
-    max-height: 600px;
-    min-height: 600px;
+@media (max-height: 500px) {
+  .backDropOverlay .largeOverlay {
+    width: 80%;
+    max-width: 1200px;
+    min-width: 700px;
+    height: 500px;
+    min-height: 500px;
+    max-height: 500px;
+    border: 4px solid #0026ff;
   }
-  .largeOverlay ul li .imgDescriptionContainer {
-    padding: 15px 0;
-  }
-  .releaseDateContainer h3.releaseDate {
-    margin: 10px 0px;
+  .backDropOverlay .largeOverlay .overlay {
+    padding: 10px 25px 60px 25px;
   }
 }
 
-@media (max-width: 850px) {
-  .largeOverlay {
-    height: 90%;
-    min-height: 800px;
-    max-height: 850px;
-    background-position: center;
+@media (max-width: 1200px) {
+  .backDropOverlay {
+    width: 98.5vw;
   }
-  .largeOverlay ul.detailsCard {
-    padding: 20px;
-  }
-  .topLargeOverlay h3 {
-    margin: 0;
-    padding: 0;
-  }
-  .movieTitle {
-    font-size: 2.4rem;
-    text-align: center;
-  }
-  .releaseDate {
-    font-size: 2.5rem;
-    padding: 0;
-  }
-  .imgDescriptionContainer {
+  .backDropOverlay .largeOverlay {
     width: 100%;
-    height: 90%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-    position: relative;
+    max-width: 100%;
+    border: 2px solid fuchsia;
   }
-  .imgDescriptionContainer .imgLargeOverlay {
-    height: 350px;
-    width: 220px;
-    margin-right: 0;
+  .backDropOverlay .largeOverlay .overlay {
+    padding: 10px 25px 60px 25px;
   }
-  .imgDescriptionContainer .descriptionLargeOverlay {
-    width: 100%;
-    padding: 20px 0px;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails {
-    position: absolute;
-    top: 40px;
-    left: 260px;
+  .overlay {
+    -ms-grid-columns: 1fr 1fr 0.5fr 0.1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 0.5fr 0.1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 25px;
   }
 }
 
-@media (max-width: 600px) {
-  .largeOverlay {
+@media (max-width: 900px) {
+  .overlay {
+    padding: 10px 20px 60px 20px;
+    -ms-grid-rows: 0.8fr 1fr 1fr 1fr 0.7fr 1fr 1fr 1fr;
+        grid-template-rows: 0.8fr 1fr 1fr 1fr 0.7fr 1fr 1fr 1fr;
+    -ms-grid-columns: 0.5fr 0.5fr 0.5fr 0.1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 0.5fr 0.5fr 0.5fr 0.1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+  }
+  .overlay .overviewContainer {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 8;
+    grid-column: 1/9;
+    -ms-grid-row: 6;
+    -ms-grid-row-span: 3;
+    grid-row: 6/9;
+  }
+  .titleContainer h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 690px) {
+  .backDropOverlay .largeOverlay {
     width: 100%;
-    max-height: 710px;
-    min-height: 710px;
-    height: 710px;
-    background-position: top center;
-    margin: 0;
+    max-width: 100%;
+    min-width: 100%;
+    border: 4px solid #ff0022;
   }
-  .largeOverlay ul.detailsCard {
-    padding: 20px 20px 10px 10px;
+  .backDropOverlay .largeOverlay .overlay {
+    padding: 10px 30px 60px 20px;
   }
-  .imgDescriptionContainer {
-    padding-top: 0px;
+  .overlay .overviewContainer {
+    -ms-grid-row: 5;
+    -ms-grid-row-span: 4;
+    grid-row: 5/9;
   }
-  .imgDescriptionContainer .imgLargeOverlay {
-    height: 210px;
-    width: 120px;
-    margin: 0px;
-    padding: 10px;
-    -ms-flex-item-align: start;
-        align-self: flex-start;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay {
-    padding: 10px;
-    height: 70%;
-    border-top: 2px solid #e2aa5f;
-    border-bottom: 2px solid #e2aa5f;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails {
-    position: absolute;
-    top: 10px;
-    left: 130px;
-    height: 30%;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay .descriptionTitle {
+  .detailsContainer {
     font-size: 1.6rem;
   }
-  .imgDescriptionContainer .descriptionLargeOverlay p.overview {
+  .detailsContainer span {
     display: block;
-    width: 100%;
-    height: 100%;
-    font-size: 1.4rem;
-    padding-right: 20px;
-    margin: 0px;
-  }
-  .topLargeOverlay {
-    width: 85%;
-  }
-  .topLargeOverlay h3.movieTitle {
     font-size: 1.8rem;
-    text-align: left;
   }
-  .releaseDateContainer h3.releaseDate {
-    font-size: 1.8rem;
-    text-align: left;
+  .detailsContainer ul li {
     margin: 10px 0px;
   }
-}
-
-@media (max-width: 800px) and (max-height: 700px) {
-  .largeOverlay {
-    width: 95vw;
-    min-width: 95vw;
-    max-width: 98vw;
-    min-height: 99vh;
-    max-height: 99vh;
-    height: 850px;
-  }
-  .largeOverlay ul.detailsCard {
-    padding: 10px;
-    height: 100%;
-    width: 100%;
-  }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer {
-    height: 90%;
-    padding: 10px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    position: relative;
-  }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay {
-    height: 80%;
-    padding: 0px 15px;
-    margin-left: 25px;
-    border-left: 2px solid #e2aa5f;
-  }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionTitle {
-    font-size: 1.6rem;
+  .detailsContainer ul li:first-of-type {
     margin-top: 0px;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay p.overview {
-    margin: 0px;
-    height: 100%;
+  .detailsContainer ul li:last-of-type span {
+    display: inline-block;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails {
-    position: absolute;
-    top: 190px;
-    left: 10px;
-    height: 20%;
-    width: 20%;
-    font-size: 1.3rem;
-    padding-right: 5px;
-  }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .imgLargeOverlay {
-    height: 170px;
-    width: 140px;
-  }
-  .releaseDateContainer h3.releaseDate {
-    font-size: 1.8rem;
-    text-align: center;
-    margin: 0px;
-  }
-  .movieTvBtn {
-    bottom: 0;
+  .detailsContainer ul li:last-of-type i {
+    font-size: 2.5rem;
   }
 }
 
-@media (max-width: 800px) and (max-height: 470px) {
-  .largeOverlay ul.detailsCard .imgDescriptionContainer {
-    padding: 25px 10px;
+@media (max-width: 500px) {
+  .backDropOverlay {
+    height: 100vh;
+    width: 100vw;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .imgLargeOverlay {
-    height: 70px;
-    width: 70px;
-    position: absolute;
-    top: -55px;
-    left: 20px;
+  .backDropOverlay .largeOverlay .overlay {
+    padding: 10px 10px 60px 20px;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    border-left: none;
+  .overlay {
+    -ms-grid-rows: 0.8fr 1fr 1fr 0fr 0.7fr 1fr 1fr 1fr;
+        grid-template-rows: 0.8fr 1fr 1fr 0fr 0.7fr 1fr 1fr 1fr;
+    -ms-grid-columns: 0.5fr 0.5fr 0.7fr 0.5fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 0.5fr 0.5fr 0.7fr 0.5fr 1fr 1fr 1fr 1fr;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails {
-    width: 98%;
-    height: 40px;
-    position: static;
-    bottom: 0;
+  .titleContainer h1 {
+    font-size: 2.5rem;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-line-pack: center;
-        align-content: center;
-    margin: 10px 0;
+  .detailsContainer {
+    font-size: 1.4rem;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionDetails ul li {
-    margin-right: 15px;
+  .detailsContainer span {
+    display: block;
+    font-size: 1.6rem;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay .descriptionTitle {
-    margin: 5px 0;
+  .detailsContainer ul li:last-of-type i {
+    font-size: 2.3rem;
   }
-  .largeOverlay ul.detailsCard .imgDescriptionContainer .descriptionLargeOverlay p.overview {
-    font-size: 1.3rem;
-    line-height: 1.35;
-    height: 60%;
+  .overviewContainer {
+    overflow-y: scroll;
   }
-  .exitBtn {
-    top: 30px;
+  .overviewContainer h3 {
+    font-size: 2.4rem;
+    margin-top: 18px;
   }
-}
-
-@media (max-width: 460px) {
-  .largeOverlay {
-    max-height: 660px;
-    min-height: 660px;
-    height: 660px;
-    margin-bottom: 45px;
-    max-width: 370px;
-  }
-  .largeOverlay ul.detailsCard {
-    padding: 15px;
-  }
-  .imgDescriptionContainer {
-    max-width: 370px;
-    padding: 0px;
-    height: 87%;
-  }
-  .imgDescriptionContainer .imgLargeOverlay {
-    height: 160px;
-    width: 100px;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay {
-    width: 100%;
-    min-width: 0px;
-  }
-  .imgDescriptionContainer .descriptionLargeOverlay p.overview {
-    font-size: 1.2rem;
+  .overviewContainer p {
+    padding-right: 10px;
   }
 }
 
@@ -1039,6 +870,24 @@ a i {
   color: #153e50;
   font-size: 1.5rem;
   text-transform: capitalize;
+}
+
+.movieTvBtn {
+  width: 100%;
+  padding: 10px 0px;
+  border: none;
+  text-transform: uppercase;
+  background-color: #e2aa5f;
+  color: #153e50;
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  font-size: 1.3rem;
+}
+
+.movieTvBtn:hover, .movieTvBtn:focus {
+  background-color: #153e50;
+  color: #e2aa5f;
 }
 
 .infoBtn {
