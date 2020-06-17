@@ -587,11 +587,13 @@
 
 @media (max-width: 500px) {
   .backDropOverlay {
-    height: 100vh;
+    height: 740px;
     width: 100vw;
     .largeOverlay {
       border: 4px solid rgb(0, 204, 255);
-      // border: 4px solid $transparent;
+      min-height: 710px;
+      max-height: 710px;
+      height: 710px;
       .overlay {
         padding: 10px 10px 60px 20px;
       }
@@ -606,7 +608,11 @@
   .overlay {
     grid-template-rows: 0.8fr 1fr 1fr 0fr 0.7fr 1fr 1fr 1fr;
     grid-template-columns: 0.5fr 0.5fr 0.7fr 0.5fr 1fr 1fr 1fr 1fr;
+    .overviewContainer {
+      grid-row: 5/9;
+    }
   }
+
   .titleContainer {
     padding: 0 40px 0 0;
     h1 {
@@ -621,6 +627,9 @@
       display: block;
       font-size: 1.6rem;
     }
+    ul li {
+      margin: 0px;
+    }
     ul li:last-of-type {
       i {
         font-size: 2.3rem;
@@ -629,12 +638,15 @@
   }
   .overviewContainer {
     font-size: 1.4rem;
+    margin: 0px;
+    padding: 0px;
     h3 {
       font-size: 2.4rem;
       margin-top: 18px;
     }
     p {
       padding-right: 10px;
+      font-size: 1.3rem;
     }
   }
 }
