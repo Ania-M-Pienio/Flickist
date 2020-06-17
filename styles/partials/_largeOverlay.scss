@@ -607,7 +607,7 @@
   }
 
   .overlay {
-    grid-template-rows: 0.8fr 1fr 1fr 0fr 0.7fr 1fr 1fr 1fr;
+    grid-template-rows: 0.8fr 1fr 1fr 0.2fr 0.7fr 1fr 1fr 0.8fr;
     grid-template-columns: 0.5fr 0.5fr 0.7fr 0.5fr 1fr 1fr 1fr 1fr;
     .overviewContainer {
       grid-row: 5/9;
