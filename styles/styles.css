@@ -756,7 +756,7 @@ input::-moz-focus-inner {
     border: 4px solid #7325da;
   }
   .backDropOverlay .largeOverlay .overlay {
-    padding: 40px 10px 40px 10px;
+    padding: 35px 10px 40px 10px;
   }
   .overlay {
     -ms-grid-rows: 0.8fr 2fr 2fr 2fr 0.8fr 0.8fr 0.8fr 0.8fr;
@@ -785,9 +785,6 @@ input::-moz-focus-inner {
     -ms-grid-column: 5;
     -ms-grid-column-span: 4;
     grid-column: 5/9;
-  }
-  .exitBtn {
-    top: 40px;
   }
   .titleContainer h1 {
     font-size: 2rem;
@@ -829,6 +826,9 @@ input::-moz-focus-inner {
   .overviewContainer h3 {
     margin-top: 0px;
     font-size: 1.5rem;
+  }
+  .exitBtn {
+    top: 15px;
   }
 }
 
