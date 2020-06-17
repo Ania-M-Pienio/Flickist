@@ -587,21 +587,22 @@
 
 @media (max-width: 500px) {
   .backDropOverlay {
-    height: 740px;
+    height: 100vh;
     width: 100vw;
     .largeOverlay {
       border: 4px solid rgb(0, 204, 255);
-      min-height: 710px;
-      max-height: 710px;
-      height: 710px;
+      min-height: 700px;
+      max-height: 700px;
+      height: 700px;
       .overlay {
-        padding: 10px 10px 60px 20px;
+        padding: 20px 10px 60px 20px;
       }
     }
   }
 
   .exitBtn {
     right: 5px;
+    top: 20px;
     font-size: 1.8rem;
   }
 
