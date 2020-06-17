@@ -27,6 +27,7 @@ app.dom.$HOME = $(`.home`); // section for home
 app.dom.$DETAIL = $(`.backDropOverlay`);
 app.dom.$DRAWER = $(`.listDrawer`);
 // ------ DATA ----------------------------------------------------------//
+app.queries = []; // stores recent searches
 app.results = []; // stores the results of a search
 app.popular = {
   tv: [], // stores popular tv shows
@@ -40,6 +41,11 @@ app.isOpen = false;
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
+
+
+app.getSearchItem = function (query) {
+  return `<li class="queryItem"><button id=${query}><h5>${query}</h5></button></li>`;
+}
 
 app.getItemCardHtml = function (item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
@@ -133,7 +139,7 @@ app.getItemDetailHtml = function (item) {
   }
 
   return `
-    <div class="overlay" data-id="${item.id}">
+    <li class="overlay" data-id="${item.id}">
       <div class="titleContainer">
         <h1 class="movieTitle">${title}</h1>
       </div>
@@ -166,7 +172,7 @@ app.getItemDetailHtml = function (item) {
           ? `<button tabindex="0" type="button" class="movieTvBtn detailBtn remove" data-id="${item.id}">Remove</button>`
           : `<button tabindex="0" type="button" class="movieTvBtn detailBtn add" data-id="${item.id}">Add to watchlist</button>`
       }
-    </div>
+    </li>
   `;
 };
 
@@ -343,26 +349,47 @@ app.removeFromList = function (id) {
   }
 };
 
+app.saveSearch = function (keyword) {
+  app.queries.includes(keyword) ? "" : app.addToQueries(keyword);
+  console.log(keyword);
+}
+
+app.addToQueries = function (query) {
+  app.queries.length > 5 ? app.queries.shift(): "";
+  app.queries.push(query);
+  console.log(app.queries);
+}
+
 /* ----------------------------------------------------------------------*/
 /* ------                       HANDLERS                            -----*/
 /* ----------------------------------------------------------------------*/
 
 app.Handlers = function () {
   /* ---------------------------------------*/
-  $(`input.search`).on(`focus`, function () {
-    $(`.homeButton`).fadeOut();
+  $(`input.search`).on(`click`, function () {
+    $(`button.tab`).removeClass(`selected`);
+    $(`button.searchButton`).addClass(`selected`);
+    app.dom.$HOME.hide(`slow`);
+    app.dom.$SEARCH.show("slow");
   });
 
-  $(`input.search`).on(`blur`, function () {
-    $(`.homeButton`).fadeIn();
+  $(`button.tab`).on(`click`, function () {
+    $(`button.tab`).removeClass(`selected`);
+    $(this).addClass(`selected`);
+  });
+
+  $(`button.searchButton`).on(`click`, function () {
+    app.dom.$HOME.hide(`slow`);
+    app.dom.$SEARCH.show("slow");
   });
 
   /* [1] On start search */
-  $(`input.search`).on(`keyup`, function () {
-    app.keyword = $(this).val();
+  $(`button.searchSubmit`).on(`click`, function (e) {
+    // submit search
+    e.preventDefault();
+    app.keyword = $(`input.search`).val().trim();
     app.getByKeyword(app.keyword);
-    app.dom.$HOME.hide(`slow`);
-    app.dom.$SEARCH.show("slow");
+    app.saveSearch(app.keyword);
   });
 
   /* [2] On click Home Icon */

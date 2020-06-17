@@ -1029,29 +1029,97 @@ a i {
 
 .search:focus,
 .homeButton:focus,
+.searchButton:focus,
 .movieTvBtn:focus,
 .removeBtn:focus {
   border: 8px solid #e2aa5f;
 }
 
 .mainNavContainer {
+  width: 100%;
+  background-color: #103140;
+  padding: 10px 50px 0px;
+  height: 30vh;
+  min-height: 130px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  background-color: #103140;
-  padding: 10px 50px;
-  height: 10vh;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.mainNavContainer .logoSearchContainer {
+  width: 100%;
+  height: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.mainNavContainer .logoSearchContainer .logoContainer {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.mainNavContainer .logoSearchContainer .logoContainer h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer {
+  height: 100%;
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer form {
+  position: relative;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer form .searchSubmit {
+  position: absolute;
+  bottom: -48px;
+  right: 0;
+  height: 50px;
+  width: 70px;
+  background-color: #e2aa5f;
+  border: 2px solid #e2aa5f;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer form .searchSubmit:hover, .mainNavContainer .logoSearchContainer .formContainer form .searchSubmit:focus {
+  border: 5px solid #e2aa5f;
+  border-top: none;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer form .searchSubmit:hover i,
+.mainNavContainer .logoSearchContainer .formContainer form .searchSubmit:focus i {
+  font-size: 3rem;
+}
+
+.mainNavContainer .logoSearchContainer .formContainer form .searchSubmit i {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  font-size: 2rem;
+  color: #153e50;
 }
 
 .search {
@@ -1065,28 +1133,32 @@ a i {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 4px;
-  border: 2px solid #ccc;
-  background-color: #f2f3f4;
+  border: 4px solid #e2aa5f;
+  background-color: #103140;
+  color: #f2f3f4;
   -webkit-transition: width 0.4s ease;
   transition: width 0.4s ease;
   padding: 10px 15px;
   width: 300px;
+  height: 50px;
   font-size: 1.4rem;
 }
 
-.homeContainer {
+.tabsContainer {
+  height: 20%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
-.homeButton {
+.homeButton,
+.searchButton {
   background-color: #e2aa5f;
   text-decoration: none;
   color: #153e50;
@@ -1096,15 +1168,44 @@ a i {
   border: none;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
+  border-radius: 20px 20px 0 0;
+  width: 150px;
+  margin-right: 10px;
+  margin-top: 15px;
 }
 
-.homeButton:hover {
-  background-color: white;
-  color: #153e50;
+.homeButton:hover,
+.searchButton:hover {
+  background-color: #e2aa5f;
+  border: 4px solid #e2aa5f;
+}
+
+.tab.selected {
+  background-color: #f2f3f4;
+  border: 5px solid #f2f3f4;
+}
+
+.tab.selected:hover, .tab.selected:focus {
+  font-size: 1.2rem;
 }
 
 .categoryTitleContainer {
   border-bottom: solid 8px #153e50;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.categoryTitleContainer h2 {
+  width: 30%;
+}
+
+.categoryTitleContainer .queriesContainer {
+  width: 70%;
+}
+
+.categoryTitleContainer .queriesContainer ul {
+  width: 100%;
 }
 
 .listDrawer {
@@ -1307,8 +1408,9 @@ a i {
   margin: auto 15px;
   margin-top: 15px;
   border-bottom: 2px solid #e2aa5f;
-  height: 100px;
+  height: 80px;
   overflow-y: hidden;
+  border-radius: 20px 20px 0 0;
 }
 
 .listItem .listItemBackWrapper {
@@ -1319,7 +1421,7 @@ a i {
 }
 
 .listItem .listItemBackWrapper .infoBtn {
-  top: 30px;
+  top: 10px;
   right: 0;
 }
 

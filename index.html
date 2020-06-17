@@ -1,107 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flickist</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="./assets/favicon.ico" type="image/gif" />
     <link rel="stylesheet" href="./styles/styles.css" />
-</head>
-
-<body id="top">
+  </head>
+  <body id="top">
     <a class="skip-link" href="#main">Skip to main content</a>
     <!-- <button class="listDrawerBtn">
         <i class="fas fa-bars"></i>
     </button> -->
 
     <aside class="listDrawer">
-        <div class="myListContainer">
-            <h2 class="myList">My List</h2>
-        </div>
-        <div class="watchListContainer container">
-            <ul class="watchList">
-                <!-- dynamic list items here -->
-            </ul>
-        </div>
+      <div class="myListContainer">
+        <h2 class="myList">My List</h2>
+      </div>
+      <div class="watchListContainer container">
+        <ul class="watchList">
+          <!-- dynamic list items here -->
+        </ul>
+      </div>
     </aside>
     <div class="mainContainer">
-        <header>
-            <div class="mainNavContainer wrapper">
-                <div class="logoContainer">
-                    <h1>Flickist</h1>
-                </div>
-                <form>
-                    <input type="text" name="search" class="search" placeholder="Search Movies/Tv Shows..." />
-                </form>
-                <div class="homeContainer">
-                    <button type="button" class="homeButton">Suggestions</button>
-                </div>
+      <header>
+        <div class="mainNavContainer wrapper">
+          <div class="logoSearchContainer">
+            <div class="logoContainer">
+              <h1>Flickist</h1>
             </div>
-        </header>
-        <main class="wrapper" id="main">
-            <div class="home">
-                <section class="moviesContainer container">
-                    <div class="categoryTitleContainer">
-                        <h2>Top Movies</h2>
-                    </div>
-                    <ul class="topMovies collection">
-                        <!-- dynamic list of top movies -->
-                    </ul>
-                </section>
-                <section class="tvContainer container">
-                    <div class="categoryTitleContainer">
-                        <h2>Top Tv Shows</h2>
-                    </div>
-                    <ul class="topTvShows collection">
-                        <!-- dynamic list of top tv shows -->
-                    </ul>
-                </section>
-                <section class="recentlyAddedContainer container">
-                    <div class="categoryTitleContainer">
-                        <h2>Recently Added</h2>
-                    </div>
-                    <ul class="recentlyAdded collection">
-                        <!-- dynamic list of recently added to list -->
-                    </ul>
-                </section>
+            <div class="formContainer">
+              <form>
+                <input
+                  type="text"
+                  name="search"
+                  class="search"
+                  placeholder="Search Movies/Tv Shows..."
+                />
+                <button class="searchSubmit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </form>
             </div>
-            <!-- end of HOME -->
-
-            <section class="wrapper resultsContainer container">
-                <div class="categoryTitleContainer">
-                    <h2>Results</h2>
-                </div>
-                <ul class="resultsSearch">
-                    <!-- dynamic item goes here (getDetailCardHtml) -->
-                </ul>
-            </section>
-        </main>
-        <!-- /* my changes */ -->
-        <div class="backDropOverlay">
-            <div class="overLayWrapper">
-                <div class="largeOverlay">
-                    <button class="exitBtn exit" tabindex="0">
-                        <i class="far fa-times-circle fa-2x"></i>
-                    </button>
-                    <div class="detailsCard">
-                        <!-- dynamic details here (getItemDetailHtml) -->
-                    </div>
-        
-            </div>
+          </div>
+          <div class="tabsContainer">
+            <button type="button" class="homeButton tab selected">
+              Popular
+            </button>
+            <button type="button" class="searchButton tab">Searches</button>
+          </div>
         </div>
+      </header>
+      <main class="wrapper" id="main">
+        <div class="home">
+          <section class="moviesContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Top Movies</h2>
+            </div>
+            <ul class="topMovies collection">
+              <!-- dynamic list of top movies -->
+            </ul>
+          </section>
+          <section class="tvContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Top Tv Shows</h2>
+            </div>
+            <ul class="topTvShows collection">
+              <!-- dynamic list of top tv shows -->
+            </ul>
+          </section>
+          <section class="recentlyAddedContainer container">
+            <div class="categoryTitleContainer">
+              <h2>Recently Added</h2>
+            </div>
+            <ul class="recentlyAdded collection">
+              <!-- dynamic list of recently added to list -->
+            </ul>
+          </section>
+        </div>
+        <!-- end of HOME -->
+
+        <section class="wrapper resultsContainer container">
+          <div class="categoryTitleContainer">
+            <h2>Results</h2>
+            <div class="queriesContainer">
+              <ul class="queryList">
+                <!-- dynamic list of searches -->
+              </ul>
+            </div>
+          </div>
+          <ul class="resultsSearch">
+            <!-- dynamic item goes here (getDetailCardHtml) -->
+          </ul>
+        </section>
+      </main>
+      <!-- /* my changes */ -->
+      <div class="backDropOverlay">
+        <div class="overLayWrapper">
+          <div class="largeOverlay">
+            <button class="exitBtn exit" tabindex="0">
+              <i class="far fa-times-circle fa-2x"></i>
+            </button>
+            <div class="detailsCard container">
+              <!-- dynamic details here (getItemDetailHtml) -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment-with-locales.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/script2.js"></script>
-
-</body>
-
+  </body>
 </html>
-
-
-
-
