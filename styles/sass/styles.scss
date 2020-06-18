@@ -445,7 +445,7 @@ a {
     grid-gap: 10px;
     grid-auto-flow: column;
     transform: scale(1);
-    h3 {
+    .noResults {
       opacity: 0;
     }
   }
@@ -679,6 +679,9 @@ a {
         i {
           color: $primary-color;
         }
+      }
+      .noResults {
+        opacity: 1;
       }
     }
     .queryList.visible {

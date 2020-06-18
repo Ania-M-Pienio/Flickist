@@ -1473,7 +1473,7 @@ a i {
           transform: scale(1);
 }
 
-.queriesContainer .queryList h3 {
+.queriesContainer .queryList .noResults {
   opacity: 0;
 }
 
@@ -1729,6 +1729,9 @@ a i {
   }
   .queriesContainer .queryList .queryItem.selected i {
     color: #153e50;
+  }
+  .queriesContainer .queryList .noResults {
+    opacity: 1;
   }
   .queriesContainer .queryList.visible {
     -webkit-transform: scale(1);
