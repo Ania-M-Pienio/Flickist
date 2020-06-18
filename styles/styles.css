@@ -1527,6 +1527,7 @@ a i {
   font-size: 3rem;
   -webkit-transform: scale(0);
           transform: scale(0);
+  color: #153e50;
 }
 
 .queryItem {
@@ -1563,7 +1564,7 @@ a i {
 }
 
 .queryItem button h5 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #153e50;
   font-family: "Roboto", sans-serif;
   margin: 0px;
@@ -1704,11 +1705,27 @@ a i {
     width: calc(50% - 30px);
     margin: 15px;
   }
+  .categoryTitleContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    height: 80px;
+  }
   .categoryTitleContainer h2 {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .categoryTitleContainer .queriesContainer {
     width: 100%;
   }
   .categoryTitleContainer .queriesContainer ul {
-    width: 100%;
+    width: 95%;
+  }
+  .queriesContainer {
+    width: 0px;
   }
   .queriesContainer .queryMenu {
     -webkit-transform: scale(1);
@@ -1719,7 +1736,6 @@ a i {
   }
   .queriesContainer .queryList {
     height: 220px;
-    width: 150px;
     position: absolute;
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
@@ -1727,24 +1743,39 @@ a i {
         grid-template-rows: 1fr 1fr 1fr 1fr;
     -webkit-transform: scale(0);
             transform: scale(0);
-    background-color: #f2f3f4;
+    background-color: #153e50;
     grid-gap: 0px;
     top: 90px;
-    right: 15px;
+    left: 15px;
     z-index: 700;
-    border: 4px solid #153e50;
     -webkit-transition: all 1s;
     transition: all 1s;
   }
   .queriesContainer .queryList h3 {
     opacity: 1;
+    color: #f2f3f4;
+    font-family: "Roboto", sans-serif;
   }
   .queriesContainer .queryList .queryItem {
     border-radius: 0px;
-    border-top: none;
+    border: none;
+    background-color: #153e50;
   }
   .queriesContainer .queryList .queryItem h5 {
-    font-size: 2rem;
+    font-size: 1.7rem;
+    color: #f2f3f4;
+  }
+  .queriesContainer .queryList .queryItem i {
+    color: #f2f3f4;
+  }
+  .queriesContainer .queryList .queryItem.selected {
+    background-color: #e2aa5f;
+  }
+  .queriesContainer .queryList .queryItem.selected button h5 {
+    color: #153e50;
+  }
+  .queriesContainer .queryList .queryItem.selected i {
+    color: #153e50;
   }
   .queriesContainer .queryList.visible {
     -webkit-transform: scale(1);
