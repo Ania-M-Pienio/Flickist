@@ -42,13 +42,13 @@ app.isOpen = false;
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
 
+
 app.getResultsStandin = function (image) {
   return `
     <div class="noResults">
       <div class="resultsImage">
         <img src="./assets/${image}" alt="results">
       </div>
-      <h3>0 Search Results</h3>
     </div>
   `;
 };
@@ -429,7 +429,11 @@ app.Handlers = function () {
         }
       });
       app.queries.splice(index, 1);
-      app.displayMedia(app.queries, $(`.queryList`), app.getSearchItem);
+      if (app.queries.length) {
+        app.displayMedia(app.queries, $(`.queryList`), app.getSearchItem);
+      } else {
+        app.displayMedia([`4.png`], $(`.queryList`), app.getResultsStandin);
+      }
     } catch {
       console.log("not the icon");
     }

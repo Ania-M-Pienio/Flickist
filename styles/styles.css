@@ -1685,10 +1685,10 @@ a i {
             transform: scale(1);
   }
   .queriesContainer .queryMenu:hover, .queriesContainer .queryMenu:focus {
-    border: 4px solid #e2aa5f;
+    border: 4px solid #153e50;
   }
   .queriesContainer .queryList {
-    height: 220px;
+    height: 400px;
     position: absolute;
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
@@ -1733,6 +1733,9 @@ a i {
   .queriesContainer .queryList.visible {
     -webkit-transform: scale(1);
             transform: scale(1);
+  }
+  .categoryTitleContainer.results h2 {
+    width: 100%;
   }
 }
 

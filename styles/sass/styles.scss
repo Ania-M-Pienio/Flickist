@@ -637,11 +637,11 @@ a {
       transform: scale(1);
       &:hover,
       &:focus {
-        border: 4px solid $tertiary-color;
+        border: 4px solid $primary-color;
       }
     }
     .queryList {
-      height: 220px;
+      height: 400px;
       position: absolute;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -684,6 +684,9 @@ a {
     .queryList.visible {
       transform: scale(1);
     }
+  }
+  .categoryTitleContainer.results h2 {
+    width: 100%;
   }
 }
 
