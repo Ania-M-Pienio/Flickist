@@ -1402,8 +1402,8 @@ a i {
 .listItem .listItemBackWrapper {
   height: 100%;
   width: 100%;
-  background: -webkit-gradient(linear, left top, left bottom, from(#153e50a2), color-stop(#153e50dc), color-stop(#153e50f3), to(#153e50));
-  background: linear-gradient(#153e50a2, #153e50dc, #153e50f3, #153e50);
+  background: -webkit-gradient(linear, left top, left bottom, from(#153e5000), color-stop(#153e50bb), to(#153e50fb));
+  background: linear-gradient(#153e5000, #153e50bb, #153e50fb);
 }
 
 .listItem .listItemBackWrapper .infoBtn {
