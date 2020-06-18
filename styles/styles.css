@@ -929,7 +929,6 @@ input::-moz-focus-inner {
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
@@ -1144,9 +1143,7 @@ a i {
           align-items: flex-end;
 }
 
-.listButton,
-.homeButton,
-.searchButton {
+.tab {
   background-color: #e2aa5f;
   text-decoration: none;
   color: #153e50;
@@ -1162,9 +1159,7 @@ a i {
   margin-top: 15px;
 }
 
-.listButton:hover,
-.homeButton:hover,
-.searchButton:hover {
+.tab:hover {
   background-color: #e2aa5f;
   border: 4px solid #e2aa5f;
 }
@@ -1242,7 +1237,7 @@ a i {
 
 .noResults {
   width: 100%;
-  height: 65vh;
+  height: 40vh;
 }
 
 .noResults .resultsImage {
@@ -1755,6 +1750,11 @@ a i {
     -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 1000px;
+  }
+  .tab {
+    width: 100px;
+    font-size: 1rem;
+    padding: 5% 2%;
   }
 }
 
