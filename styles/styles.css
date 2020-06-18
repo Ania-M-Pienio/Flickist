@@ -426,7 +426,6 @@ input::-moz-focus-inner {
   .backDropOverlay .largeOverlay {
     width: 100%;
     max-width: 100%;
-    border: 4px solid #ffd900;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 25px 60px 25px;
@@ -445,7 +444,6 @@ input::-moz-focus-inner {
     height: 100%;
     max-height: 100%;
     min-height: 100%;
-    border: 4px solid #ff7b00;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 20px 60px 20px;
@@ -464,7 +462,6 @@ input::-moz-focus-inner {
     height: 100%;
     max-height: 100%;
     min-height: 100%;
-    border: 4px solid #fc3605;
   }
   .overlay {
     -ms-grid-rows: 0.8fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
@@ -503,7 +500,6 @@ input::-moz-focus-inner {
     height: 100%;
     max-height: 100%;
     min-height: 100%;
-    border: 4px solid #8b7159;
   }
   .overlay {
     -ms-grid-rows: 0.8fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -543,7 +539,6 @@ input::-moz-focus-inner {
     height: 100%;
     max-height: 100%;
     min-height: 100%;
-    border: 4px solid #75200b;
   }
   .overlay {
     -ms-grid-rows: 0.8fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
@@ -562,7 +557,6 @@ input::-moz-focus-inner {
     height: 410px;
     max-height: 410px;
     min-height: 410px;
-    border: 4px solid #65750b;
   }
   .overlay {
     -ms-grid-rows: 0.8fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
@@ -588,9 +582,6 @@ input::-moz-focus-inner {
 @media (max-width: 900px) {
   .backDropOverlay {
     width: 98.5vw;
-  }
-  .backDropOverlay .largeOverlay {
-    border: 4px solid #00ff15;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 20px 60px 20px;
@@ -622,7 +613,6 @@ input::-moz-focus-inner {
   .backDropOverlay .largeOverlay {
     width: 100%;
     max-width: 100%;
-    border: 4px solid #0e9725;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 20px 60px 20px;
@@ -686,7 +676,6 @@ input::-moz-focus-inner {
   .backDropOverlay .largeOverlay {
     width: 100%;
     max-width: 100%;
-    border: 4px solid #0e9797;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 20px 50px 20px;
@@ -753,7 +742,6 @@ input::-moz-focus-inner {
     max-height: 350px;
     min-height: 350px;
     width: 100%;
-    border: 4px solid #7325da;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 35px 10px 40px 10px;
@@ -837,7 +825,6 @@ input::-moz-focus-inner {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    border: 4px solid #ff0022;
   }
   .backDropOverlay .largeOverlay .overlay {
     padding: 10px 30px 60px 20px;
@@ -880,7 +867,6 @@ input::-moz-focus-inner {
     width: 100vw;
   }
   .backDropOverlay .largeOverlay {
-    border: 4px solid #00ccff;
     min-height: 700px;
     max-height: 700px;
     height: 700px;
@@ -943,6 +929,7 @@ input::-moz-focus-inner {
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -1017,8 +1004,7 @@ a i {
 }
 
 .mainContainer {
-  width: 75vw;
-  background-color: #f2f3f4;
+  width: 100vw;
   padding-bottom: 50px;
 }
 
@@ -1040,7 +1026,7 @@ a i {
   background-color: #103140;
   padding: 10px 50px 0px;
   height: 30vh;
-  min-height: 130px;
+  min-height: 275px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1094,28 +1080,29 @@ a i {
   position: relative;
 }
 
-.formContainer form .searchSubmit {
+.formContainer form .searchSubmitBtn {
   position: absolute;
-  bottom: -48px;
+  bottom: -58px;
   right: 0;
-  height: 50px;
+  height: 60px;
   width: 70px;
   background-color: #e2aa5f;
   border: 2px solid #e2aa5f;
   border-radius: 0px 0px 10px 10px;
+  z-index: 100;
 }
 
-.formContainer form .searchSubmit:hover, .formContainer form .searchSubmit:focus {
+.formContainer form .searchSubmitBtn:hover, .formContainer form .searchSubmitBtn:focus {
   border: 5px solid #e2aa5f;
   border-top: none;
 }
 
-.formContainer form .searchSubmit:hover i,
-.formContainer form .searchSubmit:focus i {
+.formContainer form .searchSubmitBtn:hover i,
+.formContainer form .searchSubmitBtn:focus i {
   font-size: 3rem;
 }
 
-.formContainer form .searchSubmit i {
+.formContainer form .searchSubmitBtn i {
   -webkit-transition: all 1s;
   transition: all 1s;
   font-size: 2rem;
@@ -1133,7 +1120,7 @@ a i {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 4px;
-  border: 4px solid #e2aa5f;
+  border: 5px solid #e2aa5f;
   background-color: #103140;
   color: #f2f3f4;
   -webkit-transition: width 0.4s ease;
@@ -1157,6 +1144,7 @@ a i {
           align-items: flex-end;
 }
 
+.listButton,
 .homeButton,
 .searchButton {
   background-color: #e2aa5f;
@@ -1174,6 +1162,7 @@ a i {
   margin-top: 15px;
 }
 
+.listButton:hover,
 .homeButton:hover,
 .searchButton:hover {
   background-color: #e2aa5f;
@@ -1196,8 +1185,8 @@ a i {
   display: flex;
 }
 
-.categoryTitleContainer h2 {
-  width: 20%;
+.categoryTitleContainer h2:not(.results) {
+  width: 100%;
 }
 
 .categoryTitleContainer .queriesContainer {
@@ -1208,50 +1197,8 @@ a i {
   width: 100%;
 }
 
-.listDrawer {
-  display: inline-block;
-  position: relative;
-  top: 0;
-  width: 25%;
-  margin-left: 0;
-  min-height: 100vh;
-  background-color: #153e50;
-  color: #fff;
-  padding: 15px;
-  z-index: 1001;
-  -webkit-transition: margin-left 1s;
-  transition: margin-left 1s;
-}
-
-.listDrawerBtn {
-  position: fixed;
-  display: none;
-  top: 50%;
-  left: -20px;
-  height: 50px;
-  font-size: 3.5rem;
-  background-color: #000;
-  border: 1px solid #e2aa5f;
-  color: #e2aa5f;
-  z-index: 6000;
-}
-
-.listDrawer.open,
-.listDrawer.close {
-  margin-left: 0;
-}
-
-.myListContainer {
-  border-bottom: 1px solid #f2f3f4;
-}
-
-.myList {
-  font-size: 3rem;
-}
-
-.watchListContainer h3 {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
+.categoryTitleContainer.results h2 {
+  width: 20%;
 }
 
 .removeBtn {
@@ -1270,7 +1217,7 @@ a i {
   border: 3px solid crimson;
 }
 
-.collection {
+.collection:not(.watchList) {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1279,7 +1226,7 @@ a i {
       flex-wrap: wrap;
 }
 
-.collection li {
+.collection li:not(.listItem) {
   width: calc(20% - 20px);
   margin: 10px;
   height: auto;
@@ -1289,33 +1236,35 @@ a i {
   display: none;
 }
 
+.myListContainer {
+  display: none;
+}
+
 .noResults {
   width: 100%;
-  height: 100%;
+  height: 65vh;
 }
 
 .noResults .resultsImage {
-  width: 40%;
-  height: 20%;
+  width: 80%;
+  height: 100%;
   margin: 0 auto;
   opacity: 0.6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .noResults .resultsImage img {
   width: 100%;
-  height: 100%;
+  height: 80%;
   -o-object-fit: contain;
      object-fit: contain;
   -o-object-position: center;
      object-position: center;
-}
-
-.noResults h3 {
-  width: 100%;
-  text-align: center;
-  margin: 0px;
-  position: relative;
-  top: -30px;
 }
 
 .resultsSearch {
@@ -1429,15 +1378,28 @@ a i {
   border: 2px solid #e2aa5f;
 }
 
+.watchList.filled {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-auto-flow: row;
+  height: 60vh;
+  width: 100%;
+  padding: 10px;
+}
+
 .listItem {
+  color: #f2f3f4;
+  font-family: "Roboto", sans-serif;
   background-size: cover;
   text-align: left;
   list-style: none;
   position: relative;
-  margin: auto 15px;
-  margin-top: 15px;
   border-bottom: 2px solid #e2aa5f;
-  height: 80px;
   overflow-y: hidden;
   border-radius: 20px 20px 0 0;
 }
@@ -1623,7 +1585,7 @@ a i {
     font-size: 5rem;
     margin: 0 auto;
   }
-  .collection li {
+  .collection li:not(.listItem) {
     width: calc(33.3% - 30px);
     margin: 15px;
   }
@@ -1636,21 +1598,6 @@ a i {
 @media (max-width: 850px) {
   .wrapper {
     width: 100%;
-  }
-  .listDrawer {
-    top: 0;
-    position: fixed;
-    margin-left: -1000px;
-  }
-  .listDrawer.close {
-    position: absolute;
-    margin-left: -1000px;
-  }
-  .listDrawer.open {
-    margin-left: 0px;
-  }
-  .listDrawerBtn {
-    display: inline-block !important;
   }
   .mainContainer {
     width: 100%;
@@ -1698,12 +1645,23 @@ a i {
   .mainNavContainer .logoSearchContainer .formContainer form {
     width: 100%;
   }
+  .mainNavContainer .logoSearchContainer .formContainer form .dropListBtn {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
   .mainNavContainer .logoSearchContainer .formContainer form input {
     width: 100%;
   }
-  .collection li {
+  .collection li:not(.listItem) {
     width: calc(50% - 30px);
     margin: 15px;
+  }
+  .watchList.filled {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    height: 670px;
   }
   .categoryTitleContainer {
     display: -webkit-box;
@@ -1784,11 +1742,24 @@ a i {
 }
 
 @media (max-width: 500px) {
-  .collection li,
+  .collection li:not(.listItem),
   .flexItem {
     width: 100%;
     margin: 15px;
     -webkit-box-shadow: none;
             box-shadow: none;
+  }
+  .watchList.filled {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 1000px;
+  }
+}
+
+@media (max-height: 700px) {
+  .watchList.filled {
+    min-height: 420px;
   }
 }

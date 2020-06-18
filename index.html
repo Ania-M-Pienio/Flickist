@@ -19,20 +19,7 @@
   </head>
   <body id="top">
     <a class="skip-link" href="#main">Skip to main content</a>
-    <!-- <button class="listDrawerBtn">
-        <i class="fas fa-bars"></i>
-    </button> -->
 
-    <aside class="listDrawer">
-      <div class="myListContainer">
-        <h2 class="myList">My List</h2>
-      </div>
-      <div class="watchListContainer container">
-        <ul class="watchList">
-          <!-- dynamic list items here -->
-        </ul>
-      </div>
-    </aside>
     <div class="mainContainer">
       <header>
         <div class="mainNavContainer wrapper">
@@ -48,7 +35,7 @@
                   class="search"
                   placeholder="Search Movies/Tv Shows..."
                 />
-                <button class="searchSubmit">
+                <button class="searchSubmitBtn">
                   <i class="fas fa-search"></i>
                 </button>
               </form>
@@ -59,6 +46,7 @@
               Popular
             </button>
             <button type="button" class="searchButton tab">Searches</button>
+            <button type="button" class="listButton tab">My List</button>
           </div>
         </div>
       </header>
@@ -91,8 +79,23 @@
         </div>
         <!-- end of HOME -->
 
-        <section class="wrapper resultsContainer container">
+        <section class="myListContainer container">
           <div class="categoryTitleContainer">
+            <h2>My List</h2>
+          </div>
+          <ul class="watchList collection">
+            <!-- dynamic list of added to list -->
+            <div class="noResults">
+              <div class="resultsImage">
+                <img src="./assets/3.png" alt="results" />
+              </div>
+            </div>
+            
+          </ul>
+        </section>
+
+        <section class="wrapper resultsContainer container">
+          <div class="categoryTitleContainer results">
             <h2>Results</h2>
             <div class="queriesContainer">
               <ul class="queryList">
@@ -102,17 +105,19 @@
               <button class="queryMenu"><i class="fas fa-bars"></i></button>
             </div>
           </div>
+
           <ul class="resultsSearch">
             <div class="noResults">
               <div class="resultsImage">
-                <img src="./assets/reel.png" alt="results" />
+                <img src="./assets/2.png" alt="results" />
               </div>
-              <h3>0 Search Results</h3>
             </div>
           </ul>
+
+
         </section>
       </main>
-      <!-- /* my changes */ -->
+      <!-- /******* OVERLAY *********/ -->
       <div class="backDropOverlay">
         <div class="overLayWrapper">
           <div class="largeOverlay">

@@ -9,7 +9,7 @@ app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 app.recentAmount = 5; // app setting for how many recent will display on load
 app.popularAmount = 5; // app setting for how many popular will display on load
 app.resultsAmount = 10; // app setting for how many results to show upon search
-app.listAmount = 10; // app setting for max amount of medias that can be be stored in the list at any given time
+app.listAmount = 9; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
 app.dom.$popular = {
@@ -23,9 +23,9 @@ app.dom.$detail = $(`.detailsCard`); // location
 app.dom.$add = $(`.add`); // button
 app.dom.$remove = $(`.remove`); // button
 app.dom.$SEARCH = $(`.resultsContainer`); // section for search results
+app.dom.$MYLIST = $(`.myListContainer`); // section for saved items
 app.dom.$HOME = $(`.home`); // section for home
 app.dom.$DETAIL = $(`.backDropOverlay`);
-app.dom.$DRAWER = $(`.listDrawer`);
 // ------ DATA ----------------------------------------------------------//
 app.queries = []; // stores recent searches
 app.results = []; // stores the results of a search
@@ -283,7 +283,7 @@ app.getByKeyword = function (keyword) {
         $(`li.queryItem[data-id="${app.keyword}"]`)
       );
     } else {
-      app.displayMedia(["reel.png"], app.dom.$result, app.getResultsStandin);
+      app.displayMedia(["1.png"], app.dom.$result, app.getResultsStandin);
     }
   });
 };
@@ -360,6 +360,7 @@ app.addToList = function (media) {
   if (app.list.length < app.listAmount && index < 0) {
     app.list.push(media);
     app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
+    $(`.watchList`).addClass(`filled`);
   } else {
     // WARNING, ID ALREADY EXIST, SO DON'T ADD!
   }
@@ -400,7 +401,6 @@ app.shortenDownTo = function (string, length) {
 /* ----------------------------------------------------------------------*/
 
 app.Handlers = function () {
-
   $(`button.queryMenu`).on(`click`, function () {
     // when you click on any query chip
     $(`.queryList`).toggleClass(`visible`);
@@ -416,7 +416,6 @@ app.Handlers = function () {
       console.log("not the button");
     }
   });
-
 
   // when you click to close the query chip
   $(`ul.queryList`).on("click", "i", function () {
@@ -442,6 +441,7 @@ app.Handlers = function () {
     $(`button.tab`).removeClass(`selected`);
     $(`button.searchButton`).addClass(`selected`);
     app.dom.$HOME.hide(`slow`);
+    app.dom.$MYLIST.hide(`slow`);
     app.dom.$SEARCH.show("slow");
   });
 
@@ -453,17 +453,25 @@ app.Handlers = function () {
   // when you click on the search tab specifically
   $(`button.searchButton`).on(`click`, function () {
     app.dom.$HOME.hide(`slow`);
+    app.dom.$MYLIST.hide(`slow`);
     app.dom.$SEARCH.show("slow");
   });
 
+  $(`button.listButton`).on(`click`, function () {
+    app.dom.$HOME.hide(`slow`);
+    app.dom.$SEARCH.hide(`slow`);
+    app.dom.$MYLIST.show(`slow`);
+  });
+
   /* [1] On start search */
-  $(`button.searchSubmit`).on(`click`, function (e) {
+  $(`button.searchSubmitBtn`).on(`click`, function (e) {
     // submit search
     e.preventDefault();
     app.keyword = $(`input.search`).val().trim().toLowerCase();
     if (app.keyword) {
       app.getByKeyword(app.keyword);
       app.dom.$HOME.hide(`slow`);
+      app.dom.$MYLIST.hide(`slow`);
       app.dom.$SEARCH.show("slow");
     }
   });
@@ -472,7 +480,8 @@ app.Handlers = function () {
   $(`button.homeButton`).on(`click`, function () {
     // hide result, show the popular and recent again
     app.dom.$HOME.show(`slow`);
-    app.dom.$SEARCH.hide("slow");
+    app.dom.$MYLIST.hide(`slow`);
+    app.dom.$SEARCH.hide(`slow`);
     app.getPopularByType(`movie`);
     app.getPopularByType(`tv`);
   });
@@ -510,17 +519,6 @@ app.Handlers = function () {
 
   $(`.exit`).on(`click`, function () {
     app.dom.$DETAIL.hide(`fast`);
-  });
-
-  $(`.listDrawerBtn`).on(`click`, function () {
-    if (app.isOpen) {
-      app.dom.$DRAWER.removeClass(`open`);
-      app.dom.$DRAWER.addClass(`close`);
-    } else {
-      app.dom.$DRAWER.removeClass(`close`);
-      app.dom.$DRAWER.addClass(`open`);
-    }
-    app.isOpen = !app.isOpen;
   });
 };
 

@@ -5,6 +5,7 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -71,8 +72,7 @@ a {
 }
 
 .mainContainer {
-  width: 75vw;
-  background-color: $secondary-color;
+  width: 100vw;
   padding-bottom: 50px;
 }
 
@@ -99,7 +99,7 @@ a {
   background-color: #103140;
   padding: 10px 50px 0px;
   height: 30vh;
-  min-height: 130px;
+  min-height: 275px;
   display: flex;
   flex-direction: column;
   .logoSearchContainer {
@@ -127,15 +127,16 @@ a {
   align-items: center;
   form {
     position: relative;
-    .searchSubmit {
+    .searchSubmitBtn {
       position: absolute;
-      bottom: -48px;
+      bottom: -58px;
       right: 0;
-      height: 50px;
+      height: 60px;
       width: 70px;
       background-color: $tertiary-color;
       border: 2px solid $tertiary-color;
       border-radius: 0px 0px 10px 10px;
+      z-index: 100;
       &:hover,
       &:focus {
         border: 5px solid $tertiary-color;
@@ -157,7 +158,7 @@ a {
 .search {
   @include flexboxCenter();
   border-radius: 4px;
-  border: 4px solid $tertiary-color;
+  border: 5px solid $tertiary-color;
   background-color: #103140;
   color: $secondary-color;
   transition: width 0.4s ease;
@@ -174,7 +175,7 @@ a {
   justify-content: flex-start;
   align-items: flex-end;
 }
-
+.listButton,
 .homeButton,
 .searchButton {
   background-color: $tertiary-color;
@@ -209,8 +210,8 @@ a {
 .categoryTitleContainer {
   border-bottom: solid 8px $primary-color;
   display: flex;
-  h2 {
-    width: 20%;
+  h2:not(.results) {
+    width: 100%;
   }
   .queriesContainer {
     width: 80%;
@@ -220,54 +221,8 @@ a {
   }
 }
 
-// DRAWER LIST STYLE
-
-.listDrawer {
-  display: inline-block;
-  position: relative;
-  top: 0;
-  width: 25%;
-  margin-left: 0;
-  min-height: 100vh;
-  background-color: $primary-color;
-  color: #fff;
-  padding: 15px;
-  z-index: 1001;
-  transition: margin-left 1s;
-}
-
-.listDrawerBtn {
-  position: fixed;
-  display: none;
-  top: 50%;
-  left: -20px;
-  height: 50px;
-  font-size: 3.5rem;
-  background-color: #000;
-  border: 1px solid $tertiary-color;
-  color: $tertiary-color;
-  z-index: 6000;
-}
-
-.listDrawer.open,
-.listDrawer.close {
-  margin-left: 0;
-}
-
-.myListContainer {
-  border-bottom: 1px solid $secondary-color;
-}
-
-.myList {
-  font-size: 3rem;
-}
-
-.watchListContainer {
-  //   position: relative;
-  h3 {
-    font-family: $secondary-font;
-    font-size: 1.5rem;
-  }
+.categoryTitleContainer.results h2 {
+  width: 20%;
 }
 
 .removeBtn {
@@ -288,13 +243,13 @@ a {
 
 // COLLECTION STYLE
 
-.collection {
+.collection:not(.watchList) {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
 }
 
-.collection li {
+.collection li:not(.listItem) {
   width: calc(20% - 20px);
   margin: 10px;
   height: auto;
@@ -306,27 +261,26 @@ a {
   display: none;
 }
 
+.myListContainer {
+  display: none;
+}
+
 .noResults {
   width: 100%;
-  height: 100%;
+  height: 65vh;
   .resultsImage {
-    width: 40%;
-    height: 20%;
+    width: 80%;
+    height: 100%;
     margin: 0 auto;
     opacity: 0.6;
+    display: flex;
+    align-items: center;
     img {
       width: 100%;
-      height: 100%;
+      height: 80%;
       object-fit: contain;
       object-position: center;
     }
-  }
-  h3 {
-    width: 100%;
-    text-align: center;
-    margin: 0px;
-    position: relative;
-    top: -30px;
   }
 }
 
@@ -423,15 +377,27 @@ a {
   }
 }
 
+/// WATCHLIST
+
+.watchList.filled {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-auto-flow: row;
+  height: 60vh;
+  width: 100%;
+  padding: 10px;
+}
+
 .listItem {
+  color: $secondary-color;
+  font-family: $secondary-font;
   background-size: cover;
   text-align: left;
   list-style: none;
   position: relative;
-  margin: auto 15px;
-  margin-top: 15px;
   border-bottom: 2px solid $tertiary-color;
-  height: 80px;
   overflow-y: hidden;
   border-radius: $tab-radius;
   .listItemBackWrapper {
@@ -460,7 +426,6 @@ a {
       &:hover {
         color: $tertiary-color;
       }
-
       .addListItem {
         font-size: 1.6rem;
         margin: 0;
@@ -575,7 +540,7 @@ a {
     margin: 0 auto;
   }
 
-  .collection li {
+  .collection li:not(.listItem) {
     width: calc(33.3% - 30px);
     margin: 15px;
   }
@@ -591,25 +556,6 @@ a {
 @media (max-width: 850px) {
   .wrapper {
     width: 100%;
-  }
-
-  .listDrawer {
-    top: 0;
-    position: fixed;
-    margin-left: -1000px;
-  }
-
-  .listDrawer.close {
-    position: absolute;
-    margin-left: -1000px;
-  }
-
-  .listDrawer.open {
-    margin-left: 0px;
-  }
-
-  .listDrawerBtn {
-    display: inline-block !important;
   }
 
   .mainContainer {
@@ -648,6 +594,9 @@ a {
         height: 50%;
         form {
           width: 100%;
+          .dropListBtn {
+            transform: scale(1);
+          }
           input {
             width: 100%;
           }
@@ -656,9 +605,15 @@ a {
     }
   }
 
-  .collection li {
+  .collection li:not(.listItem) {
     width: calc(50% - 30px);
     margin: 15px;
+  }
+
+  .watchList.filled {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    height: 670px;
   }
 
   .categoryTitleContainer {
@@ -738,10 +693,21 @@ a {
 // MOBILE MEDIA QUERY
 
 @media (max-width: 500px) {
-  .collection li,
+  .collection li:not(.listItem),
   .flexItem {
     width: 100%;
     margin: 15px;
     box-shadow: none;
+  }
+  .watchList.filled {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 1000px;
+  }
+}
+
+@media (max-height: 700px) {
+  .watchList.filled {
+    min-height: 420px;
   }
 }
