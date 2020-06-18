@@ -42,10 +42,27 @@ app.isOpen = false;
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
 
+app.getResultsStandin = function (image) {
+  return `
+    <div class="noResults">
+      <div class="resultsImage">
+        <img src="./assets/${image}" alt="results">
+      </div>
+      <h3>0 Search Results</h3>
+    </div>
+  `;
+};
 
 app.getSearchItem = function (query) {
-  return `<li class="queryItem"><button id=${query}><h5>${query}</h5></button></li>`;
-}
+  const keyword = app.shortenDownTo(query, 20);
+  return `
+    <li class="queryItem" data-id="${query}">
+      <button data-id=${query}>
+        <h5 data-id="${query}">${keyword}</h5>
+      </button>
+      <i id="${query}" class="far fa-times-circle"></i>
+    </li>`;
+};
 
 app.getItemCardHtml = function (item) {
   const itemImgUrl = app.api.imgUrl + item.poster_path;
@@ -84,10 +101,11 @@ app.getItemCardHtml = function (item) {
 };
 
 app.getListItemtHtml = function (item) {
-  console.log(item);
   const backImgUrl =
     app.api.imgUrl +
     (item.backdrop_path ? item.backdrop_path : item.poster_path);
+  const title = app.shortenDownTo(item.title ? item.title : item.name, 30);
+
   return `
   <li class="listItem" style="background-image:url(${backImgUrl})"> 
     <div class="listItemBackWrapper">
@@ -98,11 +116,9 @@ app.getListItemtHtml = function (item) {
             data-type="${item.media_type}"> 
             <i class="fas fa-info-circle fa-4x"></i> 
         </button>  
-        <button type="button" class="remove removeBtn" data-id="${
-          item.id
-        }">Remove</button> 
+        <button type="button" class="remove removeBtn" data-id="${item.id}">Remove</button> 
         <div class="info" data-id="${item.id}" data-type="${item.media_type}">
-          <h3 class="addListItem"> ${item.title ? item.title : item.name}</h3>
+          <h3 class="addListItem"> ${title}</h3>
         </div>
     </div>  
   </li>`;
@@ -121,7 +137,7 @@ app.getItemDetailHtml = function (item) {
   const release = item.release_date
     ? moment(item.release_date).format("MMMM Do, YYYY")
     : moment(item.first_air_date).format("MMMM Do, YYYY");
-  const title = item.title ? item.title : item.name;
+  const title = app.shortenDownTo(item.title ? item.title : item.name, 50);
   try {
     runtime = item.runtime
       ? Math.floor(item.runtime / 60) + " hr " + (item.runtime % 60) + " min"
@@ -257,7 +273,18 @@ app.getByKeyword = function (keyword) {
         return item.poster_path;
       })
       .slice(0, app.resultsAmount); // first x amount as specified in settings
-    app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
+
+    if (app.results.length) {
+      app.displayMedia(app.results, app.dom.$result, app.getItemCardHtml);
+      app.saveSearch(keyword);
+      app.displayMedia(app.queries, $(`.queryList`), app.getSearchItem);
+      app.selectInGroup(
+        $(`li.queryItem`),
+        $(`li.queryItem[data-id="${app.keyword}"]`)
+      );
+    } else {
+      app.displayMedia(["reel.png"], app.dom.$result, app.getResultsStandin);
+    }
   });
 };
 
@@ -302,7 +329,6 @@ app.loadOverlay = async function ($this) {
 
 // sets the backdrop of the Overlay
 app.setOverlayBackdrop = function () {
-  console.log(app.detail);
   const backImgUrl =
     app.api.imgUrl +
     (app.detail.backdrop_path
@@ -349,23 +375,69 @@ app.removeFromList = function (id) {
   }
 };
 
+app.addToQueries = function (query) {
+  app.queries.length >= 4 ? app.queries.shift() : "";
+  app.queries.push(query);
+};
+
 app.saveSearch = function (keyword) {
   app.queries.includes(keyword) ? "" : app.addToQueries(keyword);
-  console.log(keyword);
-}
+};
 
-app.addToQueries = function (query) {
-  app.queries.length > 5 ? app.queries.shift(): "";
-  app.queries.push(query);
-  console.log(app.queries);
-}
+app.selectInGroup = function ($group, $item) {
+  $group.removeClass(`selected`);
+  $item.addClass(`selected`);
+};
+
+app.shortenDownTo = function (string, length) {
+  return string.length >= length
+    ? string.substr(0, length).concat(`...`)
+    : string;
+};
 
 /* ----------------------------------------------------------------------*/
 /* ------                       HANDLERS                            -----*/
 /* ----------------------------------------------------------------------*/
 
 app.Handlers = function () {
+
+  $(`button.queryMenu`).on(`click`, function () {
+    // when you click on any query chip
+    $(`.queryList`).toggleClass(`visible`);
+  });
+
+  $(`ul.queryList`).on("click", "button", function () {
+    // submit search
+    try {
+      app.keyword = $(this).data(`id`);
+      app.getByKeyword(app.keyword);
+      app.selectInGroup($(`li.queryItem`), $(this));
+    } catch {
+      console.log("not the button");
+    }
+  });
+
+
+  // when you click to close the query chip
+  $(`ul.queryList`).on("click", "i", function () {
+    // remove search
+    try {
+      const keyword = $(this).attr("id");
+      let index;
+      app.queries.forEach((query, indx) => {
+        if (query === keyword) {
+          index = indx;
+        }
+      });
+      app.queries.splice(index, 1);
+      app.displayMedia(app.queries, $(`.queryList`), app.getSearchItem);
+    } catch {
+      console.log("not the icon");
+    }
+  });
+
   /* ---------------------------------------*/
+  // when you click on the search box only
   $(`input.search`).on(`click`, function () {
     $(`button.tab`).removeClass(`selected`);
     $(`button.searchButton`).addClass(`selected`);
@@ -373,11 +445,12 @@ app.Handlers = function () {
     app.dom.$SEARCH.show("slow");
   });
 
+  //when you click on any tab to make it active
   $(`button.tab`).on(`click`, function () {
-    $(`button.tab`).removeClass(`selected`);
-    $(this).addClass(`selected`);
+    app.selectInGroup($(`button.tab`), $(this));
   });
 
+  // when you click on the search tab specifically
   $(`button.searchButton`).on(`click`, function () {
     app.dom.$HOME.hide(`slow`);
     app.dom.$SEARCH.show("slow");
@@ -387,9 +460,12 @@ app.Handlers = function () {
   $(`button.searchSubmit`).on(`click`, function (e) {
     // submit search
     e.preventDefault();
-    app.keyword = $(`input.search`).val().trim();
-    app.getByKeyword(app.keyword);
-    app.saveSearch(app.keyword);
+    app.keyword = $(`input.search`).val().trim().toLowerCase();
+    if (app.keyword) {
+      app.getByKeyword(app.keyword);
+      app.dom.$HOME.hide(`slow`);
+      app.dom.$SEARCH.show("slow");
+    }
   });
 
   /* [2] On click Home Icon */
@@ -435,8 +511,6 @@ app.Handlers = function () {
   $(`.exit`).on(`click`, function () {
     app.dom.$DETAIL.hide(`fast`);
   });
-
-  $(`ul`).on(`focus`, `li`, function () {});
 
   $(`.listDrawerBtn`).on(`click`, function () {
     if (app.isOpen) {
