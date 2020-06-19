@@ -370,6 +370,11 @@ app.removeFromList = function (id) {
   if (index >= 0) {
     app.list.splice(index, 1);
     app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
+    if (!app.list.length) {
+      console.log(app.list.length);
+      app.displayMedia([`3.png`], $(`.watchList`), app.getResultsStandin);
+      $(`.watchList`).removeClass(`filled`);
+    }
   } else {
     // warning, does not exist
   }
@@ -491,15 +496,16 @@ app.Handlers = function () {
 
   /* [5] On click any REMOVE to list icon ( requires even delegation) */
   $(`.container`).on(`click`, `button.remove`, function () {
+    app.dom.$DETAIL.hide(`fast`);
     const id = $(this).data(`id`);
     app.removeFromList(id);
     app.getByKeyword(app.keyword);
     app.loadHome();
-    app.dom.$DETAIL.hide(`fast`);
   });
 
   /* [6] On click any ADD from list icon ( requires event delegation) */
   $(`.container`).on(`click`, `button.add`, function () {
+    app.dom.$DETAIL.hide(`fast`);
     const id = $(this).data(`id`);
     const listPool = app.popular.tv
       .concat(app.popular.movie)
@@ -509,7 +515,6 @@ app.Handlers = function () {
     app.addToList(media);
     app.getByKeyword(app.keyword);
     app.loadHome();
-    app.dom.$DETAIL.hide(`fast`);
   });
 
   $(`ul`).on(`click`, `.info`, function () {
@@ -581,26 +586,6 @@ app.getParticles = function () {
     },
     retina_detect: true,
   });
-  var count_particles, stats, update;
-  stats = new Stats();
-  stats.setMode(0);
-  stats.domElement.style.position = "absolute";
-  stats.domElement.style.left = "0px";
-  stats.domElement.style.top = "0px";
-  document.body.appendChild(stats.domElement);
-  count_particles = document.querySelector(".js-count-particles");
-  update = function () {
-    stats.begin();
-    stats.end();
-    if (
-      window.pJSDom[0].pJS.particles &&
-      window.pJSDom[0].pJS.particles.array
-    ) {
-      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-    }
-    requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
 };
 
 app.loadHome = function () {
