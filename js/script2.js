@@ -6,8 +6,8 @@ app.api.key = `9b08417459f02bab4f2533c48a22feab`;
 app.api.lang = `en-US`;
 app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
-app.recentAmount = 5; // app setting for how many recent will display on load
-app.popularAmount = 5; // app setting for how many popular will display on load
+app.recentAmount = 10; // app setting for how many recent will display on load
+app.popularAmount = 10; // app setting for how many popular will display on load
 app.resultsAmount = 10; // app setting for how many results to show upon search
 app.listAmount = 9; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
@@ -41,7 +41,6 @@ app.isOpen = false;
 /* ----------------------------------------------------------------------*/
 /* ------                      HTML COMPONENTS                      -----*/
 /* ----------------------------------------------------------------------*/
-
 
 app.getResultsStandin = function (image) {
   return `
@@ -526,10 +525,89 @@ app.Handlers = function () {
   });
 };
 
+app.getParticles = function () {
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#f7be07" },
+      shape: {
+        type: "star",
+        stroke: { width: 0, color: "#000000" },
+        polygon: { nb_sides: 8 },
+        image: { src: "img/github.svg", width: 200, height: 200 },
+      },
+      opacity: {
+        value: 0.08680761065997453,
+        random: false,
+        anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false },
+      },
+      size: {
+        value: 3.9458004845442964,
+        random: true,
+        anim: { enable: false, speed: 40, size_min: 0.1, sync: false },
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ffffff",
+        opacity: 0.4,
+        width: 1,
+      },
+      move: {
+        enable: true,
+        speed: 5.000708433694776,
+        direction: "none",
+        random: false,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: { enable: false, rotateX: 600, rotateY: 1200 },
+      },
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: false, mode: "bubble" },
+        onclick: { enable: true, mode: "push" },
+        resize: true,
+      },
+      modes: {
+        grab: { distance: 400, line_linked: { opacity: 1 } },
+        bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+        repulse: { distance: 200, duration: 0.4 },
+        push: { particles_nb: 4 },
+        remove: { particles_nb: 2 },
+      },
+    },
+    retina_detect: true,
+  });
+  var count_particles, stats, update;
+  stats = new Stats();
+  stats.setMode(0);
+  stats.domElement.style.position = "absolute";
+  stats.domElement.style.left = "0px";
+  stats.domElement.style.top = "0px";
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector(".js-count-particles");
+  update = function () {
+    stats.begin();
+    stats.end();
+    if (
+      window.pJSDom[0].pJS.particles &&
+      window.pJSDom[0].pJS.particles.array
+    ) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+};
+
 app.loadHome = function () {
   app.getPopularByType(`movie`);
   app.getPopularByType(`tv`);
   app.getRecent(app.list);
+  app.getParticles();
 };
 
 app.init = function () {
