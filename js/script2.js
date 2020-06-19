@@ -227,6 +227,7 @@ app.getPopularByType = function (type) {
       item.media_type = type;
       return item;
     });
+    console.log(app.popular[type]);
     app.displayMedia(
       app.popular[type],
       app.dom.$popular[type],
@@ -398,6 +399,22 @@ app.shortenDownTo = function (string, length) {
   return string.length >= length
     ? string.substr(0, length).concat(`...`)
     : string;
+};
+
+app.intervalHeader = async function (type) {
+  const index = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+  const posterPath = app.popular[type][index].backdrop_path;
+  const itemImgUrl = app.api.imgUrl + posterPath;
+  console.log("interval", itemImgUrl);
+  $(".particleSupplement.one").addClass(`fade`);
+  await app.pause(500);
+  $("#particleSupplement.one").css({
+    "background-image": `url(${itemImgUrl})`,
+    "background-size": "contain",
+    "background-repeat": "no-repeat",
+  });
+  await app.pause(500);
+  $(".particleSupplement.one").removeClass(`fade`);
 };
 
 /* ----------------------------------------------------------------------*/
@@ -607,11 +624,15 @@ app.getParticles = function () {
   });
 };
 
-app.loadHome = function () {
+app.loadHome = async function () {
   app.getPopularByType(`movie`);
   app.getPopularByType(`tv`);
   app.getRecent(app.list);
   app.getParticles();
+  await app.pause(2000);
+  setInterval(() => {
+    app.intervalHeader(`movie`);
+  }, 8000);
 };
 
 app.init = function () {

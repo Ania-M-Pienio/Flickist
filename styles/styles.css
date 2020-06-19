@@ -950,6 +950,32 @@ canvas {
   left: 0;
   top: 0;
   z-index: 100;
+  opacity: 0.8;
+}
+
+.particleSupplement {
+  width: 30%;
+  height: 80%;
+  position: absolute;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 40;
+  opacity: 1;
+}
+
+.particleSupplement .one {
+  right: 0px;
+  top: 0px;
+}
+
+.particleSupplement .two {
+  right: 30%;
+  top: 0px;
+}
+
+.particleSupplement.fade {
+  opacity: 0;
 }
 
 html {
