@@ -8,7 +8,7 @@ app.api.imgUrl = `https://image.tmdb.org/t/p/original`;
 //-------- SETTINGS ------------------------------------------------------//
 app.recentAmount = 10; // app setting for how many recent will display on load
 app.popularAmount = 10; // app setting for how many popular will display on load
-app.resultsAmount = 10; // app setting for how many results to show upon search
+app.resultsAmount = 12; // app setting for how many results to show upon search
 app.listAmount = 9; // app setting for max amount of medias that can be be stored in the list at any given time
 // ------- DOM ---------------------------------------------------------- //
 app.dom = {};
@@ -208,7 +208,7 @@ app.displayMedia = function (
 };
 
 /* ----------------------------------------------------------------------*/
-/* ------                       GETTERS                             -----*/
+/* ------                      API GETTERS                             -----*/
 /* ----------------------------------------------------------------------*/
 
 app.getPopularByType = function (type) {
@@ -310,6 +310,7 @@ app.getDetailsById = function (id, type) {
 /* ------                        UPDATERS &  HELPERS                     -----*/
 /* ---------------------------------------------------------------------------*/
 
+// creates a pause for given milisenconds
 app.pause = function (miliseconds) {
   return new Promise((res, rej) => {
     setTimeout(() => {
@@ -371,7 +372,6 @@ app.removeFromList = function (id) {
     app.list.splice(index, 1);
     app.displayMedia(app.list, app.dom.$list, app.getListItemtHtml);
     if (!app.list.length) {
-      console.log(app.list.length);
       app.displayMedia([`3.png`], $(`.watchList`), app.getResultsStandin);
       $(`.watchList`).removeClass(`filled`);
     }
@@ -405,13 +405,17 @@ app.shortenDownTo = function (string, length) {
 /* ----------------------------------------------------------------------*/
 
 app.Handlers = function () {
+  /**************  *********************** ***********/
+  /*******************  QUERIES LIST  ****************/
+  /**************  *********************** ***********/
+
+  // when you click on the query meny (visible only on mobile)
   $(`button.queryMenu`).on(`click`, function () {
-    // when you click on any query chip
     $(`.queryList`).toggleClass(`visible`);
   });
 
+  // when you click on any query chip
   $(`ul.queryList`).on("click", "button", function () {
-    // submit search
     try {
       app.keyword = $(this).data(`id`);
       app.getByKeyword(app.keyword);
@@ -423,7 +427,6 @@ app.Handlers = function () {
 
   // when you click to close the query chip
   $(`ul.queryList`).on("click", "i", function () {
-    // remove search
     try {
       const keyword = $(this).attr("id");
       let index;
@@ -443,19 +446,17 @@ app.Handlers = function () {
     }
   });
 
-  /* ---------------------------------------*/
-  // when you click on the search box only
+  /**************  *********************** ***********/
+  /***************  SEARCHING & TABS  ****************/
+  /**************  *********************** ***********/
+
+  // when you click on the search input box
   $(`input.search`).on(`click`, function () {
     $(`button.tab`).removeClass(`selected`);
     $(`button.searchButton`).addClass(`selected`);
     app.dom.$HOME.hide(`slow`);
     app.dom.$MYLIST.hide(`slow`);
     app.dom.$SEARCH.show("slow");
-  });
-
-  //when you click on any tab to make it active
-  $(`button.tab`).on(`click`, function () {
-    app.selectInGroup($(`button.tab`), $(this));
   });
 
   // when you click on the search tab specifically
@@ -465,15 +466,24 @@ app.Handlers = function () {
     app.dom.$SEARCH.show("slow");
   });
 
+  // when you click on the list tab specifically
   $(`button.listButton`).on(`click`, function () {
     app.dom.$HOME.hide(`slow`);
     app.dom.$SEARCH.hide(`slow`);
     app.dom.$MYLIST.show(`slow`);
   });
 
-  /* [1] On start search */
+  // when you click on the home tab specifically
+  $(`button.homeButton`).on(`click`, function () {
+    app.dom.$HOME.show(`slow`);
+    app.dom.$MYLIST.hide(`slow`);
+    app.dom.$SEARCH.hide(`slow`);
+    app.getPopularByType(`movie`);
+    app.getPopularByType(`tv`);
+  });
+
+  //when you click the search button to start the search
   $(`button.searchSubmitBtn`).on(`click`, function (e) {
-    // submit search
     e.preventDefault();
     app.keyword = $(`input.search`).val().trim().toLowerCase();
     if (app.keyword) {
@@ -484,26 +494,24 @@ app.Handlers = function () {
     }
   });
 
-  /* [2] On click Home Icon */
-  $(`button.homeButton`).on(`click`, function () {
-    // hide result, show the popular and recent again
-    app.dom.$HOME.show(`slow`);
-    app.dom.$MYLIST.hide(`slow`);
-    app.dom.$SEARCH.hide(`slow`);
-    app.getPopularByType(`movie`);
-    app.getPopularByType(`tv`);
+  //when you click on any tab to make it active
+  $(`button.tab`).on(`click`, function () {
+    app.selectInGroup($(`button.tab`), $(this));
   });
 
-  /* [5] On click any REMOVE to list icon ( requires even delegation) */
+  /**************  *********************** ***********/
+  /**************  ADD / REMOVE FROM LIST  ***********/
+  /**************  *********************** ***********/
+
+  // when you click any REMOVE from list icon
   $(`.container`).on(`click`, `button.remove`, function () {
     app.dom.$DETAIL.hide(`fast`);
     const id = $(this).data(`id`);
     app.removeFromList(id);
-    app.getByKeyword(app.keyword);
     app.loadHome();
   });
 
-  /* [6] On click any ADD from list icon ( requires event delegation) */
+  // when you click any ADD to list icon
   $(`.container`).on(`click`, `button.add`, function () {
     app.dom.$DETAIL.hide(`fast`);
     const id = $(this).data(`id`);
@@ -513,18 +521,24 @@ app.Handlers = function () {
     const index = app.findIndexById(listPool, id);
     const media = listPool[index];
     app.addToList(media);
-    app.getByKeyword(app.keyword);
     app.loadHome();
   });
 
+  /**************  *********************** ***********/
+  /************** OVERLAY LOADING/UNLOADING **********/
+  /**************  *********************** ***********/
+
+  // when you click the info icon to open overlay
   $(`ul`).on(`click`, `.info`, function () {
     app.loadOverlay($(this));
   });
 
+  // when you click the info icon to open overlay
   $(`ul`).on(`click`, `.infoBtn`, function () {
     app.loadOverlay($(this));
   });
 
+  // when you click to close the overaly
   $(`.exit`).on(`click`, function () {
     app.dom.$DETAIL.hide(`fast`);
   });
@@ -533,34 +547,39 @@ app.Handlers = function () {
 app.getParticles = function () {
   particlesJS("particles-js", {
     particles: {
-      number: { value: 80, density: { enable: true, value_area: 800 } },
-      color: { value: "#f7be07" },
+      number: { value: 6, density: { enable: true, value_area: 800 } },
+      color: { value: "#103140" },
       shape: {
-        type: "star",
-        stroke: { width: 0, color: "#000000" },
-        polygon: { nb_sides: 8 },
-        image: { src: "img/github.svg", width: 200, height: 200 },
+        type: "edge",
+        stroke: { width: 0, color: "#000" },
+        polygon: { nb_sides: 9 },
+        image: { src: "img/github.svg", width: 100, height: 100 },
       },
       opacity: {
-        value: 0.08680761065997453,
-        random: false,
-        anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false },
+        value: 0.7418104910943284,
+        random: true,
+        anim: {
+          enable: false,
+          speed: 0.42229729729729737,
+          opacity_min: 0.025337837837837843,
+          sync: true,
+        },
       },
       size: {
-        value: 3.9458004845442964,
+        value: 264.36863246446813,
         random: true,
-        anim: { enable: false, speed: 40, size_min: 0.1, sync: false },
+        anim: { enable: true, speed: 10, size_min: 40, sync: false },
       },
       line_linked: {
-        enable: true,
-        distance: 150,
+        enable: false,
+        distance: 200,
         color: "#ffffff",
-        opacity: 0.4,
-        width: 1,
+        opacity: 1,
+        width: 2,
       },
       move: {
         enable: true,
-        speed: 5.000708433694776,
+        speed: 8,
         direction: "none",
         random: false,
         straight: false,
@@ -572,8 +591,8 @@ app.getParticles = function () {
     interactivity: {
       detect_on: "canvas",
       events: {
-        onhover: { enable: false, mode: "bubble" },
-        onclick: { enable: true, mode: "push" },
+        onhover: { enable: false, mode: "grab" },
+        onclick: { enable: false, mode: "push" },
         resize: true,
       },
       modes: {
